@@ -5,8 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SportunifyForm"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="1050" Width="800"
+        Background="White">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="401*"/>
+            <ColumnDefinition Width="400*"/>
+        </Grid.ColumnDefinitions>
+        <Rectangle HorizontalAlignment="Left" Height="108" Stroke="Black" VerticalAlignment="Top" Width="250" RadiusY="20" RadiusX="20" Margin="10,10,0,0" Fill="Black"/>
+        <Label Content="Home&#xD;&#xA;" HorizontalAlignment="Left" Margin="36,30,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.274,0.202" Foreground="Gray" FontWeight="Bold"/>
+        <Label Content="Search" HorizontalAlignment="Left" Margin="36,64,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+        <Rectangle HorizontalAlignment="Left" Height="863" Margin="10,145,0,0" Stroke="Black" VerticalAlignment="Top" Width="250" RadiusY="20" RadiusX="20" Fill="#19100E"/>
+        <Label Content="Your Library" HorizontalAlignment="Left" Margin="44,158,0,0" VerticalAlignment="Top" Foreground="Gray" FontWeight="Bold"/>
+        <Rectangle HorizontalAlignment="Left" Height="98" Margin="24,196,0,0" Stroke="Black" VerticalAlignment="Top" Width="222" RadiusY="20" RadiusX="20" Fill="#494443"/>
+        <Label Content="Create your first playlist" HorizontalAlignment="Left" Margin="36,210,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="It's easy, we will help you" HorizontalAlignment="Left" Margin="36,227,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
+        <Button Content="Create playlist" HorizontalAlignment="Left" Margin="44,255,0,0" VerticalAlignment="Top" Width="91" Height="26" FontSize="10" FontWeight="Bold">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="White" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            CornerRadius="11">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Rectangle HorizontalAlignment="Left" Height="98" Margin="24,308,0,0" Stroke="Black" VerticalAlignment="Top" Width="222" RadiusY="20" RadiusX="20" Fill="#494443"/>
+        <Label Content="Let's find some podcasts to follow" HorizontalAlignment="Left" Margin="36,321,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="We'll keep you updated on new episodes" HorizontalAlignment="Left" Margin="36,341,0,0" VerticalAlignment="Top" FontSize="10" Foreground="White"/>
+        <Button Content="Browse podcasts" HorizontalAlignment="Left" Margin="44,369,0,0" VerticalAlignment="Top" Width="91" Height="26" FontSize="10" FontWeight="Bold">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="White" 
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="{TemplateBinding BorderThickness}" 
+                        CornerRadius="11">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
 
     </Grid>
 </Window>
