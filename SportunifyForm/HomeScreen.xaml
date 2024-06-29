@@ -5,24 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SportunifyForm"
         mc:Ignorable="d"
-        Title="HomeScreen" Height="1080" Width="1920" Background="Black">
+        Title="HomeScreen" Height="1026" Width="1906" Background="Black">
     <Grid>
         <StackPanel Orientation="Horizontal">
 
             <Grid Width="420" Height="1173" Margin="8">
                 <Rectangle HorizontalAlignment="Left" Height="112" Stroke="Black" VerticalAlignment="Top" Width="420" RadiusY="10" RadiusX="10" Fill="#121212"/>
-                <Grid Width="372" Height="40" Margin="24,12,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
-                    <Viewbox Width="24" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,8,0,0">
-                        <Path Fill="#ffffff" Data="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/>
-                    </Viewbox>
-                    <Label Content="Home" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="44,0,0,0" Foreground="White" FontWeight="Bold" FontSize="16" Width="62" Height="30"/>
-                </Grid>
-                <Grid Width="372" Height="40" Margin="24,60,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
-                    <Viewbox Width="24" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,8,0,0">
-                        <Path Fill="#ffffff" Data="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
-                    </Viewbox>
-                    <Label Content="Search" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="44,0,0,0" Foreground="White" FontWeight="Bold" FontSize="16" Width="62" Height="30"/>
-                </Grid>
+                <Button Width="372" Height="40" Margin="-94,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="HomeButton_Click" Background="#121212" BorderBrush="{x:Null}">
+                    <Grid>
+                        <Viewbox Width="24" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,8,0,0">
+                            <Path Fill="#ffffff" Data="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/>
+                        </Viewbox>
+                        <Label Content="Home" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="44,0,0,0" Foreground="White" FontWeight="Bold" FontSize="16" Width="62" Height="30"/>
+                    </Grid>
+                </Button>
+
+                <Button Width="372" Height="40" Margin="-94,56,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Click="SearchButton_Click" Background="#121212" BorderBrush="{x:Null}">
+                    <Grid>
+                        <Viewbox Width="24" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,8,0,0">
+                            <Path Fill="#ffffff" Data="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+                        </Viewbox>
+                        <Label Content="Search" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="44,0,0,0" Foreground="White" FontWeight="Bold" FontSize="16" Width="62" Height="30"/>
+                    </Grid>
+                </Button>
+
                 <Grid Margin="0,120,0,118">
                     <Rectangle HorizontalAlignment="Center" Height="870" Stroke="Black" VerticalAlignment="Top" Width="420" RadiusY="10" RadiusX="10" Fill="#121212"/>
                     <Grid Width="394" Height="40" Margin="16,8,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -30,9 +36,12 @@
                             <Path Fill="#ffffff" Data="M3 22a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1zM15.5 2.134A1 1 0 0 0 14 3v18a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V6.464a1 1 0 0 0-.5-.866l-6-3.464zM9 2a1 1 0 0 0-1 1v18a1 1 0 1 0 2 0V3a1 1 0 0 0-1-1z"/>
                         </Viewbox>
                         <Label Content=" Your Library" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="44,0,0,0" Foreground="White" FontWeight="Bold" FontSize="16" Width="110" Height="30"/>
-                        <Viewbox Width="32" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="356,4,0,0">
-                            <Path Fill="#ffffff" Data="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
-                        </Viewbox>
+                        <Button Width="32" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="356,4,0,0" Background="Transparent" BorderBrush="Transparent" Click="PlusButton_Click">
+                            <Viewbox Width="32" Height="32">
+                                <Path Fill="#ffffff" Data="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
+                            </Viewbox>
+                        </Button>
+
                     </Grid>
                     <Button Content="Playlist" 
                             HorizontalAlignment="Left" 
@@ -100,9 +109,9 @@
                     </ScrollViewer>
                 </Grid>
             </Grid>
-            <Grid Width="1542" Height="1115" Margin="0,0,0,0">
-                <Rectangle HorizontalAlignment="Left" Height="990" Stroke="Black" VerticalAlignment="Top" Width="1460" RadiusY="10" RadiusX="10" Fill="#121212"/>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="0,0,0,-32">
+            <Grid Width="1499" Height="1115" Margin="0,8,0,0">
+                <Rectangle HorizontalAlignment="Left" Height="990" Stroke="Black" VerticalAlignment="Top" Width="1464" RadiusY="10" RadiusX="10" Fill="#121212"/>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="0,0,0,0">
                     <Grid>
                         <StackPanel Orientation="Vertical" Margin="16,30,16,0">
                             <TextBlock Foreground="White" FontFamily="Inter" FontSize="20.0625" FontWeight="Bold" Text="Popular artists" Margin="0,0,0,8"/>
