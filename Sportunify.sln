@@ -3,7 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportunifyForm", "SportunifyForm\SportunifyForm.csproj", "{B849EFC7-0DB0-41F6-8D96-2A7B8F7398BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportunifyForm", "SportunifyForm\SportunifyForm.csproj", "{B849EFC7-0DB0-41F6-8D96-2A7B8F7398BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositories\Repositories.csproj", "{BA66970D-0C83-4FB3-ADDD-482EA286DF65}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{08BE8FE0-3B86-4285-B58D-7D5F2C049A05}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{DB34B3A7-46DD-4862-8DFB-4F18C5B44025}"
+	ProjectSection(SolutionItems) = preProject
+		Images\arrows.png = Images\arrows.png
+		Images\download.png = Images\download.png
+		Images\forward.png = Images\forward.png
+		Images\Home.jpg = Images\Home.jpg
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +27,14 @@ Global
 		{B849EFC7-0DB0-41F6-8D96-2A7B8F7398BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B849EFC7-0DB0-41F6-8D96-2A7B8F7398BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B849EFC7-0DB0-41F6-8D96-2A7B8F7398BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA66970D-0C83-4FB3-ADDD-482EA286DF65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA66970D-0C83-4FB3-ADDD-482EA286DF65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA66970D-0C83-4FB3-ADDD-482EA286DF65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA66970D-0C83-4FB3-ADDD-482EA286DF65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08BE8FE0-3B86-4285-B58D-7D5F2C049A05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08BE8FE0-3B86-4285-B58D-7D5F2C049A05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08BE8FE0-3B86-4285-B58D-7D5F2C049A05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08BE8FE0-3B86-4285-B58D-7D5F2C049A05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
