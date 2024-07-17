@@ -1,0 +1,40 @@
+﻿<Window x:Name="BookMainWindow" x:Class="DetailForm.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DetailForm"
+        mc:Ignorable="d"
+        Title="Book Manager - ver.24-SU" Height="685" Width="1220" Background="Aqua" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="BookMainWindow_Loaded" >
+    <Grid>
+        <Label Content="Spotify Manager" HorizontalAlignment="Left" Height="80" Margin="31,20,0,0" VerticalAlignment="Top" Width="520" FontWeight="Heavy" FontSize="50"/>
+        <Label Content="Book List" HorizontalAlignment="Left" Height="55" Margin="35,274,0,0" VerticalAlignment="Top" Width="165"/>
+        <Rectangle HorizontalAlignment="Left" Height="95" Margin="39,144,0,0" Stroke="Black" VerticalAlignment="Top" Width="1145" Fill="Aquamarine"/>
+        <Label Content="Song Name" HorizontalAlignment="Left" Height="45" Margin="73,174,0,0" VerticalAlignment="Top" Width="107" Foreground="#ff4500"/>
+        <TextBox x:Name="SongNameTextBox" HorizontalAlignment="Left" Height="45" Margin="193,170,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="275" TabIndex="0"/>
+        <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Height="50" Margin="989,166,0,0" VerticalAlignment="Top" Width="165" TabIndex="2" Click="SearchButton_Click"/>
+
+        <Button x:Name="CreateButton" Content="Create Song" HorizontalAlignment="Left" Height="50" Margin="1019,319,0,0" VerticalAlignment="Top" Width="165" TabIndex="4" Click="CreateButton_Click" />
+
+        <Button x:Name="UpdateButton" Content="Update Song" HorizontalAlignment="Left" Height="50" Margin="1019,397,0,0" VerticalAlignment="Top" Width="165" TabIndex="5" Click="UpdateButton_Click"/>
+        <Button x:Name="DeleteButton" Content="Delete Song" HorizontalAlignment="Left" Height="50" Margin="1019,480,0,0" VerticalAlignment="Top" Width="165" TabIndex="6" Click="DeleteButton_Click" />
+        <Button x:Name="QuitButton" Content="Quit" HorizontalAlignment="Left" Height="50" Margin="1019,559,0,0" VerticalAlignment="Top" Width="165" TabIndex="7" Click="QuitButton_Click" />
+        <Label Content="© 2024 giáo.làng" HorizontalAlignment="Left" Height="45" Margin="34,611,0,0" VerticalAlignment="Top" Width="182" Foreground="#ffff00"/>
+        <DataGrid x:Name="SongListDataGrid" 
+                  HorizontalAlignment="Left" 
+                  Height="292" 
+                  Margin="39,319,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="950"
+                    AutoGenerateColumns="False" IsReadOnly="True"
+                  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Song Name" Width="200"/>
+                <DataGridTextColumn Header="Author" Width="200"/>
+                <DataGridTextColumn Header="Category Id" Width="200"/>
+                <DataGridTextColumn Header="Category Name" Width="200"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>

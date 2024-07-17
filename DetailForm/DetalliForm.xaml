@@ -1,0 +1,23 @@
+﻿<Window x:Class="DetailForm.DetalliForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DetailForm"
+        mc:Ignorable="d"
+        Title="DetalliForm" Height="574" Width="1145" Background="Aqua" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label x:Name="SongLabel" Content="Create | Update Song" HorizontalAlignment="Left" Height="80" Margin="31,20,0,0" VerticalAlignment="Top" Width="659" FontWeight="Heavy" FontSize="50"/>
+        <Rectangle HorizontalAlignment="Left" Height="370" Margin="38,144,0,0" Stroke="Black" VerticalAlignment="Top" Width="875" Fill="Aquamarine"/>
+        <Label Content="Song Name" HorizontalAlignment="Left" Height="45" Margin="58,234,0,0" VerticalAlignment="Top" Width="107" Foreground="#ff4500"/>
+        <TextBox x:Name="SongNameTextBox" HorizontalAlignment="Left" Height="45" Margin="226,229,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="637" TabIndex="1"/>
+
+        <Button x:Name="SaveButton" Content="Save Song" HorizontalAlignment="Left" Height="50" Margin="945,144,0,0" VerticalAlignment="Top" Width="165" TabIndex="8" Click="SaveButton_Click"/>
+        <Button x:Name="Close" Content="Close" HorizontalAlignment="Left" Height="50" Margin="945,224,0,0" VerticalAlignment="Top" Width="165" TabIndex="9" />
+        <Label Content="Author" HorizontalAlignment="Left" Height="45" Margin="58,311,0,0" VerticalAlignment="Top" Width="107" Foreground="#ff4500"/>
+        <TextBox x:Name="AuthorTextBox" HorizontalAlignment="Left" Height="45" Margin="226,311,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="635" TabIndex="6"/>
+        <Label Content="Song Category" HorizontalAlignment="Left" Height="45" Margin="58,414,0,0" VerticalAlignment="Top" Width="147" Foreground="#ff4500"/>
+        <ComboBox x:Name="SongCategoryIdComboBox" HorizontalAlignment="Left" Height="44" Margin="226,410,0,0" VerticalAlignment="Top" Width="290" Background="#ff4500" TabIndex="7" FontWeight="Bold" FontSize="18"/>
+
+    </Grid>
+</Window>

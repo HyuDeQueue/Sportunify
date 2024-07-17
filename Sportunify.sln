@@ -9,14 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositorie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{08BE8FE0-3B86-4285-B58D-7D5F2C049A05}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{DB34B3A7-46DD-4862-8DFB-4F18C5B44025}"
-	ProjectSection(SolutionItems) = preProject
-		Images\arrows.png = Images\arrows.png
-		Images\download.png = Images\download.png
-		Images\forward.png = Images\forward.png
-		Images\Home.jpg = Images\Home.jpg
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

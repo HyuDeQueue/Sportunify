@@ -3,9 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SportunifyForm"
+        xmlns:local="clr-namespace:SportunifyForm" xmlns:viewmodel="cls-namespace:MainViewModel"
         mc:Ignorable="d"
         Title="PlaylistDetailScreen" Height="1080" Width="1920" Background="Black">
+    <!--<Window.DataContext>
+        <viewmodel.MainViewModel/>
+    </Window.DataContext>-->
     <Grid>
         <StackPanel Orientation="Horizontal">
             <Grid Width="420" Height="1173" Margin="8">
@@ -99,10 +102,11 @@
                     </ScrollViewer>
                 </Grid>
             </Grid>
+            
             <Grid Width="1542" Height="1115" Margin="0,0,0,0">
                 <DockPanel>
                     <Grid DockPanel.Dock="Top">
-                        <Image Width="1542" Height="300" Source="{Binding src_img}"/>
+                        
                         <StackPanel VerticalAlignment="Bottom">
                             <TextBlock Text="Playlist" Foreground="White" FontSize="25" FontWeight="Bold" />
                             <TextBlock Text="{Binding Playlist_Name}" FontWeight="ExtraBold" 
