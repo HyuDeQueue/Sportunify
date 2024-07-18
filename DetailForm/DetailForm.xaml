@@ -12,7 +12,7 @@
         <Label Content="Song Name" HorizontalAlignment="Left" Height="45" Margin="58,234,0,0" VerticalAlignment="Top" Width="107" Foreground="#ff4500"/>
         <TextBox x:Name="SongNameTextBox" HorizontalAlignment="Left" Height="45" Margin="226,229,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="637" TabIndex="1"/>
 
-        <Button x:Name="SaveButton" Content="Save Song" HorizontalAlignment="Left" Height="50" Margin="945,144,0,0" VerticalAlignment="Top" Width="165" TabIndex="8" Click="SaveButton_Click"/>
+        <Button x:Name="SaveButton" Content="Save Song" HorizontalAlignment="Left" Height="50" Margin="945,144,0,0" VerticalAlignment="Top" Width="165" TabIndex="8" />
         <Button x:Name="Close" Content="Close" HorizontalAlignment="Left" Height="50" Margin="945,224,0,0" VerticalAlignment="Top" Width="165" TabIndex="9" />
         <Label Content="Author" HorizontalAlignment="Left" Height="45" Margin="58,311,0,0" VerticalAlignment="Top" Width="107" Foreground="#ff4500"/>
         <TextBox x:Name="AuthorTextBox" HorizontalAlignment="Left" Height="45" Margin="226,311,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="635" TabIndex="6"/>
