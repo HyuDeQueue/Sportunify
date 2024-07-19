@@ -1,0 +1,64 @@
+﻿<Window x:Class="SportunifyForm.AddSongDetail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SportunifyForm"
+        mc:Ignorable="d"
+        Title="AddSongDetail" Height="710" Width="1145" Background="#121212" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid Margin="20">
+        <!-- Header -->
+        <Label x:Name="SongLabel" Content="Create | Update Song" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Foreground="White"/>
+
+        <!-- Main Content Area -->
+        <Border Background="#282828" CornerRadius="10" Margin="0,80,0,0" Padding="20">
+            <StackPanel>
+                <!-- Song Name -->
+                <Label Content="Song Name" Margin="0,10,0,0" Foreground="White" FontSize="16"/>
+                <TextBox x:Name="SongNameTextBox" Margin="0,5,0,0" FontSize="16" Background="#404040" Foreground="White" BorderBrush="Transparent" Height="30"/>
+
+                <!-- Author -->
+                <Label Content="Author" Margin="0,20,0,0" Foreground="White" FontSize="16"/>
+                <TextBox x:Name="AuthorTextBox" Margin="0,5,0,0" FontSize="16" Background="#404040" Foreground="White" BorderBrush="Transparent" Height="30"/>
+
+                <!-- Song Category -->
+                <Label Content="Song Category" Margin="0,20,0,0" Foreground="White" FontSize="16"/>
+                <ComboBox x:Name="SongCategoryIdComboBox" Margin="0,5,0,0" FontSize="16" Background="#404040" Foreground="White" BorderBrush="Transparent" Height="30"/>
+
+                <!-- Add Song -->
+                <Label Content="Add Song" Margin="0,20,0,0" Foreground="White" FontSize="16"/>
+                <Grid Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="FileName" FontSize="16" Background="#404040" Foreground="White" BorderBrush="Transparent" Height="30"/>
+                    <Button Content="Open" Click="BT_Click_Open" Margin="10,0,0,0" Width="70" Grid.Column="1" Background="#1DB954" Foreground="White" BorderBrush="Transparent" Height="30"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- Footer Buttons -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0">
+            <Button x:Name="SaveButton" Content="Save Song" Margin="0,0,10,0" Width="100" Height="40" FontSize="16" Background="#1DB954" Foreground="White" BorderBrush="Transparent"/>
+            <Button x:Name="Close" Content="Close" Width="100" Height="40" FontSize="16" Background="#D32F2F" Foreground="White" BorderBrush="Transparent" Click="Close_Click"/>
+        </StackPanel>
+
+        <!-- Test Button and Timeline -->
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,20,20">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button x:Name="PlayButton" Content="▶️" Width="50" Height="50" FontSize="20" Background="Transparent" Foreground="White" BorderBrush="Transparent" Click="BT_Click_PlayPause"/>
+            </StackPanel>
+            <Grid Width="600" Height="30" Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="ElapsedTimeTextBlock" Foreground="White" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <ProgressBar x:Name="TimelineProgressBar" Grid.Column="1" Background="#404040" Foreground="#1DB954" Height="10" VerticalAlignment="Center"/>
+                <TextBlock x:Name="RemainingTimeTextBlock" Foreground="White" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0" Grid.Column="2"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

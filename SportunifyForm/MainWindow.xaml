@@ -13,7 +13,7 @@
         <TextBox x:Name="SongNameTextBox" HorizontalAlignment="Left" Height="45" Margin="193,170,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="275" TabIndex="0"/>
         <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Height="50" Margin="989,166,0,0" VerticalAlignment="Top" Width="165" TabIndex="2" />
 
-        <Button x:Name="CreateButton" Content="Create Song" HorizontalAlignment="Left" Height="50" Margin="1019,319,0,0" VerticalAlignment="Top" Width="165" TabIndex="4" />
+        <Button x:Name="CreateButton" Content="Create Song" HorizontalAlignment="Left" Height="50" Margin="1019,319,0,0" VerticalAlignment="Top" Width="165" TabIndex="4" Click="CreateButton_Click" />
 
         <Button x:Name="UpdateButton" Content="Update Song" HorizontalAlignment="Left" Height="50" Margin="1019,397,0,0" VerticalAlignment="Top" Width="165" TabIndex="5" />
         <Button x:Name="DeleteButton" Content="Delete Song" HorizontalAlignment="Left" Height="50" Margin="1019,480,0,0" VerticalAlignment="Top" Width="165" TabIndex="6" />

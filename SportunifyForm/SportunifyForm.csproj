@@ -24,18 +24,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="DetailForm.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="In reserve\ListeningPlayList.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="DetailForm.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="In reserve\ListeningPlayList.xaml">
       <SubType>Designer</SubType>
     </Page>

@@ -26,5 +26,11 @@ namespace SportunifyForm
             _account = account;
 
         }
+
+        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddSongDetail detail = new();
+            detail.ShowDialog();
+        }
     }
 }
