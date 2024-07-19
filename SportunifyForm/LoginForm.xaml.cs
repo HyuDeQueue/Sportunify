@@ -50,7 +50,7 @@ namespace SportunifyForm
             var accountService = new AccountService(); // Assuming you have this service
             var loggedAccount = accountService.Login(account);
 
-            if (account != null)
+            if (loggedAccount != null)
             {
                 MainWindow mainWindow = new MainWindow(loggedAccount); // Pass the account data to MainWindow
                 mainWindow.Show();
