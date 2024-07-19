@@ -44,6 +44,9 @@ namespace SportunifyForm
             this.Close();
         }
 
-        
+        private void Close_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

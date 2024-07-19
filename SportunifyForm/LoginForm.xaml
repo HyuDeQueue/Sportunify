@@ -45,8 +45,8 @@
 
             </StackPanel>
 
+            <Button x:Name="Close_Button" Content="X" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" Foreground="White" BorderThickness="0" FontSize="16" FontWeight="Bold" Click="Close_Button_Click" Margin="0,10,10,0"/>
             
-
         </Grid>
     </Grid>
 </Window>
