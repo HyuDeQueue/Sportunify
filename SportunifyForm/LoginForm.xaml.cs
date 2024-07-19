@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Repositories.Models;
+using Services.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,7 +36,30 @@ namespace SportunifyForm
 
         private void Login_Button_Click(object sender, RoutedEventArgs e)
         {
-            
+            string username = UsernameTextBox.Text;
+            string password = PasswordTextBox.Password;
+
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Please fill out all form fields.");
+                return;
+            }
+            Account account = new Account();
+            account.Username = username;
+            account.Password = password;
+            var accountService = new AccountService(); // Assuming you have this service
+            var loggedAccount = accountService.Login(account);
+
+            if (account != null)
+            {
+                MainWindow mainWindow = new MainWindow(loggedAccount); // Pass the account data to MainWindow
+                mainWindow.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Username or password is not correct.");
+            }
         }
 
         private void Register_Button_Click(object sender, RoutedEventArgs e)

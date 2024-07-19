@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using Repositories.Models;
+using System.Security.Principal;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -14,9 +16,9 @@ namespace SportunifyForm
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SearchWindow : Window
     {
-        public MainWindow()
+        public SearchWindow()
         {
             InitializeComponent();
         }

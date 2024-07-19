@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using Repositories.Models;
+using System.Security.Principal;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,16 +11,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DetailForm
+namespace SportunifyForm
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly Account _account;
+
+        public MainWindow(Account account)
         {
             InitializeComponent();
+            _account = account;
+
         }
     }
 }
