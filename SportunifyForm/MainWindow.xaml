@@ -38,7 +38,7 @@
                 <DataGridTextColumn Header="Category" Width="300"/>
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox x:Name="NowPlayingTextBox" HorizontalAlignment="Left" Height="25" Margin="39,274,0,0" TextWrapping="Wrap" Text="Now Playing: " VerticalAlignment="Top" Width="349" FontSize="17" Grid.ColumnSpan="4"/>
+        <TextBox x:Name="NowPlayingTextBox" HorizontalAlignment="Left" Height="25" Margin="39,274,0,0" TextWrapping="Wrap" Text="Now Playing: " VerticalAlignment="Top" Width="349" FontSize="17" Grid.ColumnSpan="4" IsEnabled="False" />
         <Label Content="Artist" HorizontalAlignment="Left" Height="30" Margin="149,182,0,0" VerticalAlignment="Top" Width="54" Foreground="#ff4500" Grid.Column="3"/>
         <Label Content="Song Name" HorizontalAlignment="Center" Height="45" Margin="0,174,0,0" VerticalAlignment="Top" Width="107" Foreground="#ff4500" Grid.ColumnSpan="2"/>
         <TextBox x:Name="ArtistTextBox" HorizontalAlignment="Left" Height="26" Margin="208,178,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="230" TabIndex="0" Grid.Column="3"/>
