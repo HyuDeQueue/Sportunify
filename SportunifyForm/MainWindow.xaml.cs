@@ -27,10 +27,15 @@ namespace SportunifyForm
 
         }
 
+
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
             AddSongDetail detail = new();
             detail.ShowDialog();
+
+        private void SongMainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            HelloNameLabel.Content = $"Hello, {_account.Name}!";
         }
     }
 }
