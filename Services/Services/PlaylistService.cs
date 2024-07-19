@@ -1,51 +1,65 @@
-﻿using System;
+﻿using Repositories.Models;
+using Repositories.Repositories;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Services
 {
     public class PlaylistService
     {
-        public void GetAllPlaylists()
-        {
+        private readonly PlaylistRepository _playlistRepository;
+        private readonly InplaylistRepository _inplaylistRepository;
 
+        public PlaylistService(PlaylistRepository playlistRepository, InplaylistRepository inplaylistRepository)
+        {
+            _playlistRepository = playlistRepository;
+            _inplaylistRepository = inplaylistRepository;
         }
 
-        public void GetSelectedPlaylist()
+        public List<Playlist> GetAllPlaylists()
         {
-
+            return _playlistRepository.GetAllPlaylists();
         }
 
-        public void AddPlaylist()
+        public Playlist GetSelectedPlaylist(int playlistId)
         {
-
+            return _playlistRepository.GetPlaylistById(playlistId);
         }
 
-        public void EditPlaylist()
+        public void AddPlaylist(Playlist playlist)
         {
-
+            _playlistRepository.AddPlaylist(playlist);
         }
 
-        public void DeletePlaylist()
+        public void EditPlaylist(Playlist playlist)
         {
-
+            _playlistRepository.EditPlaylist(playlist);
         }
 
-        public void AddSongToPlaylist()
+        public void DeletePlaylist(int playlistId)
         {
-
+            _playlistRepository.DeletePlaylist(playlistId);
         }
 
-        public void DeleteSongFromPlaylist()
+        public void AddSongToPlaylist(int playlistId, int songId, int position)
         {
-
+            var inplaylist = new Inplaylist
+            {
+                PlaylistId = playlistId,
+                SongId = songId,
+                Position = position
+            };
+            _inplaylistRepository.AddSongToPlaylist(inplaylist);
         }
 
-        public void SearchPlaylist()
+        public void DeleteSongFromPlaylist(int playlistId, int songId)
         {
+            _inplaylistRepository.DeleteSongFromPlaylist(playlistId, songId);
+        }
 
+        public List<Playlist> SearchPlaylists(Func<Playlist, bool> predicate)
+        {
+            return _playlistRepository.GetAllPlaylists().Where(predicate).ToList();
         }
     }
 }

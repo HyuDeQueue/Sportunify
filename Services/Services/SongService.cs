@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Repositories.Models;
+using Repositories.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,28 +10,36 @@ namespace Services.Services
 {
     public class SongService
     {
-        public void AddSongs()
-        {
+        private readonly SongRepository _songRepository;
 
-        }
-        public void EditSongs()
+        public SongService(SongRepository songRepository)
         {
-
+            _songRepository = songRepository;
         }
 
-        public void SearchSongs()
+        public void AddSongs(Song song)
         {
-
+            _songRepository.AddSong(song);
         }
 
-        public void GetAllSongs()
+        public void EditSongs(Song song)
         {
-
+            _songRepository.EditSong(song);
         }
 
-        public void GetSelectedSong()
+        public List<Song> SearchSongs(Func<Song, bool> predicate)
         {
+            return _songRepository.SearchSongs(predicate);
+        }
 
+        public List<Song> GetAllSongs()
+        {
+            return _songRepository.GetAllSongs();
+        }
+
+        public Song GetSelectedSong(int songId)
+        {
+            return _songRepository.GetSongById(songId);
         }
     }
 }
