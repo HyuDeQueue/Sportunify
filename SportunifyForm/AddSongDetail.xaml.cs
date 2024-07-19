@@ -22,6 +22,7 @@ namespace SportunifyForm
         {
             InitializeComponent();
             InitializeTimer();
+            mediaPlayer.MediaEnded += MediaPlayer_MediaEnded;
         }
 
         private void InitializeTimer()
@@ -51,6 +52,15 @@ namespace SportunifyForm
                     PlayButton.Content = "▶️"; // Change back to play icon
                 }
             }
+        }
+
+        private void MediaPlayer_MediaEnded(object sender, EventArgs e)
+        {
+            mediaPlayer.Position = TimeSpan.Zero; // Reset position to start
+            timer.Stop();
+            isPlaying = false;
+            PlayButton.Content = "▶️"; // Change back to play icon
+            mediaPlayer.Stop();                           // 
         }
 
         private void BT_Click_Open(object sender, RoutedEventArgs e)
