@@ -1,0 +1,52 @@
+﻿<Window x:Class="SportunifyForm.LoginForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SportunifyForm"
+        mc:Ignorable="d"
+        Title="LoginForm" Height="450" Width="300" AllowsTransparency="True" Background="Transparent" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" MouseDown="Window_MouseDown">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Border CornerRadius="10" Grid.RowSpan="2" >
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#7be9f6" Offset="0.8"/>
+                        <GradientStop Color="#f083da" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+
+            <StackPanel VerticalAlignment="Center">
+                <!--<Image Source="" Width="80" />-->
+                <TextBlock Text="Sportunify" FontWeight="Bold" FontFamily="helvetica" FontSize="22" Foreground="BlueViolet" HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" >
+                <StackPanel Orientation="Horizontal">
+                    <TextBox FontFamily="helvetica" FontWeight="Light" Text="Username" FontSize="20" HorizontalAlignment="Center" Foreground="White" Background="Transparent" BorderThickness="0" Width="235" HorizontalContentAlignment="Left" Opacity="0.5" Height="25" Margin="40, 0, 0, 0"/>
+                </StackPanel>
+                <Border Width="220" Height="2" Background="White" Opacity="0.5" />
+
+                <StackPanel Orientation="Horizontal">
+                    <PasswordBox FontFamily="helvetica" FontWeight="Light" Password="Password" FontSize="20" HorizontalAlignment="Center" Foreground="White" Background="Transparent" BorderThickness="0" Width="235" HorizontalContentAlignment="Left" Opacity="0.5" Height="25" Margin="40, 0, 0, 0"/>
+                </StackPanel>
+                <Border Width="220" Height="2" Background="White" Opacity="0.5" />
+
+                <StackPanel Orientation="Horizontal" Margin="0, 50, 0, 0">
+                    <Button x:Name="Login_Button" Width="100" Height="40" Content="LOGIN" Margin="20, 0, 60, 0" Click="Login_Button_Click"/>
+                    <Button x:Name="Register_Button" Width="100" Height="40" Content="REGISTER" Click="Register_Button_Click"/>
+                </StackPanel>
+
+            </StackPanel>
+
+            
+
+        </Grid>
+    </Grid>
+</Window>

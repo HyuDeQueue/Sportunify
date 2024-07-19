@@ -63,7 +63,7 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <Button Content="Artist" HorizontalAlignment="Left" Margin="150,66,0,0" VerticalAlignment="Top" Width="92" Height="26" FontSize="10" FontWeight="Bold" Background="#FF232323" Click="Button_Click_1">
+                    <Button Content="Artist" HorizontalAlignment="Left" Margin="150,66,0,0" VerticalAlignment="Top" Width="92" Height="26" FontSize="10" FontWeight="Bold" Background="#FF232323" >
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="11">
