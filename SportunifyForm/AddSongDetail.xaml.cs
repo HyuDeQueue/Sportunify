@@ -98,9 +98,6 @@ namespace SportunifyForm
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             mediaPlayer.Pause();
-            isPlaying = false;
-            PlayButton.Content = "▶️"; // Change to play icon
-            timer.Stop();
             this.Close();
         }
     }
