@@ -6,7 +6,41 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    internal class AccountService
+    public class AccountService
     {
+        public void GetAllAccounts()
+        {
+
+        }
+
+        public void GetSelectedAccount()
+        {
+
+        }
+
+        public void Register()
+        {
+
+        }
+
+        public void Login()
+        {
+
+        }
+
+        public void Logout()
+        {
+
+        }
+
+        public void GetSongsFromAccount()
+        {
+
+        }
+
+        public void GetPlaylistsFromAccount()
+        {
+
+        }
     }
 }

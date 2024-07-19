@@ -6,7 +6,46 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    internal class QueueService
+    public class QueueService
     {
+        public void PlayQueue()
+        {
+
+        }
+
+        public void AddToQueue()
+        {
+
+        }
+
+        public void RemoveFromQueue()
+        {
+
+        }
+
+        public void ShuffleQueue()
+        {
+
+        }
+
+        public void ClearQueue()
+        {
+
+        }
+
+        public void PauseSong()
+        {
+
+        }
+
+        public void ResumeSong()
+        {
+
+        }
+
+        public void SkipSong()
+        {
+
+        }
     }
 }

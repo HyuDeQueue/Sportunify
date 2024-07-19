@@ -6,7 +6,46 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    internal class PlaylistService
+    public class PlaylistService
     {
+        public void GetAllPlaylists()
+        {
+
+        }
+
+        public void GetSelectedPlaylist()
+        {
+
+        }
+
+        public void AddPlaylist()
+        {
+
+        }
+
+        public void EditPlaylist()
+        {
+
+        }
+
+        public void DeletePlaylist()
+        {
+
+        }
+
+        public void AddSongToPlaylist()
+        {
+
+        }
+
+        public void DeleteSongFromPlaylist()
+        {
+
+        }
+
+        public void SearchPlaylist()
+        {
+
+        }
     }
 }
