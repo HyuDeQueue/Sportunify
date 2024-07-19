@@ -26,5 +26,10 @@ namespace SportunifyForm
             _account = account;
 
         }
+
+        private void SongMainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            HelloNameLabel.Content = $"Hello, {_account.Name}!";
+        }
     }
 }
