@@ -80,7 +80,7 @@ namespace Services.Services
         public void AddPlaylistToQueue(Playlist playlist)
         {
             // Assuming you want to add all songs from the playlist to the queue
-            foreach (var inplaylist in playlist.Inplaylists.OrderBy(ip => ip.Position))
+            foreach (var inplaylist in playlist.PlaylistSongs.OrderBy(ip => ip.Position))
             {
                 _songQueue.Enqueue(inplaylist.Song);
             }

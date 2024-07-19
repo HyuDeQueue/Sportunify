@@ -8,9 +8,9 @@ namespace Services.Services
     public class PlaylistService
     {
         private readonly PlaylistRepository _playlistRepository;
-        private readonly InplaylistRepository _inplaylistRepository;
+        private readonly PlaylistSongRepository _inplaylistRepository;
 
-        public PlaylistService(PlaylistRepository playlistRepository, InplaylistRepository inplaylistRepository)
+        public PlaylistService(PlaylistRepository playlistRepository, PlaylistSongRepository inplaylistRepository)
         {
             _playlistRepository = playlistRepository;
             _inplaylistRepository = inplaylistRepository;
@@ -43,7 +43,7 @@ namespace Services.Services
 
         public void AddSongToPlaylist(int playlistId, int songId, int position)
         {
-            var inplaylist = new Inplaylist
+            var inplaylist = new PlaylistSong
             {
                 PlaylistId = playlistId,
                 SongId = songId,
