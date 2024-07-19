@@ -18,9 +18,11 @@ public partial class ListentogetherContext : DbContext
 
     public virtual DbSet<Account> Accounts { get; set; }
 
-    public virtual DbSet<Inplaylist> Inplaylists { get; set; }
+    public virtual DbSet<Category> Categories { get; set; }
 
     public virtual DbSet<Playlist> Playlists { get; set; }
+
+    public virtual DbSet<PlaylistSong> PlaylistSongs { get; set; }
 
     public virtual DbSet<Song> Songs { get; set; }
 
@@ -39,30 +41,21 @@ public partial class ListentogetherContext : DbContext
 
             entity.ToTable("account");
 
+            entity.HasIndex(e => e.Username, "Username").IsUnique();
+
             entity.Property(e => e.Name).HasMaxLength(255);
             entity.Property(e => e.Password).HasMaxLength(255);
-            entity.Property(e => e.Username).HasMaxLength(255);
         });
 
-        modelBuilder.Entity<Inplaylist>(entity =>
+        modelBuilder.Entity<Category>(entity =>
         {
-            entity.HasKey(e => new { e.PlaylistId, e.SongId })
-                .HasName("PRIMARY")
-                .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
+            entity.HasKey(e => e.CategoryId).HasName("PRIMARY");
 
-            entity.ToTable("inplaylist");
+            entity.ToTable("categories");
 
-            entity.HasIndex(e => e.SongId, "SongId");
-
-            entity.HasOne(d => d.Playlist).WithMany(p => p.Inplaylists)
-                .HasForeignKey(d => d.PlaylistId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("inplaylist_ibfk_1");
-
-            entity.HasOne(d => d.Song).WithMany(p => p.Inplaylists)
-                .HasForeignKey(d => d.SongId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("inplaylist_ibfk_2");
+            entity.Property(e => e.CategoryName)
+                .HasMaxLength(255)
+                .HasColumnName("Category_Name");
         });
 
         modelBuilder.Entity<Playlist>(entity =>
@@ -84,6 +77,27 @@ public partial class ListentogetherContext : DbContext
                 .HasConstraintName("playlists_ibfk_1");
         });
 
+        modelBuilder.Entity<PlaylistSong>(entity =>
+        {
+            entity.HasKey(e => new { e.PlaylistId, e.SongId })
+                .HasName("PRIMARY")
+                .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
+
+            entity.ToTable("playlist_songs");
+
+            entity.HasIndex(e => e.SongId, "SongId");
+
+            entity.HasOne(d => d.Playlist).WithMany(p => p.PlaylistSongs)
+                .HasForeignKey(d => d.PlaylistId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("playlist_songs_ibfk_1");
+
+            entity.HasOne(d => d.Song).WithMany(p => p.PlaylistSongs)
+                .HasForeignKey(d => d.SongId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("playlist_songs_ibfk_2");
+        });
+
         modelBuilder.Entity<Song>(entity =>
         {
             entity.HasKey(e => e.SongId).HasName("PRIMARY");
@@ -91,6 +105,8 @@ public partial class ListentogetherContext : DbContext
             entity.ToTable("songs");
 
             entity.HasIndex(e => e.AccountId, "AccountId");
+
+            entity.HasIndex(e => e.CategoryId, "CategoryId");
 
             entity.HasIndex(e => e.Title, "Title").IsUnique();
 
@@ -102,6 +118,11 @@ public partial class ListentogetherContext : DbContext
                 .HasForeignKey(d => d.AccountId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("songs_ibfk_1");
+
+            entity.HasOne(d => d.Category).WithMany(p => p.Songs)
+                .HasForeignKey(d => d.CategoryId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("songs_ibfk_2");
         });
 
         OnModelCreatingPartial(modelBuilder);

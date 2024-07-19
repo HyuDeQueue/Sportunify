@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Repositories.Models;
 
-public partial class Inplaylist
+public partial class PlaylistSong
 {
     public int Position { get; set; }
 

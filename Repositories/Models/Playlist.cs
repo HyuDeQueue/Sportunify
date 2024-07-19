@@ -15,5 +15,5 @@ public partial class Playlist
 
     public virtual Account Account { get; set; } = null!;
 
-    public virtual ICollection<Inplaylist> Inplaylists { get; set; } = new List<Inplaylist>();
+    public virtual ICollection<PlaylistSong> PlaylistSongs { get; set; } = new List<PlaylistSong>();
 }

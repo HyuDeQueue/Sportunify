@@ -9,15 +9,17 @@ public partial class Song
 
     public string Title { get; set; } = null!;
 
-    public int Category { get; set; }
-
     public string ArtistName { get; set; } = null!;
 
     public byte[] SongMedia { get; set; } = null!;
 
     public int AccountId { get; set; }
 
+    public int CategoryId { get; set; }
+
     public virtual Account Account { get; set; } = null!;
 
-    public virtual ICollection<Inplaylist> Inplaylists { get; set; } = new List<Inplaylist>();
+    public virtual Category Category { get; set; } = null!;
+
+    public virtual ICollection<PlaylistSong> PlaylistSongs { get; set; } = new List<PlaylistSong>();
 }
