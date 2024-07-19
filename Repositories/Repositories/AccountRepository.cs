@@ -16,9 +16,14 @@ namespace Repositories.Repositories
             _context = new();
 
             var result = _context.Accounts
-                .Where(x => x.Username == account.Username && x.Password == account.Password)
+                .Where(x => x.Username == account.Username)
                 .FirstOrDefault();
-            return result;
+            if (result != null && BCrypt.Net.BCrypt.Verify(account.Password, result.Password))
+            {
+                return result ;
+            }
+
+            return null;
             
         }
 
@@ -33,6 +38,7 @@ namespace Repositories.Repositories
         public void CreateAccount(Account account)
         {
             _context = new();
+            account.Password = BCrypt.Net.BCrypt.HashPassword(account.Password);
             _context.Accounts.Add(account);
             _context.SaveChanges();
         }
