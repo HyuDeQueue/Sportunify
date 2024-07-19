@@ -17,4 +17,25 @@
     <PackageReference Include="RestSharp" Version="111.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="DetailForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ListeningPlayList.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="DetailForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ListeningPlayList.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>

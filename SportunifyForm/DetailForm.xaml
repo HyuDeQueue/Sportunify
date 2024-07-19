@@ -20,7 +20,7 @@
         <ComboBox x:Name="SongCategoryIdComboBox" HorizontalAlignment="Left" Height="44" Margin="226,392,0,0" VerticalAlignment="Top" Width="290" Background="#ff4500" TabIndex="7" FontWeight="Bold" FontSize="18"/>
         <Label Content="Add Song" HorizontalAlignment="Left" Margin="58,477,0,0" VerticalAlignment="Top" Foreground="#ff4500"/>
         <TextBox x:Name="FileName" FontSize="16" Margin="226,477,524,161"/>
-        <Button Content="Open" Click="BT_Click_Open" Margin="683,477,412,161" RenderTransformOrigin="0.512,0.203"/>
+        <Button Content="Open" Click="BT_Click_Open" Margin="683,477,400,161" RenderTransformOrigin="0.512,0.203"/>
         <Button FontSize="18" Content="Test" Margin="784,477,300,161" Click="BT_Click_Play"/>
     </Grid>
 </Window>
