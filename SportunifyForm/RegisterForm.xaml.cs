@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Repositories.Models;
+using Services.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +21,7 @@ namespace SportunifyForm
     /// </summary>
     public partial class RegisterForm : Window
     {
+        private readonly AccountService _accountService = new();
         public RegisterForm()
         {
             InitializeComponent();
@@ -26,7 +29,43 @@ namespace SportunifyForm
 
         private void Register_Button_Click(object sender, RoutedEventArgs e)
         {
+            var name = NameTextBox.Text.Trim();
+            var username = UsernameTextBox.Text.Trim();
+            var password = PasswordTextBox.Password;
+            var confirmPassword = ConfirmPasswordTextBox.Password;
 
+            if (string.IsNullOrWhiteSpace(name) ||
+                string.IsNullOrWhiteSpace(username) ||
+                string.IsNullOrWhiteSpace(password) ||
+                string.IsNullOrWhiteSpace(confirmPassword))
+            {
+                MessageBox.Show("Please fill in all fields.");
+                return;
+            }
+
+            if (password != confirmPassword)
+            {
+                MessageBox.Show("Passwords do not match.");
+                return;
+            }
+
+            Account account = new Account();
+            account.Name = name;
+            account.Username = username;
+            account.Password = password;
+
+            var existingAccount = _accountService.CheckAccountExists(account);
+            if (existingAccount != null)
+            {
+                MessageBox.Show("Username already exists.");
+                return;
+            }
+
+            _accountService.Register(account);
+
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+            this.Close();
         }
 
         private void Login_Button_Click(object sender, RoutedEventArgs e)

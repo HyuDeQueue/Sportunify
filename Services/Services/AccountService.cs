@@ -15,19 +15,14 @@ namespace Services.Services
         {
             List<Account> accounts = _repo.GetAllAccounts();
         }
-        public String Register(Account account)
-        {
-            Account isRegistered = _repo.FindAccount(account.Username);
 
-            if (isRegistered is not null)
-            {
-                return("Username already exists!");
-            }
-            else
-            {
-                _repo.CreateAccount(account);
-                return("Account created successfully!");
-            }
+        public Account CheckAccountExists(Account account)
+        {
+            return _repo.FindAccount(account.Username);
+        }
+        public void Register(Account account)
+        {
+            _repo.CreateAccount(account);
         }
 
         public Account Login(Account account)
