@@ -37,5 +37,10 @@ namespace SportunifyForm
         {
             HelloNameLabel.Content = $"Hello, {_account.Name}!";
         }
+
+        private void QuitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
