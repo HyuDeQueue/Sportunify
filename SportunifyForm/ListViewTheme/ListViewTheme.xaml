@@ -60,7 +60,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="ScrollbarThumbVertical" TargetType="{x:Type RepeatButton}">
+    <!--<Style x:Key="ScrollbarThumbVertical" TargetType="{x:Type RepeatButton}">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -73,7 +73,7 @@
                 </ControlTemplate>
             </Setter.Value>
             </Setter>
-    </Style>
+    </Style>-->
 
     <Style  TargetType="{x:Type ScrollBar}">
         <Setter Property="Background" Value="#252525"/>

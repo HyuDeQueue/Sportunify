@@ -19,11 +19,11 @@ namespace SportunifyForm
     /// <summary>
     /// Interaction logic for GetAllUser.xaml
     /// </summary>
-    public partial class GetAllUser : Window
+    public partial class GetAllUserForm : Window
     {
         private AccountService _service = new AccountService();
 
-        public GetAllUser()
+        public GetAllUserForm()
         {
             InitializeComponent();
         }

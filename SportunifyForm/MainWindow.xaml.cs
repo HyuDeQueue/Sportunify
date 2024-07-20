@@ -43,8 +43,8 @@ namespace SportunifyForm
 
         private void ViewAllUser_Click(object sender, RoutedEventArgs e)
         {
-            GetAllUser getAllUser = new GetAllUser();   
-            getAllUser.ShowDialog();
+            GetAllUserForm getAllUserForm = new GetAllUserForm();   
+            getAllUserForm.ShowDialog();
         }
     }
 }
