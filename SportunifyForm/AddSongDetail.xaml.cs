@@ -7,6 +7,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace SportunifyForm
@@ -23,6 +24,9 @@ namespace SportunifyForm
         private bool isPlaying = false;
         private CategoryService categoryService = new();
         private Song SelectedSong { get; set; } = null;
+        SongService songService = new();
+
+        public event Action OnSongDetailClosed;
 
         public AddSongDetail(Account account)
         {
@@ -119,16 +123,71 @@ namespace SportunifyForm
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            // Example save functionality
-            LoadingSpinner.Visibility = Visibility.Visible;
-            await Task.Run(() =>
-            {
-                // Simulate a long-running save operation
-                Task.Delay(2000).Wait();
-            });
-            LoadingSpinner.Visibility = Visibility.Collapsed;
+            string songName = SongNameTextBox.Text;
+            string author = AuthorTextBox.Text;
+            int categoryId = (int)SongCategoryIdComboBox.SelectedValue;
+            
+            byte[] songMedia = FileToByteArray(fileName);
 
-            MessageBox.Show("Song details saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            // Disable buttons and show loading animation
+            SaveButton.IsEnabled = false;
+            Close.IsEnabled = false;
+            PlayButton.IsEnabled = false;
+            LoadingSpinner.Visibility = Visibility.Visible;
+
+
+
+            Song newSong = new Song
+            {
+                Title = songName,
+                ArtistName = author,
+                SongMedia = songMedia,
+                AccountId = _account.AccountId,
+                CategoryId = categoryId
+            };
+
+            try
+            {
+                SongService songService = new SongService();
+                await Task.Run(() => songService.AddSongs(newSong));
+                MessageBox.Show("Song saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                ClearForm();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to save song: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                // Re-enable buttons and hide loading animation
+                SaveButton.IsEnabled = true;
+                Close.IsEnabled = true;
+                PlayButton.IsEnabled = true;
+                LoadingSpinner.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void ClearForm()
+        {
+            SongNameTextBox.Clear();
+            AuthorTextBox.Clear();
+            SongCategoryIdComboBox.SelectedIndex = -1;
+            FileName.Text = string.Empty;
+
+            fileName = string.Empty;
+
+            TimelineProgressBar.Value = 0;
+            ElapsedTimeTextBlock.Text = "00:00";
+            RemainingTimeTextBlock.Text = "00:00";
+            outputDevice.Stop();
+            isPlaying = false;
+            PlayButton.Content = "▶️"; 
+            timer.Stop();
+        }
+
+        public byte[] FileToByteArray(string filePath)
+        {
+            return File.ReadAllBytes(filePath);
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
@@ -164,14 +223,17 @@ namespace SportunifyForm
             // Dispose of the audio file and output device if they exist
             audioFile?.Dispose();
             outputDevice?.Dispose();
-
+            OnSongDetailClosed?.Invoke();
             base.OnClosed(e);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            // Example initialization, e.g., loading categories
-            // SongCategoryIdComboBox.ItemsSource = categoryService.GetCategories();
+            SongCategoryIdComboBox.ItemsSource = categoryService.GetAllCategories();
+            SongCategoryIdComboBox.DisplayMemberPath = "CategoryName";
+            SongCategoryIdComboBox.SelectedValuePath = "CategoryId";
         }
+
+
     }
 }

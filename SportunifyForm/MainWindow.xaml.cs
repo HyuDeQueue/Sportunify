@@ -24,6 +24,7 @@ namespace SportunifyForm
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
             AddSongDetail detail = new(_account);
+            detail.OnSongDetailClosed += ReloadSongList;
             detail.ShowDialog();
         }
 
@@ -138,6 +139,11 @@ namespace SportunifyForm
             {
                 PlayNextSongInQueue();
             }
+        }
+
+        private async void ReloadSongList()
+        {
+            SongListDataGrid.ItemsSource = await Task.Run(() => _songService.GetSongsFromAccount(_account.AccountId));
         }
     }
 }
