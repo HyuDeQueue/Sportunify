@@ -10,12 +10,7 @@ namespace Services.Services
 {
     public class SongService
     {
-        private readonly SongRepository _songRepository;
-
-        public SongService(SongRepository songRepository)
-        {
-            _songRepository = songRepository;
-        }
+        private SongRepository _songRepository = new();
 
         public void AddSongs(Song song)
         {
@@ -40,6 +35,11 @@ namespace Services.Services
         public Song GetSelectedSong(int songId)
         {
             return _songRepository.GetSongById(songId);
+        }
+
+        public List<Song> GetSongsFromAccount(int accountId)
+        {
+            return _songRepository.GetSongsFromAccount(accountId);
         }
     }
 }

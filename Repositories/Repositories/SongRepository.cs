@@ -39,5 +39,13 @@ namespace Repositories.Repositories
             _context = new();
             return _context.Songs.Where(predicate).ToList();
         }
+
+        public List<Song> GetSongsFromAccount(int accountId)
+        {
+            _context = new();
+            return _context.Songs
+                .Where(s => s.AccountId == accountId)
+                .ToList();
+        }
     }
 }

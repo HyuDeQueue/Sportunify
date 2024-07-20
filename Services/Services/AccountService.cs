@@ -38,15 +38,6 @@ namespace Services.Services
             }
         }
 
-        public void Logout()
-        {
-
-        }
-
-        public void GetSongsFromAccount()
-        {
-
-        }
 
         public void GetPlaylistsFromAccount()
         {

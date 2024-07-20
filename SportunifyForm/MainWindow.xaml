@@ -54,13 +54,13 @@
             AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" Grid.Column="3"
                   >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Song Name" Width="100"/>
-                <DataGridTextColumn Header="Artist" Width="100"/>
-                <DataGridTextColumn Header="Category" Width="100"/>
+                <DataGridTextColumn Header="Song Name" Width="100" Binding="{Binding Title}"/>
+                <DataGridTextColumn Header="Artist" Width="100" Binding="{Binding ArtistName}"/>
+                <DataGridTextColumn Header="Category" Width="100" Binding="{Binding CategoryId}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Your Queue:" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="36,177,53,460" FontSize="20" FontWeight="Bold"/>
-        <Label Content="Your Added Songs:" Grid.RowSpan="2" Margin="36,182,616,398" FontSize="20" FontWeight="Bold" Grid.Column="3"/>
+        <Label Content="Songs:" Grid.RowSpan="2" Margin="36,182,561,391" FontSize="20" FontWeight="Bold" Grid.Column="3"/>
         <DataGrid x:Name="PlaylistDataGrid" 
             HorizontalAlignment="Left" 
             Height="292" 
@@ -74,8 +74,10 @@
                 <DataGridTextColumn Header="Description" Width="200"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Your Playlists:" Grid.RowSpan="2" Margin="356,182,299,398" FontSize="20" FontWeight="Bold" Grid.Column="3"/>
+        <Label Content="Your Playlists:" Grid.RowSpan="2" Margin="356,182,241,426" FontSize="20" FontWeight="Bold" Grid.Column="3"/>
         <Button x:Name="ViewAllUser" Content="View User" HorizontalAlignment="Left" Height="50" Margin="689,189,0,0" VerticalAlignment="Top" Width="165" TabIndex="4" Grid.Column="3" Grid.Row="1" Click="ViewAllUser_Click"/>
+        <Button x:Name="YourSongsButton" Grid.Column="3" Content="Your songs" HorizontalAlignment="Left" Height="42" Margin="36,540,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="150" Click="YourSongsButton_Click"/>
+        <Button x:Name="AllSongsButton" Grid.Column="3" Content="All songs" HorizontalAlignment="Left" Height="42" Margin="191,540,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="150" Click="AllSongsButton_Click"/>
 
     </Grid>
 </Window>

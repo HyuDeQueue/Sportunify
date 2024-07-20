@@ -1,4 +1,5 @@
 ﻿using Repositories.Models;
+using Services.Services;
 using System.Security.Principal;
 using System.Text;
 using System.Windows;
@@ -19,6 +20,7 @@ namespace SportunifyForm
     public partial class MainWindow : Window
     {
         private readonly Account _account;
+        private SongService songService = new();
 
         public MainWindow(Account account)
         {
@@ -34,6 +36,8 @@ namespace SportunifyForm
         private void SongMainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             HelloNameLabel.Content = $"Hello, {_account.Name}!";
+            SongListDataGrid.ItemsSource = null;
+            SongListDataGrid.ItemsSource = songService.GetSongsFromAccount(_account.AccountId);
         }
 
         private void QuitButton_Click(object sender, RoutedEventArgs e)
@@ -45,6 +49,18 @@ namespace SportunifyForm
         {
             GetAllUserForm getAllUserForm = new GetAllUserForm();   
             getAllUserForm.ShowDialog();
+        }
+
+        private void YourSongsButton_Click(object sender, RoutedEventArgs e)
+        {
+            SongListDataGrid.ItemsSource = null;
+            SongListDataGrid.ItemsSource = songService.GetSongsFromAccount(_account.AccountId);
+        }
+
+        private void AllSongsButton_Click(object sender, RoutedEventArgs e)
+        {
+            SongListDataGrid.ItemsSource = null;
+            SongListDataGrid.ItemsSource = songService.GetAllSongs();
         }
     }
 }

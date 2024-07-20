@@ -136,7 +136,7 @@ namespace SportunifyForm
             };
 
             // Create an instance of the service and add the song
-            SongService songService = new SongService(new SongRepository());
+            SongService songService = new SongService();
             songService.AddSongs(newSong);
 
             MessageBox.Show("Song saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
