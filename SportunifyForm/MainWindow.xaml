@@ -35,9 +35,9 @@
                     AutoGenerateColumns="False" IsReadOnly="True" Grid.ColumnSpan="4" Grid.Row="1"
                   >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Song Name" Width="100"/>
-                <DataGridTextColumn Header="Artist" Width="100"/>
-                <DataGridTextColumn Header="Category" Width="100"/>
+                <DataGridTextColumn Header="Song Name" Width="130"/>
+                <DataGridTextColumn Header="Artist" Width="90"/>
+                <DataGridTextColumn Header="Category" Width="80"/>
             </DataGrid.Columns>
         </DataGrid>
         <TextBox x:Name="NowPlayingTextBox" HorizontalAlignment="Left" Height="25" Margin="40,214,0,0" TextWrapping="Wrap" Text="Now Playing: " VerticalAlignment="Top" Width="299" FontSize="17" Grid.ColumnSpan="4" IsEnabled="False" Grid.Row="1" />
@@ -54,9 +54,9 @@
             AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" Grid.Column="3"
                   >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Song Name" Width="100" Binding="{Binding Title}"/>
-                <DataGridTextColumn Header="Artist" Width="100" Binding="{Binding ArtistName}"/>
-                <DataGridTextColumn Header="Category" Width="100" Binding="{Binding CategoryId}"/>
+                <DataGridTextColumn Header="Song Name" Width="130" Binding="{Binding Title}"/>
+                <DataGridTextColumn Header="Artist" Width="90" Binding="{Binding ArtistName}"/>
+                <DataGridTextColumn Header="Category" Width="80" Binding="{Binding CategoryId}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Your Queue:" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="36,177,53,460" FontSize="20" FontWeight="Bold"/>
