@@ -7,9 +7,6 @@ using System.Windows.Controls;
 
 namespace SportunifyForm
 {
-    /// <summary>
-    /// Interaction logic for RegisterForm.xaml
-    /// </summary>
     public partial class RegisterForm : Window
     {
         private readonly AccountService _accountService = new();
@@ -17,6 +14,20 @@ namespace SportunifyForm
         public RegisterForm()
         {
             InitializeComponent();
+            InitializePlaceholders();
+        }
+
+        private void InitializePlaceholders()
+        {
+            NameTextBox.Text = "Name";
+            UsernameTextBox.Text = "Username";
+            PasswordTextBox.Password = "Password";
+            ConfirmPasswordTextBox.Password = "Confirm Password";
+
+            NameTextBox.Opacity = 0.5;
+            UsernameTextBox.Opacity = 0.5;
+            PasswordTextBox.Opacity = 0.5;
+            ConfirmPasswordTextBox.Opacity = 0.5;
         }
 
         private async void Register_Button_Click(object sender, RoutedEventArgs e)
@@ -25,6 +36,11 @@ namespace SportunifyForm
             var username = UsernameTextBox.Text.Trim();
             var password = PasswordTextBox.Password;
             var confirmPassword = ConfirmPasswordTextBox.Password;
+
+            if (name == "Name") name = string.Empty;
+            if (username == "Username") username = string.Empty;
+            if (password == "Password") password = string.Empty;
+            if (confirmPassword == "Confirm Password") confirmPassword = string.Empty;
 
             if (string.IsNullOrWhiteSpace(name) ||
                 string.IsNullOrWhiteSpace(username) ||
@@ -92,6 +108,60 @@ namespace SportunifyForm
         private void Close_Button_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null && (textBox.Text == "Name" || textBox.Text == "Username"))
+            {
+                textBox.Text = "";
+                textBox.Opacity = 1;
+            }
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null && string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                if (textBox.Name == "NameTextBox")
+                {
+                    textBox.Text = "Name";
+                }
+                else if (textBox.Name == "UsernameTextBox")
+                {
+                    textBox.Text = "Username";
+                }
+                textBox.Opacity = 0.5;
+            }
+        }
+
+        private void PasswordBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            PasswordBox passwordBox = sender as PasswordBox;
+            if (passwordBox != null && (passwordBox.Password == "Password" || passwordBox.Password == "Confirm Password"))
+            {
+                passwordBox.Clear();
+                passwordBox.Opacity = 1;
+            }
+        }
+
+        private void PasswordBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            PasswordBox passwordBox = sender as PasswordBox;
+            if (passwordBox != null && string.IsNullOrWhiteSpace(passwordBox.Password))
+            {
+                if (passwordBox.Name == "PasswordTextBox")
+                {
+                    passwordBox.Password = "Password";
+                }
+                else if (passwordBox.Name == "ConfirmPasswordTextBox")
+                {
+                    passwordBox.Password = "Confirm Password";
+                }
+                passwordBox.Opacity = 0.5;
+            }
         }
     }
 }

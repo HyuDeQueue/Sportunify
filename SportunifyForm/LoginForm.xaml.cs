@@ -6,14 +6,15 @@ using System.Windows.Input;
 
 namespace SportunifyForm
 {
-    /// <summary>
-    /// Interaction logic for LoginForm.xaml
-    /// </summary>
     public partial class LoginForm : Window
     {
         public LoginForm()
         {
             InitializeComponent();
+            UsernameTextBox.Text = "Username";
+            PasswordTextBox.Password = "Password";
+            UsernameTextBox.Opacity = 0.5;
+            PasswordTextBox.Opacity = 0.5;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -28,6 +29,15 @@ namespace SportunifyForm
         {
             string username = UsernameTextBox.Text;
             string password = PasswordTextBox.Password;
+
+            if (username == "Username")
+            {
+                username = string.Empty;
+            }
+            if (password == "Password")
+            {
+                password = string.Empty;
+            }
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
@@ -79,6 +89,42 @@ namespace SportunifyForm
         private void Close_Button_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void UsernameTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (UsernameTextBox.Text == "Username")
+            {
+                UsernameTextBox.Text = string.Empty;
+                UsernameTextBox.Opacity = 1;
+            }
+        }
+
+        private void UsernameTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(UsernameTextBox.Text))
+            {
+                UsernameTextBox.Text = "Username";
+                UsernameTextBox.Opacity = 0.5;
+            }
+        }
+
+        private void PasswordTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (PasswordTextBox.Password == "Password")
+            {
+                PasswordTextBox.Clear();
+                PasswordTextBox.Opacity = 1;
+            }
+        }
+
+        private void PasswordTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(PasswordTextBox.Password))
+            {
+                PasswordTextBox.Password = "Password";
+                PasswordTextBox.Opacity = 0.5;
+            }
         }
     }
 }

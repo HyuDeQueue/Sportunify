@@ -29,12 +29,12 @@
 
             <StackPanel Grid.Row="1">
                 <StackPanel Orientation="Horizontal">
-                    <TextBox x:Name="UsernameTextBox" FontFamily="helvetica" FontWeight="Light" Text="Username" FontSize="20" HorizontalAlignment="Center" Foreground="White" Background="Transparent" BorderThickness="0" Width="235" HorizontalContentAlignment="Left" Opacity="0.5" Height="25" Margin="40, 0, 0, 0"/>
+                    <TextBox x:Name="UsernameTextBox" FontFamily="helvetica" FontWeight="Light" Text="Username" FontSize="20" HorizontalAlignment="Center" Foreground="White" Background="Transparent" BorderThickness="0" Width="235" HorizontalContentAlignment="Left" Opacity="0.5" Height="25" Margin="40, 0, 0, 0" GotFocus="UsernameTextBox_GotFocus" LostFocus="UsernameTextBox_LostFocus"/>
                 </StackPanel>
                 <Border Width="220" Height="2" Background="White" Opacity="0.5" />
 
                 <StackPanel Orientation="Horizontal">
-                    <PasswordBox x:Name="PasswordTextBox" FontFamily="helvetica" FontWeight="Light" Password="Password" FontSize="20" HorizontalAlignment="Center" Foreground="White" Background="Transparent" BorderThickness="0" Width="235" HorizontalContentAlignment="Left" Opacity="0.5" Height="25" Margin="40, 0, 0, 0"/>
+                    <PasswordBox x:Name="PasswordTextBox" FontFamily="helvetica" FontWeight="Light" Password="Password" FontSize="20" HorizontalAlignment="Center" Foreground="White" Background="Transparent" BorderThickness="0" Width="235" HorizontalContentAlignment="Left" Opacity="0.5" Height="25" Margin="40, 0, 0, 0" GotFocus="PasswordTextBox_GotFocus" LostFocus="PasswordTextBox_LostFocus"/>
                 </StackPanel>
                 <Border Width="220" Height="2" Background="White" Opacity="0.5" />
 
