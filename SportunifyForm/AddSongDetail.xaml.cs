@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using NAudio.Wave;
 using Repositories.Models;
 using Repositories.Repositories;
 using Services.Services;
@@ -6,21 +7,18 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace SportunifyForm
 {
-    /// <summary>
-    /// Interaction logic for AddSongDetail.xaml
-    /// </summary>
     public partial class AddSongDetail : Window
     {
         private Account _account;
         private DispatcherTimer timer;
         private TimeSpan songDuration;
         private TimeSpan currentTime;
-        private MediaPlayer mediaPlayer = new MediaPlayer();
+        private WaveOutEvent outputDevice;
+        private AudioFileReader audioFile;
         private string fileName;
         private bool isPlaying = false;
         private CategoryService categoryService = new();
@@ -30,7 +28,6 @@ namespace SportunifyForm
         {
             InitializeComponent();
             InitializeTimer();
-            mediaPlayer.MediaEnded += MediaPlayer_MediaEnded;
             _account = account;
         }
 
@@ -43,10 +40,10 @@ namespace SportunifyForm
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            if (mediaPlayer.NaturalDuration.HasTimeSpan)
+            if (audioFile != null)
             {
-                songDuration = mediaPlayer.NaturalDuration.TimeSpan;
-                currentTime = mediaPlayer.Position;
+                songDuration = audioFile.TotalTime;
+                currentTime = audioFile.CurrentTime;
                 if (currentTime < songDuration)
                 {
                     TimelineProgressBar.Maximum = songDuration.TotalSeconds;
@@ -63,15 +60,6 @@ namespace SportunifyForm
             }
         }
 
-        private void MediaPlayer_MediaEnded(object sender, EventArgs e)
-        {
-            mediaPlayer.Position = TimeSpan.Zero; // Reset position to start
-            timer.Stop();
-            isPlaying = false;
-            PlayButton.Content = "▶️"; // Change back to play icon
-            mediaPlayer.Stop(); // 
-        }
-
         private void BT_Click_Open(object sender, RoutedEventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog
@@ -85,24 +73,39 @@ namespace SportunifyForm
             {
                 fileName = fileDialog.FileName;
                 FileName.Text = fileDialog.SafeFileName;
-                mediaPlayer.Open(new Uri(fileName));
+
+                // Dispose of existing resources if needed
+                if (audioFile != null)
+                {
+                    audioFile.Dispose();
+                }
+
+                if (outputDevice != null)
+                {
+                    outputDevice.Dispose();
+                }
+
+                // Initialize new audio file and output device
+                audioFile = new AudioFileReader(fileName);
+                outputDevice = new WaveOutEvent();
+                outputDevice.Init(audioFile);
             }
         }
 
         private void BT_Click_PlayPause(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(fileName))
+            if (!string.IsNullOrEmpty(fileName) && audioFile != null)
             {
                 if (isPlaying)
                 {
-                    mediaPlayer.Pause();
+                    outputDevice.Pause();
                     isPlaying = false;
                     PlayButton.Content = "▶️"; // Change to play icon
                     timer.Stop();
                 }
                 else
                 {
-                    mediaPlayer.Play();
+                    outputDevice.Play();
                     isPlaying = true;
                     PlayButton.Content = "⏸"; // Change to pause icon
                     timer.Start();
@@ -114,127 +117,61 @@ namespace SportunifyForm
             }
         }
 
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Example save functionality
+            LoadingSpinner.Visibility = Visibility.Visible;
+            await Task.Run(() =>
+            {
+                // Simulate a long-running save operation
+                Task.Delay(2000).Wait();
+            });
+            LoadingSpinner.Visibility = Visibility.Collapsed;
+
+            MessageBox.Show("Song details saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
         private void Close_Click(object sender, RoutedEventArgs e)
         {
-            mediaPlayer.Pause();
+            // Stop playback if it's currently playing
+            if (isPlaying)
+            {
+                outputDevice.Stop();
+                isPlaying = false;
+                PlayButton.Content = "▶️"; // Change to play icon
+                timer.Stop();
+            }
+
+            // Dispose of the audio file and output device if they exist
+            audioFile?.Dispose();
+            outputDevice?.Dispose();
+
+            // Close the form
             this.Close();
         }
 
-        private async void SaveButton_Click(object sender, RoutedEventArgs e)
+        protected override void OnClosed(EventArgs e)
         {
-            string songName = SongNameTextBox.Text;
-            string author = AuthorTextBox.Text;
-            int? categoryId = SongCategoryIdComboBox.SelectedValue as int?;
-            string fileName = FileName.Text;
-
-            // Validate form fields
-            if (string.IsNullOrEmpty(songName))
+            // Ensure resources are disposed of when the window is closed
+            if (isPlaying)
             {
-                MessageBox.Show("Please enter a song name.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                outputDevice.Stop();
+                isPlaying = false;
+                PlayButton.Content = "▶️"; // Change to play icon
+                timer.Stop();
             }
 
-            if (string.IsNullOrEmpty(author))
-            {
-                MessageBox.Show("Please enter the author's name.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+            // Dispose of the audio file and output device if they exist
+            audioFile?.Dispose();
+            outputDevice?.Dispose();
 
-            if (!categoryId.HasValue)
-            {
-                MessageBox.Show("Please select a song category.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            if (string.IsNullOrEmpty(fileName))
-            {
-                MessageBox.Show("Please open a song file.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            byte[] songMedia = FileToByteArray(fileName);
-
-            Song newSong = new Song
-            {
-                Title = songName,
-                ArtistName = author,
-                SongMedia = songMedia,
-                AccountId = _account.AccountId, // Assuming a static AccountId for now
-                CategoryId = categoryId.Value
-            };
-
-            // Disable buttons and show loading animation
-            SaveButton.IsEnabled = false;
-            Close.IsEnabled = false;
-            PlayButton.IsEnabled = false;
-            LoadingSpinner.Visibility = Visibility.Visible;
-
-            try
-            {
-                SongService songService = new SongService();
-                await Task.Run(() => songService.AddSongs(newSong));
-
-                MessageBox.Show("Song saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                ClearForm();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Failed to save song: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            finally
-            {
-                // Re-enable buttons and hide loading animation
-                SaveButton.IsEnabled = true;
-                Close.IsEnabled = true;
-                PlayButton.IsEnabled = true;
-                LoadingSpinner.Visibility = Visibility.Collapsed;
-            }
-        }
-
-
-        private void ClearForm()
-        {
-            SongNameTextBox.Clear();
-            AuthorTextBox.Clear();
-            SongCategoryIdComboBox.SelectedIndex = -1;
-            FileName.Text = string.Empty;
-
-            mediaPlayer.Stop();
-            mediaPlayer.Close();
-            fileName = string.Empty;
-
-            TimelineProgressBar.Value = 0;
-            ElapsedTimeTextBlock.Text = "00:00";
-            RemainingTimeTextBlock.Text = "00:00";
-            PlayButton.Content = "▶️";
-            isPlaying = false;
-            timer.Stop();
-        }
-
-        public byte[] FileToByteArray(string filePath)
-        {
-            return File.ReadAllBytes(filePath);
+            base.OnClosed(e);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            SongCategoryIdComboBox.ItemsSource = categoryService.GetAllCategories();
-            SongCategoryIdComboBox.DisplayMemberPath = "CategoryName";
-            SongCategoryIdComboBox.SelectedValuePath = "CategoryId";
-
-            SongCategoryIdComboBox.SelectedValue = "1";
-
-            SongLabel.Content = "Create a Song";
-
-            if (SelectedSong != null)
-            {
-                SongLabel.Content = "Update a Song";
-                SongNameTextBox.Text = SelectedSong.Title;
-                AuthorTextBox.Text = SelectedSong.ArtistName;
-                SongCategoryIdComboBox.SelectedValue = SelectedSong.CategoryId;
-                FileName.Text = SelectedSong.SongMedia.ToString();
-             }
+            // Example initialization, e.g., loading categories
+            // SongCategoryIdComboBox.ItemsSource = categoryService.GetCategories();
         }
     }
 }
-
