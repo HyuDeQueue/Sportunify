@@ -38,7 +38,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Song Name" Width="130" Binding="{Binding Title}"/>
                 <DataGridTextColumn Header="Artist" Width="90" Binding="{Binding ArtistName}"/>
-                <DataGridTextColumn Header="Category" Width="80" Binding="{Binding CategoryId}"/>
+                <DataGridTextColumn Header="Category" Width="80" Binding="{Binding Category.CategoryName}"/>
             </DataGrid.Columns>
         </DataGrid>
         
@@ -57,11 +57,44 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Song Name" Width="130" Binding="{Binding Title}"/>
                 <DataGridTextColumn Header="Artist" Width="90" Binding="{Binding ArtistName}"/>
-                <DataGridTextColumn Header="Category" Width="80" Binding="{Binding CategoryId}"/>
+                <DataGridTextColumn Header="Category" Width="80" Binding="{Binding Category.CategoryName}"/>
                 <DataGridTemplateColumn Header="Add to Queue" Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="AddToQueueButton" Content="Add to Queue" Click="AddToQueueButton_Click" Tag="{Binding}" />
+                            <Button x:Name="AddToQueueButton" Content="Add" Click="AddToQueueButton_Click" Tag="{Binding}">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="Aquamarine"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="Padding" Value="11"/>
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="{TemplateBinding Background}"
+                                                            CornerRadius="5"
+                                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                                            BorderThickness="{TemplateBinding BorderThickness}">
+                                                        <ContentPresenter HorizontalAlignment="Center"
+                                                                          VerticalAlignment="Center"/>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="MediumAquamarine"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter Property="Background" Value="#388E3C"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

@@ -24,6 +24,7 @@ namespace SportunifyForm
         private string fileName;
         private bool isPlaying = false;
         private CategoryService categoryService = new();
+        private Song SelectedSong { get; set; } = null;
 
         public AddSongDetail(Account account)
         {
@@ -193,6 +194,20 @@ namespace SportunifyForm
             SongCategoryIdComboBox.ItemsSource = categoryService.GetAllCategories();
             SongCategoryIdComboBox.DisplayMemberPath = "CategoryName";
             SongCategoryIdComboBox.SelectedValuePath = "CategoryId";
+
+            SongCategoryIdComboBox.SelectedValue = "1";
+
+            SongLabel.Content = "Create a Song";
+
+            if (SelectedSong != null)
+            {
+                SongLabel.Content = "Update a Song";
+                SongNameTextBox.Text = SelectedSong.Title;
+                AuthorTextBox.Text = SelectedSong.ArtistName;
+                SongCategoryIdComboBox.SelectedValue = SelectedSong.CategoryId;
+                FileName.Text = SelectedSong.SongMedia.ToString();
+             }
         }
     }
 }
+

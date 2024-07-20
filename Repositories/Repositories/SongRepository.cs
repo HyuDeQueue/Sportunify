@@ -1,4 +1,5 @@
-﻿using Repositories.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Repositories.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,7 +12,7 @@ namespace Repositories.Repositories
         public List<Song> GetAllSongs()
         {
             _context = new();
-            return _context.Songs.ToList();
+            return _context.Songs.Include("Category").ToList();
         }
 
         public Song GetSongById(int songId)
@@ -43,9 +44,7 @@ namespace Repositories.Repositories
         public List<Song> GetSongsFromAccount(int accountId)
         {
             _context = new();
-            return _context.Songs
-                .Where(s => s.AccountId == accountId)
-                .ToList();
+            return _context.Songs.Include("Category").Where(s => s.AccountId == accountId).ToList();
         }
     }
 }
