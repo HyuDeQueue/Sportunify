@@ -11,9 +11,9 @@ namespace Services.Services
     public class AccountService
     {
         private AccountRepository _repo = new();
-        public void GetAllAccounts()
+        public List<Account> GetAllAccounts()
         {
-            List<Account> accounts = _repo.GetAllAccounts();
+            return _repo.GetAllAccounts();
         }
 
         public Account CheckAccountExists(Account account)

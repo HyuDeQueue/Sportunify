@@ -26,8 +26,6 @@ namespace SportunifyForm
             _account = account;
 
         }
-
-
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
             AddSongDetail detail = new();
@@ -41,6 +39,12 @@ namespace SportunifyForm
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void ViewAllUser_Click(object sender, RoutedEventArgs e)
+        {
+            GetAllUser getAllUser = new GetAllUser();   
+            getAllUser.ShowDialog();
         }
     }
 }

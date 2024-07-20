@@ -1,0 +1,30 @@
+﻿<Window x:Class="SportunifyForm.GetAllUser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SportunifyForm"
+        mc:Ignorable="d"
+        Title="GetAllUser" Height="500" Width="800" FontFamily="Arial" FontSize="14" Background="#FFD4F7D4" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Grid>
+        <Label Content="View All User Song" HorizontalAlignment="Left" Height="30" Margin="31,20,0,0" VerticalAlignment="Top" Width="130" FontWeight="Heavy" FontSize="12" FontFamily="Arial Narrow" Foreground="Blue"/>
+        <Label Content="All User List" HorizontalAlignment="Left" Height="42" Margin="35,161,0,0" VerticalAlignment="Top" Width="126" Foreground="Blue" FontSize="12" FontFamily="Arial Narrow"/>
+        <Rectangle HorizontalAlignment="Left" Height="74" Margin="37,60,0,0" Stroke="Black" VerticalAlignment="Top" Width="732" Fill="#ffff00"/>
+        <Label Content="User Name" HorizontalAlignment="Left" Height="29" Margin="46,84,0,0" VerticalAlignment="Top" Width="85" Foreground="Blue" FontFamily="Arial Narrow" FontSize="12"/>
+        <TextBox x:Name="UserNameTextBox" HorizontalAlignment="Left" Height="34" Margin="136,81,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="175" TabIndex="0" TextAlignment="Right"/>
+        <Label Content="Song Name" HorizontalAlignment="Left" Height="27" Margin="345,86,0,0" VerticalAlignment="Top" Width="64"  Foreground="Blue" FontSize="12" FontFamily="Arial Narrow"/>
+        <TextBox x:Name="SongNameTextBox" HorizontalAlignment="Left" Height="34" Margin="414,81,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="176" TabIndex="1" TextAlignment="Right"/>
+        <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Height="38" Margin="641,76,0,0" VerticalAlignment="Top" Width="105" TabIndex="2" />
+        <Button x:Name="ViewDetail" Content="View Detail" HorizontalAlignment="Left" Height="39" Margin="620,195,0,0" VerticalAlignment="Top" Width="149" TabIndex="4" />
+        <Button x:Name="QuitButton" Content="Quit" HorizontalAlignment="Left" Height="38" Margin="620,268,0,0" VerticalAlignment="Top" Width="149" TabIndex="7" Click="QuitButton_Click" />
+
+        <DataGrid x:Name="ViewAllUserList" HorizontalAlignment="Left" Height="261" Margin="37,195,0,0" VerticalAlignment="Top" Width="561" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Width="280" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Username" Width="300" Binding="{Binding Username}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+    </Grid>
+</Window>
