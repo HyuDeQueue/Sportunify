@@ -33,7 +33,8 @@
           VerticalAlignment="Top" 
           Width="300"
           AutoGenerateColumns="False" IsReadOnly="True" Grid.ColumnSpan="4" Grid.Row="1"
-          CanUserReorderColumns="False">
+          CanUserReorderColumns="False"
+          CanUserSortColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Song Name" Width="130" Binding="{Binding Title}"/>
                 <DataGridTextColumn Header="Artist" Width="90" Binding="{Binding ArtistName}"/>
@@ -88,7 +89,7 @@
         <Button x:Name="AllSongsButton" Grid.Column="3" Content="All songs" HorizontalAlignment="Left" Height="42" Margin="191,540,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="150" Click="AllSongsButton_Click"/>
 
         <Button x:Name="LogoutButton" Content="Log Out" HorizontalAlignment="Left" Height="50" Margin="689,506,0,0" VerticalAlignment="Top" Width="165" TabIndex="6" Grid.Column="3" Grid.Row="1" Click="LogoutButton_Click" />
-
+        <MediaElement x:Name="mediaPlayer" MediaEnded="MediaPlayer_MediaEnded" LoadedBehavior="Manual" UnloadedBehavior="Stop" Visibility="Hidden" />
 
     </Grid>
 </Window>

@@ -1,10 +1,12 @@
 ﻿using Repositories.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Services.Services
 {
     public class QueueService
     {
-        private readonly Queue<Song> _songQueue = new Queue<Song>();
+        private readonly Queue<Song> _songQueue = new();
         private Song _currentSong;
         private bool _isPlaying;
 
@@ -14,7 +16,7 @@ namespace Services.Services
             {
                 _isPlaying = true;
                 _currentSong = _songQueue.Dequeue();
-                // Add logic to play the current song
+                // Add logic to play the current song (Simulated in MainWindow)
             }
         }
 
@@ -64,6 +66,8 @@ namespace Services.Services
                 // Add logic to skip to the next song
                 return true;
             }
+            _currentSong = null;
+            _isPlaying = false;
             return false;
         }
 
@@ -76,10 +80,6 @@ namespace Services.Services
 
         public Song GetCurrentSong() => _currentSong;
 
-        // Optional method to get the current queue as a list (for testing or UI purposes)
-        public List<Song> GetCurrentQueue()
-        {
-            return _songQueue.ToList();
-        }
+        public List<Song> GetCurrentQueue() => _songQueue.ToList();
     }
 }
