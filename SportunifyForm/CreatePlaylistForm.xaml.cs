@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Repositories.Models;
+using Services.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +21,9 @@ namespace SportunifyForm
     /// </summary>
     public partial class CreatePlaylistForm : Window
     {
+        private Account user;
+        private PlaylistService playlistService = new();
+
         public CreatePlaylistForm()
         {
             InitializeComponent();
@@ -26,7 +31,15 @@ namespace SportunifyForm
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to create this playlist?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if(result == MessageBoxResult.Yes)
+            {
+                string playlistName = PlaylistNameTextBox.Text;
+                string playlistDescription = PlaylistDescriptionTextBox.Text;
+                Playlist newPlaylist = new Playlist() { PlaylistName = playlistName, Description = playlistDescription, AccountId = user.AccountId };
+                playlistService.AddPlaylist(newPlaylist);
+                this.Close();
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -36,7 +49,7 @@ namespace SportunifyForm
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();   
+            this.Close();
         }
     }
 }

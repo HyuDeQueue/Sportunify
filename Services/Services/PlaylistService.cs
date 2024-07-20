@@ -15,6 +15,10 @@ namespace Services.Services
             _playlistRepository = playlistRepository;
             _inplaylistRepository = inplaylistRepository;
         }
+        public PlaylistService()
+        {
+            _playlistRepository = new PlaylistRepository();
+        }
 
         public List<Playlist> GetAllPlaylists()
         {
