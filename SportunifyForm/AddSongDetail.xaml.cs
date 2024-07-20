@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Amazon.S3;
+using Amazon.S3.Transfer;
+using Microsoft.Extensions.Configuration;
 
 namespace SportunifyForm
 {
-    /// <summary>
-    /// Interaction logic for AddSongDetail.xaml
-    /// </summary>
     public partial class AddSongDetail : Window
     {
         private Account _account;
@@ -25,12 +25,38 @@ namespace SportunifyForm
         private bool isPlaying = false;
         private CategoryService categoryService = new();
 
+        private static IAmazonS3 s3Client;
+        private static AwsSettings awsSettings;
+
         public AddSongDetail(Account account)
         {
             InitializeComponent();
             InitializeTimer();
             mediaPlayer.MediaEnded += MediaPlayer_MediaEnded;
             _account = account;
+
+            LoadAwsSettings();
+            InitializeS3Client();
+        }
+
+        private void LoadAwsSettings()
+        {
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
+
+            awsSettings = new AwsSettings();
+            configuration.GetSection("AWS").Bind(awsSettings);
+        }
+
+        private void InitializeS3Client()
+        {
+            s3Client = new AmazonS3Client(
+                awsSettings.AccessKeyId,
+                awsSettings.SecretAccessKey,
+                Amazon.RegionEndpoint.GetBySystemName(awsSettings.Region)
+            );
         }
 
         private void InitializeTimer()
@@ -68,7 +94,7 @@ namespace SportunifyForm
             timer.Stop();
             isPlaying = false;
             PlayButton.Content = "▶️"; // Change back to play icon
-            mediaPlayer.Stop(); // 
+            mediaPlayer.Stop();                           // 
         }
 
         private void BT_Click_Open(object sender, RoutedEventArgs e)
@@ -127,41 +153,25 @@ namespace SportunifyForm
 
             byte[] songMedia = FileToByteArray(fileName);
 
+            // Upload song to S3 and get the key name
+            string s3Key = await UploadFileToS3Async(songMedia, Path.GetFileName(fileName));
+
             Song newSong = new Song
             {
                 Title = songName,
                 ArtistName = author,
-                SongMedia = songMedia,
-                AccountId = _account.AccountId, // Assuming a static AccountId for now
+                SongMedia = s3Key, // Store the S3 key name
+                AccountId = _account.AccountId,
                 CategoryId = categoryId
             };
 
-            // Disable buttons and show loading animation
-            SaveButton.IsEnabled = false;
-            Close.IsEnabled = false;
-            PlayButton.IsEnabled = false;
-            LoadingSpinner.Visibility = Visibility.Visible;
+            // Create an instance of the service and add the song
+            SongService songService = new SongService();
+            songService.AddSongs(newSong);
 
-            try
-            {
-                SongService songService = new SongService();
-                await Task.Run(() => songService.AddSongs(newSong));
+            MessageBox.Show("Song saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                MessageBox.Show("Song saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                ClearForm();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Failed to save song: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            finally
-            {
-                // Re-enable buttons and hide loading animation
-                SaveButton.IsEnabled = true;
-                Close.IsEnabled = true;
-                PlayButton.IsEnabled = true;
-                LoadingSpinner.Visibility = Visibility.Collapsed;
-            }
+            ClearForm();
         }
 
         private void ClearForm()
@@ -186,6 +196,17 @@ namespace SportunifyForm
         public byte[] FileToByteArray(string filePath)
         {
             return File.ReadAllBytes(filePath);
+        }
+
+        private async Task<string> UploadFileToS3Async(byte[] fileBytes, string fileName)
+        {
+            string keyName = Guid.NewGuid() + "_" + fileName;
+            using (var stream = new MemoryStream(fileBytes))
+            {
+                var fileTransferUtility = new TransferUtility(s3Client);
+                await fileTransferUtility.UploadAsync(stream, awsSettings.BucketName, keyName);
+            }
+            return keyName;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

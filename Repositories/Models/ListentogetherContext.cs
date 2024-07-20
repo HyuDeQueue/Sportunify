@@ -27,7 +27,7 @@ public partial class ListentogetherContext : DbContext
     public virtual DbSet<Song> Songs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseMySql("server=115.73.218.193;port=3307;database=listentogether;user=root;password=12345", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.37-mysql"));
+        => optionsBuilder.UseMySql("server=localhost;port=3306;database=listentogether;user=root;password=12345", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.37-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
