@@ -61,7 +61,7 @@
                 <DataGridTemplateColumn Header="Add to Queue" Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Add to Queue" Click="AddToQueueButton_Click" Tag="{Binding}" />
+                            <Button x:Name="AddToQueueButton" Content="Add to Queue" Click="AddToQueueButton_Click" Tag="{Binding}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

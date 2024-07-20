@@ -4,6 +4,7 @@ using Repositories.Repositories;
 using Services.Services;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -15,7 +16,7 @@ namespace SportunifyForm
     /// </summary>
     public partial class AddSongDetail : Window
     {
-        private Account _account; 
+        private Account _account;
         private DispatcherTimer timer;
         private TimeSpan songDuration;
         private TimeSpan currentTime;
@@ -67,7 +68,7 @@ namespace SportunifyForm
             timer.Stop();
             isPlaying = false;
             PlayButton.Content = "▶️"; // Change back to play icon
-            mediaPlayer.Stop();                           // 
+            mediaPlayer.Stop(); // 
         }
 
         private void BT_Click_Open(object sender, RoutedEventArgs e)
@@ -118,7 +119,7 @@ namespace SportunifyForm
             this.Close();
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             string songName = SongNameTextBox.Text;
             string author = AuthorTextBox.Text;
@@ -135,13 +136,32 @@ namespace SportunifyForm
                 CategoryId = categoryId
             };
 
-            // Create an instance of the service and add the song
-            SongService songService = new SongService();
-            songService.AddSongs(newSong);
+            // Disable buttons and show loading animation
+            SaveButton.IsEnabled = false;
+            Close.IsEnabled = false;
+            PlayButton.IsEnabled = false;
+            LoadingSpinner.Visibility = Visibility.Visible;
 
-            MessageBox.Show("Song saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            try
+            {
+                SongService songService = new SongService();
+                await Task.Run(() => songService.AddSongs(newSong));
 
-            ClearForm();
+                MessageBox.Show("Song saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                ClearForm();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to save song: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                // Re-enable buttons and hide loading animation
+                SaveButton.IsEnabled = true;
+                Close.IsEnabled = true;
+                PlayButton.IsEnabled = true;
+                LoadingSpinner.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void ClearForm()

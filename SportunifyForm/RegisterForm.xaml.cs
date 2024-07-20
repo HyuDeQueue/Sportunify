@@ -1,18 +1,9 @@
 ﻿using Repositories.Models;
 using Services.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SportunifyForm
 {
@@ -22,12 +13,13 @@ namespace SportunifyForm
     public partial class RegisterForm : Window
     {
         private readonly AccountService _accountService = new();
+
         public RegisterForm()
         {
             InitializeComponent();
         }
 
-        private void Register_Button_Click(object sender, RoutedEventArgs e)
+        private async void Register_Button_Click(object sender, RoutedEventArgs e)
         {
             var name = NameTextBox.Text.Trim();
             var username = UsernameTextBox.Text.Trim();
@@ -49,20 +41,42 @@ namespace SportunifyForm
                 return;
             }
 
-            Account account = new Account();
-            account.Name = name;
-            account.Username = username;
-            account.Password = password;
+            Account account = new Account
+            {
+                Name = name,
+                Username = username,
+                Password = password
+            };
 
-            var existingAccount = _accountService.CheckAccountExists(account);
+            // Show the loading spinner and disable buttons
+            LoadingSpinner.Visibility = Visibility.Visible;
+            Register_Button.IsEnabled = false;
+            Login_Button.IsEnabled = false;
+            Close_Button.IsEnabled = false;
+
+            var existingAccount = await Task.Run(() => _accountService.CheckAccountExists(account));
             if (existingAccount != null)
             {
                 MessageBox.Show("Username already exists.");
+                LoadingSpinner.Visibility = Visibility.Collapsed;
+                Register_Button.IsEnabled = true;
+                Login_Button.IsEnabled = true;
+                Close_Button.IsEnabled = true;
                 return;
             }
 
-            _accountService.Register(account);
+            await Task.Run(() => _accountService.Register(account));
 
+            // Hide the spinner and re-enable buttons
+            LoadingSpinner.Visibility = Visibility.Collapsed;
+            Register_Button.IsEnabled = true;
+            Login_Button.IsEnabled = true;
+            Close_Button.IsEnabled = true;
+
+            // Show success message
+            MessageBox.Show("Registration Success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            // Open the login form and close the registration form
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
             this.Close();

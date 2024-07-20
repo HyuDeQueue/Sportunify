@@ -60,5 +60,13 @@
                 <TextBlock x:Name="RemainingTimeTextBlock" Foreground="White" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0" Grid.Column="2"/>
             </Grid>
         </StackPanel>
+
+        <!-- Loading Spinner -->
+        <Border x:Name="LoadingSpinner" Background="#000000AA" CornerRadius="5" BorderBrush="Transparent" BorderThickness="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Saving..." Foreground="White" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                <ProgressBar IsIndeterminate="True" Width="100" Height="10" Foreground="#1DB954" Background="#404040"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

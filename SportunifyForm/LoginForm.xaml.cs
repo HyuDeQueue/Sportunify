@@ -1,18 +1,8 @@
 ﻿using Repositories.Models;
 using Services.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SportunifyForm
 {
@@ -34,7 +24,7 @@ namespace SportunifyForm
             }
         }
 
-        private void Login_Button_Click(object sender, RoutedEventArgs e)
+        private async void Login_Button_Click(object sender, RoutedEventArgs e)
         {
             string username = UsernameTextBox.Text;
             string password = PasswordTextBox.Password;
@@ -44,11 +34,22 @@ namespace SportunifyForm
                 MessageBox.Show("Please fill out all form fields.");
                 return;
             }
-            Account account = new Account();
-            account.Username = username;
-            account.Password = password;
+
+            Account account = new Account
+            {
+                Username = username,
+                Password = password
+            };
+
             var accountService = new AccountService(); // Assuming you have this service
-            var loggedAccount = accountService.Login(account);
+
+            // Show the loading spinner and disable buttons
+            LoadingSpinner.Visibility = Visibility.Visible;
+            Login_Button.IsEnabled = false;
+            Register_Button.IsEnabled = false;
+            Close_Button.IsEnabled = false;
+
+            Account loggedAccount = await Task.Run(() => accountService.Login(account));
 
             if (loggedAccount != null)
             {
@@ -60,6 +61,12 @@ namespace SportunifyForm
             {
                 MessageBox.Show("Username or password is not correct.");
             }
+
+            // Hide the loading spinner and enable buttons
+            LoadingSpinner.Visibility = Visibility.Collapsed;
+            Login_Button.IsEnabled = true;
+            Register_Button.IsEnabled = true;
+            Close_Button.IsEnabled = true;
         }
 
         private void Register_Button_Click(object sender, RoutedEventArgs e)

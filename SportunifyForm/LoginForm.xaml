@@ -13,7 +13,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Border CornerRadius="10" Grid.RowSpan="2" >
+            <Border CornerRadius="10" Grid.RowSpan="2">
                 <Border.Background>
                     <LinearGradientBrush>
                         <GradientStop Color="#7be9f6" Offset="0.8"/>
@@ -27,7 +27,7 @@
                 <TextBlock Text="Sportunify" FontWeight="Bold" FontFamily="helvetica" FontSize="22" Foreground="BlueViolet" HorizontalAlignment="Center"/>
             </StackPanel>
 
-            <StackPanel Grid.Row="1" >
+            <StackPanel Grid.Row="1">
                 <StackPanel Orientation="Horizontal">
                     <TextBox x:Name="UsernameTextBox" FontFamily="helvetica" FontWeight="Light" Text="Username" FontSize="20" HorizontalAlignment="Center" Foreground="White" Background="Transparent" BorderThickness="0" Width="235" HorizontalContentAlignment="Left" Opacity="0.5" Height="25" Margin="40, 0, 0, 0"/>
                 </StackPanel>
@@ -46,7 +46,15 @@
             </StackPanel>
 
             <Button x:Name="Close_Button" Content="X" Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" Foreground="White" BorderThickness="0" FontSize="16" FontWeight="Bold" Click="Close_Button_Click" Margin="0,10,10,0"/>
-            
+
         </Grid>
+
+        <!-- Loading Spinner -->
+        <Border x:Name="LoadingSpinner" Background="#000000AA" CornerRadius="5" BorderBrush="Transparent" BorderThickness="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Logging in..." Foreground="White" FontSize="16" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                <ProgressBar IsIndeterminate="True" Width="100" Height="10" Foreground="#1DB954" Background="#404040"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

@@ -27,10 +27,10 @@ namespace SportunifyForm
             detail.ShowDialog();
         }
 
-        private void SongMainWindow_Loaded(object sender, RoutedEventArgs e)
+        private async void SongMainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             HelloNameLabel.Content = $"Hello, {_account.Name}!";
-            SongListDataGrid.ItemsSource = _songService.GetSongsFromAccount(_account.AccountId);
+            SongListDataGrid.ItemsSource = await Task.Run(() => _songService.GetSongsFromAccount(_account.AccountId));
         }
 
         private void QuitButton_Click(object sender, RoutedEventArgs e)
@@ -44,14 +44,14 @@ namespace SportunifyForm
             getAllUserForm.ShowDialog();
         }
 
-        private void YourSongsButton_Click(object sender, RoutedEventArgs e)
+        private async void YourSongsButton_Click(object sender, RoutedEventArgs e)
         {
-            SongListDataGrid.ItemsSource = _songService.GetSongsFromAccount(_account.AccountId);
+            SongListDataGrid.ItemsSource = await Task.Run(() => _songService.GetSongsFromAccount(_account.AccountId));
         }
 
-        private void AllSongsButton_Click(object sender, RoutedEventArgs e)
+        private async void AllSongsButton_Click(object sender, RoutedEventArgs e)
         {
-            SongListDataGrid.ItemsSource = _songService.GetAllSongs();
+            SongListDataGrid.ItemsSource = await Task.Run(() => _songService.GetAllSongs());
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
