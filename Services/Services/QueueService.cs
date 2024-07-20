@@ -1,14 +1,10 @@
 ﻿using Repositories.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Services.Services
 {
     public class QueueService
     {
         private readonly Queue<Song> _songQueue = new Queue<Song>();
-        private readonly Queue<Playlist> _playlistQueue = new Queue<Playlist>();
         private Song _currentSong;
         private bool _isPlaying;
 
@@ -43,7 +39,6 @@ namespace Services.Services
         public void ClearQueue()
         {
             _songQueue.Clear();
-            _playlistQueue.Clear();
             _currentSong = null;
             _isPlaying = false;
         }
@@ -77,41 +72,9 @@ namespace Services.Services
             _songQueue.Enqueue(song);
         }
 
-        public void AddPlaylistToQueue(Playlist playlist)
-        {
-            // Assuming you want to add all songs from the playlist to the queue
-            foreach (var inplaylist in playlist.PlaylistSongs.OrderBy(ip => ip.Position))
-            {
-                _songQueue.Enqueue(inplaylist.Song);
-            }
-        }
+        public bool IsPlaying => _isPlaying;
 
-        public bool RemoveSongFromQueue(Song song)
-        {
-            var list = _songQueue.ToList();
-            if (list.Remove(song))
-            {
-                _songQueue.Clear();
-                foreach (var s in list)
-                {
-                    _songQueue.Enqueue(s);
-                }
-                return true;
-            }
-            return false;
-        }
-
-        public void ReplaceCurrentQueueWithPlaylist(Playlist playlist)
-        {
-            _songQueue.Clear();
-            AddPlaylistToQueue(playlist);
-        }
-
-        public void ReplaceCurrentQueueWithSong(Song song)
-        {
-            _songQueue.Clear();
-            _songQueue.Enqueue(song);
-        }
+        public Song GetCurrentSong() => _currentSong;
 
         // Optional method to get the current queue as a list (for testing or UI purposes)
         public List<Song> GetCurrentQueue()
