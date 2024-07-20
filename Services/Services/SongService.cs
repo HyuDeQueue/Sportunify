@@ -41,26 +41,5 @@ namespace Services.Services
         {
             return _songRepository.GetSongById(songId);
         }
-
-        public String CategoryMeaning(int id)
-        {
-            switch (id)
-            {
-                case 1:
-                    return "Nhạc buồn";
-                case 2:
-                    return "Nhạc sàn";
-                case 3:
-                    return "Nhạc KPOP";
-                case 4:
-                    return "Nhạc USUK";
-                case 5:
-                    return "Nhạc Việt";
-                case 6:
-                    return "Nhạc không lời";
-                default:
-                    return "Chưa phân loại";   
-            }
-        }
     }
 }
