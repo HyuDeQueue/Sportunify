@@ -50,7 +50,6 @@ namespace SportunifyForm
             GetAllUserForm getAllUserForm = new GetAllUserForm();   
             getAllUserForm.ShowDialog();
         }
-
         private void YourSongsButton_Click(object sender, RoutedEventArgs e)
         {
             SongListDataGrid.ItemsSource = null;
@@ -61,6 +60,13 @@ namespace SportunifyForm
         {
             SongListDataGrid.ItemsSource = null;
             SongListDataGrid.ItemsSource = songService.GetAllSongs();
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+            this.Close();
         }
     }
 }

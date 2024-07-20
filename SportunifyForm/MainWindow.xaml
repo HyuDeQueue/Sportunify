@@ -25,7 +25,7 @@
         <Button x:Name="CreateButton" Content="Create Song" HorizontalAlignment="Left" Height="50" Margin="689,267,0,0" VerticalAlignment="Top" Width="165" TabIndex="4" Grid.Column="3" Grid.Row="1" Click="CreateButton_Click" />
         <Button x:Name="UpdateButton" Content="Update Song" HorizontalAlignment="Left" Height="50" Margin="689,345,0,0" VerticalAlignment="Top" Width="165" TabIndex="5" Grid.Column="3" Grid.Row="1" />
         <Button x:Name="DeleteButton" Content="Delete Song" HorizontalAlignment="Left" Height="50" Margin="689,428,0,0" VerticalAlignment="Top" Width="165" TabIndex="6" Grid.Column="3" Grid.Row="1" />
-        <Button x:Name="QuitButton" Content="Quit" HorizontalAlignment="Left" Height="50" Margin="689,507,0,0" VerticalAlignment="Top" Width="165" TabIndex="7" Grid.Column="3" Grid.Row="1" Click="QuitButton_Click" />
+        <Button x:Name="QuitButton" Content="Quit" HorizontalAlignment="Left" Height="50" Margin="689,587,0,0" VerticalAlignment="Top" Width="165" TabIndex="7" Grid.Column="3" Grid.Row="1" Click="QuitButton_Click" />
         <DataGrid x:Name="QueueDataGrid" 
                   HorizontalAlignment="Left" 
                   Height="292" 
@@ -76,8 +76,12 @@
         </DataGrid>
         <Label Content="Your Playlists:" Grid.RowSpan="2" Margin="356,182,241,426" FontSize="20" FontWeight="Bold" Grid.Column="3"/>
         <Button x:Name="ViewAllUser" Content="View User" HorizontalAlignment="Left" Height="50" Margin="689,189,0,0" VerticalAlignment="Top" Width="165" TabIndex="4" Grid.Column="3" Grid.Row="1" Click="ViewAllUser_Click"/>
+
         <Button x:Name="YourSongsButton" Grid.Column="3" Content="Your songs" HorizontalAlignment="Left" Height="42" Margin="36,540,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="150" Click="YourSongsButton_Click"/>
         <Button x:Name="AllSongsButton" Grid.Column="3" Content="All songs" HorizontalAlignment="Left" Height="42" Margin="191,540,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="150" Click="AllSongsButton_Click"/>
+
+        <Button x:Name="LogoutButton" Content="Log Out" HorizontalAlignment="Left" Height="50" Margin="689,506,0,0" VerticalAlignment="Top" Width="165" TabIndex="6" Grid.Column="3" Grid.Row="1" Click="LogoutButton_Click" />
+
 
     </Grid>
 </Window>

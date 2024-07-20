@@ -11,11 +11,11 @@ namespace Services.Services
     public class AccountService
     {
         private AccountRepository _repo = new();
+
         public List<Account> GetAllAccounts()
         {
             return _repo.GetAllAccounts();
         }
-
         public Account CheckAccountExists(Account account)
         {
             return _repo.FindAccount(account.Username);
@@ -29,7 +29,7 @@ namespace Services.Services
         {
             Account loggedIn = _repo.GetAccount(account);
             if (loggedIn is not null)
-            { 
+            {
                 return loggedIn;
             }
             else
@@ -38,10 +38,5 @@ namespace Services.Services
             }
         }
 
-
-        public void GetPlaylistsFromAccount()
-        {
-
-        }
     }
 }
