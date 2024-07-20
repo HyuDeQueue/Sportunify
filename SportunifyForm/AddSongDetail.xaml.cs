@@ -1,5 +1,9 @@
 ﻿using Microsoft.Win32;
+using Repositories.Models;
+using Repositories.Repositories;
+using Services.Services;
 using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -11,18 +15,21 @@ namespace SportunifyForm
     /// </summary>
     public partial class AddSongDetail : Window
     {
+        private Account _account; 
         private DispatcherTimer timer;
         private TimeSpan songDuration;
         private TimeSpan currentTime;
         private MediaPlayer mediaPlayer = new MediaPlayer();
         private string fileName;
         private bool isPlaying = false;
+        private CategoryService categoryService = new();
 
-        public AddSongDetail()
+        public AddSongDetail(Account account)
         {
             InitializeComponent();
             InitializeTimer();
             mediaPlayer.MediaEnded += MediaPlayer_MediaEnded;
+            _account = account;
         }
 
         private void InitializeTimer()
@@ -109,6 +116,42 @@ namespace SportunifyForm
         {
             mediaPlayer.Pause();
             this.Close();
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            string songName = SongNameTextBox.Text;
+            string author = AuthorTextBox.Text;
+            int categoryId = (int)SongCategoryIdComboBox.SelectedValue;
+
+            byte[] songMedia = FileToByteArray(fileName);
+
+            Song newSong = new Song
+            {
+                Title = songName,
+                ArtistName = author,
+                SongMedia = songMedia,
+                AccountId = _account.AccountId, // Assuming a static AccountId for now
+                CategoryId = categoryId
+            };
+
+            // Create an instance of the service and add the song
+            SongService songService = new SongService(new SongRepository());
+            songService.AddSongs(newSong);
+
+            MessageBox.Show("Song saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        public byte[] FileToByteArray(string filePath)
+        {
+            return File.ReadAllBytes(filePath);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            SongCategoryIdComboBox.ItemsSource = categoryService.GetAllCategories();
+            SongCategoryIdComboBox.DisplayMemberPath = "CategoryName";
+            SongCategoryIdComboBox.SelectedValuePath = "CategoryId";
         }
     }
 }

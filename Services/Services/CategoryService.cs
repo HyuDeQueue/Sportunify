@@ -6,12 +6,8 @@ namespace Services.Services
 {
     public class CategoryService
     {
-        private readonly CategoryRepository _categoryRepository;
+        private CategoryRepository _categoryRepository = new();
 
-        public CategoryService(CategoryRepository categoryRepository)
-        {
-            _categoryRepository = categoryRepository;
-        }
 
         public List<Category> GetAllCategories()
         {

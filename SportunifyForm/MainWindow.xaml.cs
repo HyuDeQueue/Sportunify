@@ -28,7 +28,7 @@ namespace SportunifyForm
         }
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            AddSongDetail detail = new();
+            AddSongDetail detail = new(_account);
             detail.ShowDialog();
         }
         private void SongMainWindow_Loaded(object sender, RoutedEventArgs e)
