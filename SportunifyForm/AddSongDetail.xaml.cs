@@ -124,7 +124,33 @@ namespace SportunifyForm
         {
             string songName = SongNameTextBox.Text;
             string author = AuthorTextBox.Text;
-            int categoryId = (int)SongCategoryIdComboBox.SelectedValue;
+            int? categoryId = SongCategoryIdComboBox.SelectedValue as int?;
+            string fileName = FileName.Text;
+
+            // Validate form fields
+            if (string.IsNullOrEmpty(songName))
+            {
+                MessageBox.Show("Please enter a song name.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(author))
+            {
+                MessageBox.Show("Please enter the author's name.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (!categoryId.HasValue)
+            {
+                MessageBox.Show("Please select a song category.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(fileName))
+            {
+                MessageBox.Show("Please open a song file.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
             byte[] songMedia = FileToByteArray(fileName);
 
@@ -134,7 +160,7 @@ namespace SportunifyForm
                 ArtistName = author,
                 SongMedia = songMedia,
                 AccountId = _account.AccountId, // Assuming a static AccountId for now
-                CategoryId = categoryId
+                CategoryId = categoryId.Value
             };
 
             // Disable buttons and show loading animation
@@ -164,6 +190,7 @@ namespace SportunifyForm
                 LoadingSpinner.Visibility = Visibility.Collapsed;
             }
         }
+
 
         private void ClearForm()
         {
