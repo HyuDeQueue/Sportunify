@@ -23,7 +23,7 @@
 
                 <!-- Song Category -->
                 <Label Content="Song Category" Margin="0,20,0,0" Foreground="White" FontSize="16"/>
-                <ComboBox x:Name="SongCategoryIdComboBox" Margin="0,5,0,0" FontSize="16" Background="#404040" Foreground="White" BorderBrush="Transparent" Height="30"/>
+                <ComboBox x:Name="SongCategoryIdComboBox" Margin="0,5,0,0" FontSize="16" Background="#404040" Foreground="Black" BorderBrush="Transparent" Height="30"/>
 
                 <!-- Add Song -->
                 <Label Content="Add Song" Margin="0,20,0,0" Foreground="White" FontSize="16"/>

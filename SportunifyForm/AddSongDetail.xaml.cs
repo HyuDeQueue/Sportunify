@@ -140,6 +140,27 @@ namespace SportunifyForm
             songService.AddSongs(newSong);
 
             MessageBox.Show("Song saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            ClearForm();
+        }
+
+        private void ClearForm()
+        {
+            SongNameTextBox.Clear();
+            AuthorTextBox.Clear();
+            SongCategoryIdComboBox.SelectedIndex = -1;
+            FileName.Text = string.Empty;
+
+            mediaPlayer.Stop();
+            mediaPlayer.Close();
+            fileName = string.Empty;
+
+            TimelineProgressBar.Value = 0;
+            ElapsedTimeTextBlock.Text = "00:00";
+            RemainingTimeTextBlock.Text = "00:00";
+            PlayButton.Content = "▶️";
+            isPlaying = false;
+            timer.Stop();
         }
 
         public byte[] FileToByteArray(string filePath)
