@@ -185,6 +185,7 @@ namespace SportunifyForm
             timer.Stop();
         }
 
+
         public byte[] FileToByteArray(string filePath)
         {
             return File.ReadAllBytes(filePath);

@@ -111,7 +111,19 @@ namespace SportunifyForm
         private async void SongMainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             HelloNameLabel.Content = $"Hello, {_account.Name}!";
-            SongListDataGrid.ItemsSource = await Task.Run(() => _songService.GetSongsFromAccount(_account.AccountId));
+            //SongListDataGrid.ItemsSource = await Task.Run(() => _songService.GetSongsFromAccount(_account.AccountId));
+
+            try
+            {
+                var songs = await Task.Run(() => _songService.GetSongsFromAccount(_account.AccountId));
+                SongListDataGrid.ItemsSource = songs;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching user's songs: {ex.Message}");
+
+                MessageBox.Show("Unable to retrieve your songs. Please try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void QuitButton_Click(object sender, RoutedEventArgs e)
@@ -137,12 +149,36 @@ namespace SportunifyForm
 
         private async void YourSongsButton_Click(object sender, RoutedEventArgs e)
         {
-            SongListDataGrid.ItemsSource = await Task.Run(() => _songService.GetSongsFromAccount(_account.AccountId));
+            try
+            {
+                var songs = await Task.Run(() => _songService.GetSongsFromAccount(_account.AccountId));
+                SongListDataGrid.ItemsSource = songs;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (optional)
+                Console.WriteLine($"Error fetching user's songs: {ex.Message}");
+
+                // Notify the user
+                MessageBox.Show("Unable to retrieve your songs. Please try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private async void AllSongsButton_Click(object sender, RoutedEventArgs e)
         {
-            SongListDataGrid.ItemsSource = await Task.Run(() => _songService.GetAllSongs());
+            try
+            {
+                var songs = await Task.Run(() => _songService.GetAllSongs());
+                SongListDataGrid.ItemsSource = songs;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (optional)
+                Console.WriteLine($"Error fetching all songs: {ex.Message}");
+
+                // Notify the user
+                MessageBox.Show("Unable to retrieve all songs. Please try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
@@ -158,7 +194,6 @@ namespace SportunifyForm
             {
                 _queueService.AddSongToQueue(selectedSong);
                 UpdateQueueDataGrid();
-                MessageBox.Show("Song added to queue: " + selectedSong.Title);
                 if (!_queueService.IsPlaying)
                 {
                     PlayNextSongInQueue();
@@ -187,6 +222,33 @@ namespace SportunifyForm
             }
         }
 
+
+        private void RemoveFromQueueButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is Song selectedSong)
+            {
+                _queueService.RemoveSongFromQueue(selectedSong);
+                UpdateQueueDataGrid();
+            }
+        }
+
+        private void MoveUpQueueButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is Song selectedSong)
+            {
+                _queueService.MoveSongUpInQueue(selectedSong);
+                UpdateQueueDataGrid();
+            }
+        }
+
+        private void MoveDownQueueButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is Song selectedSong)
+            {
+                _queueService.MoveSongDownInQueue(selectedSong);
+                UpdateQueueDataGrid();
+            }
+        }
         private void PlaySongFromBytes(byte[] songBytes)
         {
             try
