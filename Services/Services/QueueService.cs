@@ -3,14 +3,14 @@
 public class QueueService
 {
     private Queue<Song> _songQueue;
-    private List<Song> _originalQueue; // Lưu trữ hàng đợi ban đầu để shuffle
+    private List<Song> _playedSongs;
     private Song _currentSong;
     private bool _isPlaying;
 
     public QueueService()
     {
         _songQueue = new Queue<Song>();
-        _originalQueue = new List<Song>();
+        _playedSongs = new List<Song>();
     }
 
     public bool AddSongToQueue(Song song)
@@ -18,7 +18,6 @@ public class QueueService
         if (song != null)
         {
             _songQueue.Enqueue(song);
-            _originalQueue.Add(song); // Cập nhật hàng đợi ban đầu
             return true;
         }
         return false;
@@ -28,6 +27,11 @@ public class QueueService
     {
         if (_songQueue.Any())
         {
+            if (_currentSong != null)
+            {
+                _playedSongs.Add(_currentSong);
+            }
+
             _currentSong = _songQueue.Dequeue();
             _isPlaying = true;
             return _currentSong;
@@ -45,8 +49,9 @@ public class QueueService
     public void ShuffleQueue()
     {
         var rng = new Random();
-        var shuffledQueue = _originalQueue.OrderBy(x => rng.Next()).ToList();
-        _songQueue = new Queue<Song>(shuffledQueue);
+        var unplayedSongs = _songQueue.ToList();
+        unplayedSongs = unplayedSongs.OrderBy(x => rng.Next()).ToList();
+        _songQueue = new Queue<Song>(unplayedSongs);
     }
 
     public List<Song> GetCurrentQueue()
@@ -61,29 +66,32 @@ public class QueueService
 
     public void RemoveSongFromQueue(Song song)
     {
-        _originalQueue.Remove(song);
-        _songQueue = new Queue<Song>(_originalQueue);
+        var tempQueue = _songQueue.ToList();
+        tempQueue.Remove(song);
+        _songQueue = new Queue<Song>(tempQueue);
     }
 
     public void MoveSongUpInQueue(Song song)
     {
-        int index = _originalQueue.IndexOf(song);
+        var tempQueue = _songQueue.ToList();
+        int index = tempQueue.IndexOf(song);
         if (index > 0)
         {
-            _originalQueue.RemoveAt(index);
-            _originalQueue.Insert(index - 1, song);
-            _songQueue = new Queue<Song>(_originalQueue);
+            tempQueue.RemoveAt(index);
+            tempQueue.Insert(index - 1, song);
+            _songQueue = new Queue<Song>(tempQueue);
         }
     }
 
     public void MoveSongDownInQueue(Song song)
     {
-        int index = _originalQueue.IndexOf(song);
-        if (index < _originalQueue.Count - 1)
+        var tempQueue = _songQueue.ToList();
+        int index = tempQueue.IndexOf(song);
+        if (index < tempQueue.Count - 1)
         {
-            _originalQueue.RemoveAt(index);
-            _originalQueue.Insert(index + 1, song);
-            _songQueue = new Queue<Song>(_originalQueue);
+            tempQueue.RemoveAt(index);
+            tempQueue.Insert(index + 1, song);
+            _songQueue = new Queue<Song>(tempQueue);
         }
     }
 }
