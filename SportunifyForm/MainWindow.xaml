@@ -29,7 +29,7 @@
         <DataGrid x:Name="QueueDataGrid" 
           HorizontalAlignment="Left" 
           Height="292" 
-          Margin="39,244,0,0" 
+          Margin="40,235,0,0" 
           VerticalAlignment="Top" 
           Width="300"
           AutoGenerateColumns="False" IsReadOnly="True" Grid.ColumnSpan="4" Grid.Row="1"
@@ -43,7 +43,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <TextBox x:Name="NowPlayingTextBox" HorizontalAlignment="Left" Height="25" Margin="40,214,0,0" TextWrapping="Wrap" Text="Now Playing: " VerticalAlignment="Top" Width="299" FontSize="17" Grid.ColumnSpan="4" IsEnabled="False" Foreground="#1DB954" Background="#191414" Grid.Row="1" />
+        <TextBox x:Name="NowPlayingTextBox" HorizontalAlignment="Left" Height="25" Margin="41,205,0,0" TextWrapping="Wrap" Text="Now Playing: " VerticalAlignment="Top" Width="299" FontSize="17" Grid.ColumnSpan="4" IsEnabled="False" Foreground="#1DB954" Background="#191414" Grid.Row="1" />
         <Label Content="Artist" HorizontalAlignment="Left" Height="30" Margin="142,120,0,0" VerticalAlignment="Top" Width="54" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1"/>
         <Label Content="Song Name" HorizontalAlignment="Left" Height="45" Margin="66,112,0,0" VerticalAlignment="Top" Width="107" Foreground="#FFFFFF" Grid.ColumnSpan="2" Grid.Row="1"/>
         <TextBox x:Name="ArtistTextBox" HorizontalAlignment="Left" Height="26" Margin="201,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" TabIndex="0" Grid.Column="3" Grid.Row="1"/>
@@ -51,7 +51,7 @@
         <DataGrid x:Name="SongListDataGrid" 
           HorizontalAlignment="Left" 
           Height="292" 
-          Margin="36,243,0,0" 
+          Margin="37,234,0,0" 
           VerticalAlignment="Top" 
           Width="400"
           AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" Grid.Column="3"
@@ -103,11 +103,11 @@
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Your Queue:" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="36,177,53,460" FontSize="20" FontWeight="Bold" Foreground="#1DB954"/>
-        <Label Content="Songs:" Grid.RowSpan="2" Margin="36,182,561,391" FontSize="20" FontWeight="Bold" Foreground="#1DB954" Grid.Column="3"/>
+        <Label Content="Songs:" Grid.RowSpan="2" Margin="37,173,560,400" FontSize="20" FontWeight="Bold" Foreground="#1DB954" Grid.Column="3"/>
         <DataGrid x:Name="PlaylistDataGrid" 
             HorizontalAlignment="Left" 
             Height="292" 
-            Margin="441,243,0,0" 
+            Margin="442,234,0,0" 
             VerticalAlignment="Top" 
             Width="200"
             AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" Grid.Column="3"
@@ -117,47 +117,58 @@
                 <DataGridTextColumn Header="Description" Width="200"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Your Playlists:" Grid.RowSpan="2" Margin="441,182,221,426" FontSize="20" FontWeight="Bold" Foreground="#1DB954" Grid.Column="3"/>
+        <Label Content="Your Playlists:" Grid.RowSpan="2" Margin="442,173,220,435" FontSize="20" FontWeight="Bold" Foreground="#1DB954" Grid.Column="3"/>
         <Button x:Name="ViewAllUser" Content="View User" HorizontalAlignment="Left" Height="50" Margin="689,189,0,0" VerticalAlignment="Top" Width="165" TabIndex="4" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="ViewAllUser_Click"/>
 
-        <Button x:Name="YourSongsButton" Grid.Column="3" Content="Your songs" HorizontalAlignment="Left" Height="42" Margin="70,555,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="150" Background="#1DB954" Foreground="#FFFFFF" Click="YourSongsButton_Click"/>
-        <Button x:Name="AllSongsButton" Grid.Column="3" Content="All songs" HorizontalAlignment="Left" Height="42" Margin="250,555,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="150" Background="#1DB954" Foreground="#FFFFFF" Click="AllSongsButton_Click"/>
+        <Button x:Name="YourSongsButton" Grid.Column="3" Content="Your songs" HorizontalAlignment="Left" Height="42" Margin="70,590,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="150" Background="#1DB954" Foreground="#FFFFFF" Click="YourSongsButton_Click"/>
+        <Button x:Name="AllSongsButton" Grid.Column="3" Content="All songs" HorizontalAlignment="Left" Height="42" Margin="250,590,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="150" Background="#1DB954" Foreground="#FFFFFF" Click="AllSongsButton_Click"/>
 
         <Button x:Name="LogoutButton" Content="Log Out" HorizontalAlignment="Left" Height="50" Margin="689,506,0,0" VerticalAlignment="Top" Width="165" TabIndex="6" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="LogoutButton_Click" />
         <MediaElement x:Name="mediaPlayer" MediaOpened="MediaPlayer_MediaOpened" MediaEnded="MediaPlayer_MediaEnded" LoadedBehavior="Manual" UnloadedBehavior="Stop" Visibility="Hidden" />
 
         <!-- Media control buttons -->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="100,506,0,0" Grid.Row="1" Grid.ColumnSpan="4">
-            <Button x:Name="PlayPauseButton" Width="50" Height="50" Margin="5" Click="PlayPauseButton_Click">
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Grid>
-                            <Ellipse Fill="#1DB954" Width="50" Height="50"/>
-                            <TextBlock x:Name="PlayPauseTextBlock" Text="▶️" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
-                        </Grid>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Button x:Name="NextButton" Width="50" Height="50" Margin="5" Click="NextButton_Click">
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Grid>
-                            <Ellipse Fill="#1DB954" Width="50" Height="50"/>
-                            <TextBlock Text="⏭️" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
-                        </Grid>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            <Button x:Name="ShuffleButton" Width="50" Height="50" Margin="5" Click="ShuffleButton_Click">
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Grid>
-                            <Ellipse Fill="#1DB954" Width="50" Height="50"/>
-                            <TextBlock Text="🔀" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
-                        </Grid>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="101,530,0,0" Grid.Row="1" Grid.ColumnSpan="4">
+            <!-- Progress bar with song info -->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="-55,0,0,0">
+                <TextBlock x:Name="CurrentTimeTextBlock" Text="00:00" Foreground="White" VerticalAlignment="Center" Margin="5"/>
+                <ProgressBar x:Name="SongProgressBar" Width="200" Height="10" Margin="5" Maximum="100"/>
+                <TextBlock x:Name="TotalTimeTextBlock" Text="00:00" Foreground="White" VerticalAlignment="Center" Margin="5"/>
+            </StackPanel>
+            <TextBlock x:Name="SongInfoTextBlock" Text="Song - Artist" Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="-40,5,5,5"/>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="PlayPauseButton" Width="50" Height="50" Margin="5" Click="PlayPauseButton_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Ellipse Fill="#1DB954" Width="50" Height="50"/>
+                                <TextBlock x:Name="PlayPauseTextBlock" Text="▶️" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button x:Name="NextButton" Width="50" Height="50" Margin="5" Click="NextButton_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Ellipse Fill="#1DB954" Width="50" Height="50"/>
+                                <TextBlock Text="⏭️" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button x:Name="ShuffleButton" Width="50" Height="50" Margin="5" Click="ShuffleButton_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Ellipse Fill="#1DB954" Width="50" Height="50"/>
+                                <TextBlock Text="🔀" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+
+            <!-- Media control buttons -->
         </StackPanel>
     </Grid>
 </Window>

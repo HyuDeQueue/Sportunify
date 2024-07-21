@@ -8,6 +8,7 @@ using Services.Services;
 using System.ComponentModel;
 using System.Windows.Data;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace SportunifyForm
 {
@@ -18,6 +19,8 @@ namespace SportunifyForm
         private readonly QueueService _queueService = new();
         private string _currentTempFilePath;
         private bool _isPlaying;
+        private readonly DispatcherTimer _timer = new DispatcherTimer();
+        private TimeSpan _totalDuration;
 
         public bool IsPlaying
         {
@@ -38,8 +41,24 @@ namespace SportunifyForm
             InitializeComponent();
             DataContext = this;
             _account = account;
-            mediaPlayer.LoadedBehavior = MediaState.Manual; // Ensure manual control of the media element
+            mediaPlayer.LoadedBehavior = MediaState.Manual;
             mediaPlayer.UnloadedBehavior = MediaState.Manual;
+
+            _timer.Interval = TimeSpan.FromSeconds(1);
+            _timer.Tick += Timer_Tick;
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            if (mediaPlayer.NaturalDuration.HasTimeSpan)
+            {
+                _totalDuration = mediaPlayer.NaturalDuration.TimeSpan;
+                SongProgressBar.Maximum = _totalDuration.TotalSeconds;
+                SongProgressBar.Value = mediaPlayer.Position.TotalSeconds;
+
+                CurrentTimeTextBlock.Text = mediaPlayer.Position.ToString(@"mm\:ss");
+                TotalTimeTextBlock.Text = _totalDuration.ToString(@"mm\:ss");
+            }
         }
 
         private void PlayPauseButton_Click(object sender, RoutedEventArgs e)
@@ -173,7 +192,6 @@ namespace SportunifyForm
         {
             try
             {
-                // Delete previous temp file if exists
                 if (!string.IsNullOrEmpty(_currentTempFilePath) && File.Exists(_currentTempFilePath))
                 {
                     try
@@ -186,24 +204,29 @@ namespace SportunifyForm
                     }
                 }
 
-                // Write byte array to temp file
                 _currentTempFilePath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".mp3");
                 File.WriteAllBytes(_currentTempFilePath, songBytes);
 
-                // Check if temp file exists and can be read
                 if (!File.Exists(_currentTempFilePath))
                 {
                     MessageBox.Show("Temp file does not exist after creation.");
                     return;
                 }
 
-                // Set source for MediaElement and play file
                 mediaPlayer.Source = new Uri(_currentTempFilePath, UriKind.Absolute);
-                mediaPlayer.Volume = 0.5; // Ensure volume is not muted
+                mediaPlayer.Volume = 0.5;
                 mediaPlayer.MediaOpened += MediaPlayer_MediaOpened;
-                mediaPlayer.MediaFailed += MediaPlayer_MediaFailed; // Handle MediaFailed event
+                mediaPlayer.MediaFailed += MediaPlayer_MediaFailed;
                 mediaPlayer.Play();
                 IsPlaying = true;
+
+                _timer.Start();
+
+                var currentSong = _queueService.GetCurrentSong();
+                if (currentSong != null)
+                {
+                    SongInfoTextBlock.Text = $"{currentSong.Title} - {currentSong.ArtistName}";
+                }
             }
             catch (Exception ex)
             {
@@ -218,11 +241,13 @@ namespace SportunifyForm
 
         private void MediaPlayer_MediaEnded(object sender, RoutedEventArgs e)
         {
+            _timer.Stop();
             OnSongFinishedPlaying();
         }
 
         private void MediaPlayer_MediaFailed(object sender, ExceptionRoutedEventArgs e)
         {
+            _timer.Stop();
             MessageBox.Show("MediaFailed event triggered: " + e.ErrorException.Message);
         }
 
