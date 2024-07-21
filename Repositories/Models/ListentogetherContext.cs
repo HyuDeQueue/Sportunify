@@ -27,19 +27,37 @@ public partial class ListentogetherContext : DbContext
 
     public virtual DbSet<Song> Songs { get; set; }
 
+    //private string GetConnectionString()
+    //{
+    //    IConfiguration config = new ConfigurationBuilder()
+    //         .SetBasePath(Directory.GetCurrentDirectory())
+    //                .AddJsonFile("appsettings.json", true, true)
+    //                .Build();
+    //    var strConn = config["ConnectionStrings:DefaultConnectionStringDB"];
+
+    //    return strConn;
+    //}
+
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //    //=> optionsBuilder.UseMySql(GetConnectionString(), Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.37-mysql"));
+    //    => optionsBuilder.UseMySql("server=115.73.218.193;port=3307;database=listentogether;user=root;password=12345", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.37-mysql"));
+
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseMySql(GetConnectionString(), Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.37-mysql"));
+    }
+
     private string GetConnectionString()
     {
         IConfiguration config = new ConfigurationBuilder()
-             .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json", true, true)
-                    .Build();
-        var strConn = config["ConnectionStrings:DefaultConnectionStringDB"];
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .Build();
+        var strConn = config.GetConnectionString("DefaultConnectionStringDB");
 
         return strConn;
     }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseMySql(GetConnectionString(), Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.37-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
