@@ -5,36 +5,74 @@ using System.Windows;
 using System.Windows.Controls;
 using Repositories.Models;
 using Services.Services;
+using System.ComponentModel;
+using System.Windows.Data;
+using System.Threading.Tasks;
 
 namespace SportunifyForm
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private readonly Account _account;
         private readonly SongService _songService = new();
         private readonly QueueService _queueService = new();
         private string _currentTempFilePath;
-        private bool _isPlaying = false;
+        private bool _isPlaying;
+
+        public bool IsPlaying
+        {
+            get { return _isPlaying; }
+            set
+            {
+                if (_isPlaying != value)
+                {
+                    _isPlaying = value;
+                    OnPropertyChanged(nameof(IsPlaying));
+                    UpdatePlayPauseButtonContent();
+                }
+            }
+        }
 
         public MainWindow(Account account)
         {
             InitializeComponent();
+            DataContext = this;
             _account = account;
+            mediaPlayer.LoadedBehavior = MediaState.Manual; // Ensure manual control of the media element
+            mediaPlayer.UnloadedBehavior = MediaState.Manual;
         }
 
         private void PlayPauseButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_isPlaying)
+            if (IsPlaying)
             {
+                // Pause the media
                 mediaPlayer.Pause();
-                PlayPauseButton.Content = "Play";
             }
             else
             {
+                // Play the media
                 mediaPlayer.Play();
-                PlayPauseButton.Content = "Pause";
             }
-            _isPlaying = !_isPlaying;
+
+            // Toggle the IsPlaying property
+            IsPlaying = !IsPlaying;
+        }
+
+        private void UpdatePlayPauseButtonContent()
+        {
+            var playPauseTextBlock = (TextBlock)PlayPauseButton.Template.FindName("PlayPauseTextBlock", PlayPauseButton);
+            if (playPauseTextBlock != null)
+            {
+                playPauseTextBlock.Text = IsPlaying ? "⏸" : "▶️";
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
@@ -45,9 +83,7 @@ namespace SportunifyForm
         private void StopButton_Click(object sender, RoutedEventArgs e)
         {
             mediaPlayer.Stop();
-            _isPlaying = false;
-            PlayPauseButton.Content = "Play";
-            NowPlayingTextBox.Text = "Now Playing: ";
+            IsPlaying = false;
         }
 
         private void ShuffleButton_Click(object sender, RoutedEventArgs e)
@@ -104,6 +140,7 @@ namespace SportunifyForm
             {
                 _queueService.AddSongToQueue(selectedSong);
                 UpdateQueueDataGrid();
+                MessageBox.Show("Song added to queue: " + selectedSong.Title);
                 if (!_queueService.IsPlaying)
                 {
                     PlayNextSongInQueue();
@@ -136,38 +173,57 @@ namespace SportunifyForm
         {
             try
             {
-                // Xóa tệp tạm thời trước đó nếu tồn tại
+                // Delete previous temp file if exists
                 if (!string.IsNullOrEmpty(_currentTempFilePath) && File.Exists(_currentTempFilePath))
                 {
                     try
                     {
                         File.Delete(_currentTempFilePath);
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        // Xử lý ngoại lệ nếu tệp đang được sử dụng hoặc không thể xóa
+                        MessageBox.Show("Failed to delete temp file: " + ex.Message);
                     }
                 }
 
-                // Ghi mảng byte vào tệp tạm thời
-                _currentTempFilePath = Path.GetTempFileName();
+                // Write byte array to temp file
+                _currentTempFilePath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".mp3");
                 File.WriteAllBytes(_currentTempFilePath, songBytes);
 
-                // Đặt nguồn cho MediaElement và phát tệp
+                // Check if temp file exists and can be read
+                if (!File.Exists(_currentTempFilePath))
+                {
+                    MessageBox.Show("Temp file does not exist after creation.");
+                    return;
+                }
+
+                // Set source for MediaElement and play file
                 mediaPlayer.Source = new Uri(_currentTempFilePath, UriKind.Absolute);
+                mediaPlayer.Volume = 0.5; // Ensure volume is not muted
+                mediaPlayer.MediaOpened += MediaPlayer_MediaOpened;
+                mediaPlayer.MediaFailed += MediaPlayer_MediaFailed; // Handle MediaFailed event
                 mediaPlayer.Play();
-                _isPlaying = true;
-                PlayPauseButton.Content = "Pause";
+                IsPlaying = true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error in PlaySongFromBytes: " + ex.Message);
+                MessageBox.Show("Error in PlaySongFromBytes: " + ex.Message);
             }
+        }
+
+        private void MediaPlayer_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            mediaPlayer.Play();
         }
 
         private void MediaPlayer_MediaEnded(object sender, RoutedEventArgs e)
         {
             OnSongFinishedPlaying();
+        }
+
+        private void MediaPlayer_MediaFailed(object sender, ExceptionRoutedEventArgs e)
+        {
+            MessageBox.Show("MediaFailed event triggered: " + e.ErrorException.Message);
         }
 
         private void OnSongFinishedPlaying()
@@ -182,6 +238,7 @@ namespace SportunifyForm
             {
                 NowPlayingTextBox.Text = "Now Playing: ";
                 mediaPlayer.Stop();
+                IsPlaying = false;
             }
             UpdateQueueDataGrid();
             if (_queueService.GetCurrentQueue().Any())
