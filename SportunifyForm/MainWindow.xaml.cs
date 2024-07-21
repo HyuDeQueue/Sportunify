@@ -408,5 +408,17 @@ namespace SportunifyForm
             PlaylistDataGrid.ItemsSource = null;
             PlaylistDataGrid.ItemsSource = _playlistService.GetAllPlaylists();
         }
+
+        private void AddToPlaylistButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(sender is Button button && button.Tag is Song selectedSong)
+            {
+                AddSongToPlaylist form = new();
+                form.user = _account;
+                form.selectedSong = selectedSong;
+                form.ShowDialog();
+                UpdatePlaylistDataGrid();
+            }
+        }
     }
 }

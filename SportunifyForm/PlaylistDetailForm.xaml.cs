@@ -39,7 +39,12 @@ namespace SportunifyForm
         {
             PlaylistNameLabel.Content = playlist.PlaylistName;
             SongListDataGrid.ItemsSource = null;
-            SongListDataGrid.ItemsSource = _playlistSerivce.GetAllPlaylistSongs(playlist.PlaylistId);
+            List<Song> songs = new List<Song>();
+            _playlistSerivce.GetAllPlaylistSongs(playlist.PlaylistId).ForEach(song =>
+            {
+                songs.Add(song.Song);
+            });
+            SongListDataGrid.ItemsSource = songs;
         }
 
         private void AddSongButton_Click(object sender, RoutedEventArgs e)

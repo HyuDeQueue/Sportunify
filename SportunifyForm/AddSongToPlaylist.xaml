@@ -1,0 +1,43 @@
+﻿<Window x:Class="SportunifyForm.AddSongToPlaylist"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SportunifyForm"
+        mc:Ignorable="d"
+        Title="AddSongToPlaylist" Height="710" Width="1145" Background="#121212" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Grid Margin="20">
+        <!-- Header -->
+        <Label x:Name="SongLabel" Content="Add Song To Playlist" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Foreground="White"/>
+
+        <!-- Main Content Area -->
+        <Border Background="#282828" CornerRadius="10" Margin="0,80,0,0" Padding="20">
+            <StackPanel>
+                <!-- Song Name -->
+                <Label Content="Song Name" Margin="0,10,0,0" Foreground="White" FontSize="16"/>
+                <TextBox x:Name="SongNameTextBox" Margin="0,5,0,0" FontSize="16" Background="#404040" Foreground="White" BorderBrush="Transparent" Height="30" IsEnabled="False"/>
+
+                <!-- Author -->
+                <Label Content="Author" Margin="0,20,0,0" Foreground="White" FontSize="16"/>
+                <TextBox x:Name="AuthorTextBox" Margin="0,5,0,0" FontSize="16" Background="#404040" Foreground="White" BorderBrush="Transparent" Height="30" IsEnabled="False"/>
+                
+                <!-- Add Song -->
+                <Label Content="Song Category" Margin="0,20,0,0" Foreground="White" FontSize="16"/>
+                <TextBox x:Name="CategoryTextBox" Margin="0,5,0,0" FontSize="16" Background="#404040" Foreground="White" BorderBrush="Transparent" Height="30" IsEnabled="False"/>
+                
+                <!-- Song Category -->
+                <Label Content="Your Playlist" Margin="0,20,0,0" Foreground="White" FontSize="16"/>
+                <ComboBox x:Name="PlaylistIdComboBox" Margin="0,5,0,0" FontSize="16" Background="#404040" Foreground="Black" BorderBrush="Transparent" Height="30"/>
+
+                
+                
+            </StackPanel>
+        </Border>
+
+        <!-- Footer Buttons -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0">
+            <Button x:Name="SaveButton" Content="Save Song" Margin="0,0,10,0" Width="100" Height="40" FontSize="16" Background="#1DB954" Foreground="White" BorderBrush="Transparent" Click="SaveButton_Click"/>
+            <Button x:Name="Close" Content="Close" Width="100" Height="40" FontSize="16" Background="#D32F2F" Foreground="White" BorderBrush="Transparent" Click="Close_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

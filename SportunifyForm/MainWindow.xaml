@@ -168,9 +168,9 @@
           AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" Grid.Column="3"
           Background="#191414" Foreground="#000000">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Song Name" Width="100" Binding="{Binding Title}"/>
-                <DataGridTextColumn Header="Artist" Width="90" Binding="{Binding ArtistName}"/>
-                <DataGridTextColumn Header="Category" Width="80" Binding="{Binding Category.CategoryName}"/>
+                <DataGridTextColumn Header="Song Name" Width="70" Binding="{Binding Title}"/>
+                <DataGridTextColumn Header="Artist" Width="60" Binding="{Binding ArtistName}"/>
+                <DataGridTextColumn Header="Category" Width="60" Binding="{Binding Category.CategoryName}"/>
                 <DataGridTemplateColumn Header="Add to Queue" Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -211,6 +211,46 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Add To Playlist" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="AddToPlaylistButton" Content="Add" Click="AddToPlaylistButton_Click" Tag="{Binding}">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#1DB954"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="Padding" Value="11"/>
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="{TemplateBinding Background}"
+                                                    CornerRadius="5"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                                                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="MediumAquamarine"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter Property="Background" Value="#388E3C"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Your Queue:" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="36,177,53,460" FontSize="20" FontWeight="Bold" Foreground="#1DB954"/>
@@ -218,9 +258,9 @@
         <DataGrid x:Name="PlaylistDataGrid" 
             HorizontalAlignment="Left" 
             Height="292" 
-            Margin="442,235,0,0" 
+            Margin="431,235,0,0" 
             VerticalAlignment="Top" 
-            Width="246"
+            Width="257"
             AutoGenerateColumns="False"
             IsReadOnly="True" HorizontalScrollBarVisibility="Visible"
             Grid.Row="1" Grid.Column="3"

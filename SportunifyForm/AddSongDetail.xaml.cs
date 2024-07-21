@@ -246,7 +246,5 @@ namespace SportunifyForm
                 SongCategoryIdComboBox.SelectedValue = SelectedSong.CategoryId.ToString();
             }
         }
-
-
     }
 }
