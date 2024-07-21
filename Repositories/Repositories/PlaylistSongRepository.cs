@@ -1,4 +1,5 @@
-﻿using Repositories.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Repositories.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,6 +26,13 @@ namespace Repositories.Repositories
                 _context.PlaylistSongs.Remove(playlistSong);
                 _context.SaveChanges();
             }
+        }
+
+        public List<PlaylistSong> GetPlaylistSongs(int playlistId)
+        {
+            _context = new();
+            //return _context.PlaylistSongs.Where(x => x.PlaylistId == playlistId).ToList();
+            return _context.PlaylistSongs.Include("Song").Where(x => x.PlaylistId == playlistId).ToList();
         }
     }
 }
