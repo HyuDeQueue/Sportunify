@@ -14,11 +14,47 @@ namespace SportunifyForm
         private readonly SongService _songService = new();
         private readonly QueueService _queueService = new();
         private string _currentTempFilePath;
+        private bool _isPlaying = false;
 
         public MainWindow(Account account)
         {
             InitializeComponent();
             _account = account;
+        }
+
+        private void PlayPauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_isPlaying)
+            {
+                mediaPlayer.Pause();
+                PlayPauseButton.Content = "Play";
+            }
+            else
+            {
+                mediaPlayer.Play();
+                PlayPauseButton.Content = "Pause";
+            }
+            _isPlaying = !_isPlaying;
+        }
+
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            OnSongFinishedPlaying();
+        }
+
+        private void StopButton_Click(object sender, RoutedEventArgs e)
+        {
+            mediaPlayer.Stop();
+            _isPlaying = false;
+            PlayPauseButton.Content = "Play";
+            NowPlayingTextBox.Text = "Now Playing: ";
+        }
+
+        private void ShuffleButton_Click(object sender, RoutedEventArgs e)
+        {
+            _queueService.ShuffleQueue();
+            UpdateQueueDataGrid();
+            PlayNextSongInQueue();
         }
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
@@ -86,34 +122,47 @@ namespace SportunifyForm
             if (!_queueService.IsPlaying && _queueService.GetCurrentQueue().Any())
             {
                 _queueService.PlayQueue();
-                NowPlayingTextBox.Text = "Now Playing: " + _queueService.GetCurrentSong().Title;
-                PlaySongFromBytes(_queueService.GetCurrentSong().SongMedia);
+                var currentSong = _queueService.GetCurrentSong();
+                if (currentSong != null)
+                {
+                    NowPlayingTextBox.Text = "Now Playing: " + currentSong.Title;
+                    PlaySongFromBytes(currentSong.SongMedia);
+                }
                 UpdateQueueDataGrid();
             }
         }
 
         private void PlaySongFromBytes(byte[] songBytes)
         {
-            // Clean up the previous temp file if it exists
-            if (!string.IsNullOrEmpty(_currentTempFilePath) && File.Exists(_currentTempFilePath))
+            try
             {
-                try
+                // Xóa tệp tạm thời trước đó nếu tồn tại
+                if (!string.IsNullOrEmpty(_currentTempFilePath) && File.Exists(_currentTempFilePath))
                 {
-                    File.Delete(_currentTempFilePath);
+                    try
+                    {
+                        File.Delete(_currentTempFilePath);
+                    }
+                    catch
+                    {
+                        // Xử lý ngoại lệ nếu tệp đang được sử dụng hoặc không thể xóa
+                    }
                 }
-                catch
-                {
-                    // Handle exception if file is in use or cannot be deleted
-                }
+
+                // Ghi mảng byte vào tệp tạm thời
+                _currentTempFilePath = Path.GetTempFileName();
+                File.WriteAllBytes(_currentTempFilePath, songBytes);
+
+                // Đặt nguồn cho MediaElement và phát tệp
+                mediaPlayer.Source = new Uri(_currentTempFilePath, UriKind.Absolute);
+                mediaPlayer.Play();
+                _isPlaying = true;
+                PlayPauseButton.Content = "Pause";
             }
-
-            // Write the byte array to a temporary file
-            _currentTempFilePath = Path.GetTempFileName();
-            File.WriteAllBytes(_currentTempFilePath, songBytes);
-
-            // Play the temporary file
-            mediaPlayer.Source = new Uri(_currentTempFilePath);
-            mediaPlayer.Play();
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in PlaySongFromBytes: " + ex.Message);
+            }
         }
 
         private void MediaPlayer_MediaEnded(object sender, RoutedEventArgs e)
