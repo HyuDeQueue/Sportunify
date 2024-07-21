@@ -61,6 +61,12 @@ namespace SportunifyForm
 
         private void PlayPauseButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!_queueService.GetCurrentQueue().Any())
+            {
+                MessageBox.Show("Please select a song before playing.", "No Song Selected", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             if (IsPlaying)
             {
                 _wavePlayer.Pause();
@@ -72,6 +78,7 @@ namespace SportunifyForm
 
             IsPlaying = !IsPlaying;
         }
+
 
         private void UpdatePlayPauseButtonContent()
         {
