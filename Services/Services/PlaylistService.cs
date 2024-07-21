@@ -17,7 +17,13 @@ namespace Services.Services
         }
         public PlaylistService()
         {
-            _playlistRepository = new PlaylistRepository();
+            _playlistRepository = new();
+            _inplaylistRepository = new();
+        }
+
+        public List<PlaylistSong> GetAllPlaylistSongs(int playlistId)
+        {
+            return _inplaylistRepository.GetPlaylistSongs(playlistId);
         }
 
         public List<Playlist> GetAllPlaylists()

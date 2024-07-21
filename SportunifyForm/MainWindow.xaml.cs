@@ -16,6 +16,7 @@ namespace SportunifyForm
         private readonly Account _account;
         private readonly SongService _songService = new();
         private readonly QueueService _queueService = new();
+        private readonly PlaylistService _playlistService = new();
         private IWavePlayer _wavePlayer;
         private AudioFileReader _audioFileReader;
         private string _currentTempFilePath;
@@ -168,7 +169,9 @@ namespace SportunifyForm
             try
             {
                 var songs = await Task.Run(() => _songService.GetSongsFromAccount(_account.AccountId));
+                var playlists = await Task.Run(() => _playlistService.GetAllPlaylists());
                 SongListDataGrid.ItemsSource = songs;
+                PlaylistDataGrid.ItemsSource = playlists;
             }
             catch (Exception ex)
             {
@@ -375,6 +378,35 @@ namespace SportunifyForm
                 MessageBox.Show($"Cancelled!", "Cancel", MessageBoxButton.OK, MessageBoxImage.Question);
             }
             
+        }
+
+        public void ViewPlaylistButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is Playlist selectedPlaylist)
+            {
+                PlaylistDetailForm form = new();
+                form.user = _account;
+                form.playlist = selectedPlaylist;
+                this.Visibility = System.Windows.Visibility.Hidden;
+                form.ShowDialog();
+                this.Visibility = System.Windows.Visibility.Visible;
+            }
+                
+        }
+
+        public void UpdatePlaylistDataGrid()
+        {
+            PlaylistDataGrid.ItemsSource = null;
+            PlaylistDataGrid.ItemsSource = _playlistService.GetAllPlaylists();
+        }
+
+        private void CreatePlaylistButton_Click(object sender, RoutedEventArgs e)
+        {
+            CreatePlaylistForm form = new();
+            form.user = _account;
+            form.ShowDialog();
+            PlaylistDataGrid.ItemsSource = null;
+            PlaylistDataGrid.ItemsSource = _playlistService.GetAllPlaylists();
         }
     }
 }
