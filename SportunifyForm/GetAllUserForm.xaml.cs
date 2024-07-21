@@ -1,4 +1,5 @@
-﻿using Repositories.Repositories;
+﻿using Repositories.Models;
+using Repositories.Repositories;
 using Services.Services;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,21 @@ namespace SportunifyForm
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void ViewDetail_Click(object sender, RoutedEventArgs e)
+        {
+            Account selected = ViewAllUserList.SelectedItem as Account;
+            if (selected == null)
+            {
+                MessageBox.Show("Please select an account before viewing their songs!", "Select One", MessageBoxButton.OK, MessageBoxImage.Stop);
+                return;
+            }
+            ViewUserDetailForm frm = new ViewUserDetailForm(selected);
+            frm.SelectedAccount = selected;
+            frm.ShowDialog();
+            ViewAllUserList.ItemsSource = null;
+            ViewAllUserList.ItemsSource = _service.GetAllAccounts();
         }
     }
 }
