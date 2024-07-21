@@ -27,8 +27,8 @@
         <Label x:Name="TitleLabel" Content="Song by Category" HorizontalAlignment="Left" Height="53" Margin="185,206,0,0" VerticalAlignment="Top" Width="227" FontWeight="Bold" FontSize="24" Foreground="#1DB954" Grid.Row="1" Grid.Column="3"/>
         <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Height="50" Margin="659,104,0,0" VerticalAlignment="Top" Width="165" TabIndex="2" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" />
         <Button x:Name="CreateButton" Content="Create Song" HorizontalAlignment="Left" Height="50" Margin="689,267,0,0" VerticalAlignment="Top" Width="165" TabIndex="4" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="CreateButton_Click" />
-        <Button x:Name="UpdateButton" Content="Update Song" HorizontalAlignment="Left" Height="50" Margin="689,345,0,0" VerticalAlignment="Top" Width="165" TabIndex="5" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" />
-        <Button x:Name="DeleteButton" Content="Delete Song" HorizontalAlignment="Left" Height="50" Margin="689,428,0,0" VerticalAlignment="Top" Width="165" TabIndex="6" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" />
+        <Button x:Name="UpdateButton" Content="Update Song" HorizontalAlignment="Left" Height="50" Margin="689,345,0,0" VerticalAlignment="Top" Width="165" TabIndex="5" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="UpdateButton_Click" />
+        <Button x:Name="DeleteButton" Content="Delete Song" HorizontalAlignment="Left" Height="50" Margin="689,428,0,0" VerticalAlignment="Top" Width="165" TabIndex="6" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="DeleteButton_Click" />
         <Button x:Name="QuitButton" Content="Quit" HorizontalAlignment="Left" Height="50" Margin="689,587,0,0" VerticalAlignment="Top" Width="165" TabIndex="7" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="QuitButton_Click" />
         <DataGrid x:Name="SongListDataGrid" 
         HorizontalAlignment="Left" 

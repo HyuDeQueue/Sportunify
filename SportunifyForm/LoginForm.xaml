@@ -16,11 +16,11 @@
             <Border CornerRadius="10" Grid.RowSpan="2">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#2C2C2C" Offset="0.0"/>
+                        <GradientStop Color="Black" Offset="0.0"/>
                         <!-- Dark gray color -->
-                        <GradientStop Color="#2C2C2C" Offset="0.9"/>
+                        <GradientStop Color="#2C2C2C" Offset="0.6"/>
                         <!-- Dark gray color -->
-                        <GradientStop Color="#1DB954" Offset="1.0"/>
+                        <GradientStop Color="#1DB954" Offset="1.2"/>
                         <!-- Spotify green color -->
                     </LinearGradientBrush>
                 </Border.Background>
