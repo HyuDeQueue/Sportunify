@@ -8,7 +8,10 @@ namespace Services.Services
     {
         private CategoryRepository _categoryRepository = new();
 
-
+        public Category GetCategoryById(int id)
+        {
+            return _categoryRepository.GetCategoryById(id);
+        }
         public List<Category> GetAllCategories()
         {
             return _categoryRepository.GetAllCategories();

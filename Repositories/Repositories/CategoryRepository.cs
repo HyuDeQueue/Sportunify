@@ -7,6 +7,11 @@ namespace Repositories.Repositories
     public class CategoryRepository
     {
         private ListentogetherContext _context;
+        public Category GetCategoryById(int id)
+        {
+            _context = new();
+            return _context.Categories.First(cate => cate.CategoryId == id);
+        }
 
         public List<Category> GetAllCategories()
         {

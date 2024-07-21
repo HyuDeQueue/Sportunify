@@ -166,7 +166,7 @@
           VerticalAlignment="Top" 
           Width="361"
           AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" Grid.Column="3"
-          Background="#191414" Foreground="#000000">
+          Background="#191414" Foreground="#000000" MouseDoubleClick="SongListDataGrid_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Song Name" Width="100" Binding="{Binding Title}"/>
                 <DataGridTextColumn Header="Artist" Width="90" Binding="{Binding ArtistName}"/>

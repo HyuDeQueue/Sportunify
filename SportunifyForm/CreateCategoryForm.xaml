@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SportunifyForm"
         mc:Ignorable="d"
-        Title="CreateCategoryForm" Height="250" Width="800" 
+        Title="CreateCategoryForm" Height="320" Width="800" 
         Background="#121212"
-        WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Margin="20">
         <!-- Title and Buttons -->
         <!-- Header -->
