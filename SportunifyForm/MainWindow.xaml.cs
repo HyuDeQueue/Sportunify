@@ -1,14 +1,13 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using NAudio.Wave;
 using Repositories.Models;
 using Services.Services;
-using System.ComponentModel;
-using System.Windows.Data;
-using System.Threading.Tasks;
-using System.Windows.Threading;
 
 namespace SportunifyForm
 {
@@ -17,9 +16,10 @@ namespace SportunifyForm
         private readonly Account _account;
         private readonly SongService _songService = new();
         private readonly QueueService _queueService = new();
+        private IWavePlayer _wavePlayer;
+        private AudioFileReader _audioFileReader;
         private string _currentTempFilePath;
         private bool _isPlaying;
-        private readonly DispatcherTimer _timer = new DispatcherTimer();
         private TimeSpan _totalDuration;
 
         public bool IsPlaying
@@ -36,16 +36,14 @@ namespace SportunifyForm
             }
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public MainWindow(Account account)
         {
             InitializeComponent();
             DataContext = this;
             _account = account;
-            mediaPlayer.LoadedBehavior = MediaState.Manual;
-            mediaPlayer.UnloadedBehavior = MediaState.Manual;
-
-            _timer.Interval = TimeSpan.FromSeconds(1);
-            _timer.Tick += Timer_Tick;
+            _wavePlayer = new WaveOutEvent();
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -65,16 +63,13 @@ namespace SportunifyForm
         {
             if (IsPlaying)
             {
-                // Pause the media
-                mediaPlayer.Pause();
+                _wavePlayer.Pause();
             }
             else
             {
-                // Play the media
-                mediaPlayer.Play();
+                _wavePlayer.Play();
             }
 
-            // Toggle the IsPlaying property
             IsPlaying = !IsPlaying;
         }
 
@@ -87,22 +82,9 @@ namespace SportunifyForm
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
             OnSongFinishedPlaying();
-        }
-
-        private void StopButton_Click(object sender, RoutedEventArgs e)
-        {
-            mediaPlayer.Stop();
-            IsPlaying = false;
         }
 
         private void ShuffleButton_Click(object sender, RoutedEventArgs e)
@@ -128,6 +110,16 @@ namespace SportunifyForm
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void MediaPlayer_MediaEnded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MediaPlayer_MediaOpened(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void ViewAllUser_Click(object sender, RoutedEventArgs e)
@@ -207,20 +199,21 @@ namespace SportunifyForm
                 _currentTempFilePath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".mp3");
                 File.WriteAllBytes(_currentTempFilePath, songBytes);
 
-                if (!File.Exists(_currentTempFilePath))
+                if (_audioFileReader != null)
                 {
-                    MessageBox.Show("Temp file does not exist after creation.");
-                    return;
+                    _audioFileReader.Dispose();
                 }
 
-                mediaPlayer.Source = new Uri(_currentTempFilePath, UriKind.Absolute);
-                mediaPlayer.Volume = 0.5;
-                mediaPlayer.MediaOpened += MediaPlayer_MediaOpened;
-                mediaPlayer.MediaFailed += MediaPlayer_MediaFailed;
-                mediaPlayer.Play();
-                IsPlaying = true;
+                if (_wavePlayer.PlaybackState == PlaybackState.Playing)
+                {
+                    _wavePlayer.Stop();
+                }
 
-                _timer.Start();
+                _audioFileReader = new AudioFileReader(_currentTempFilePath);
+                _wavePlayer.Init(_audioFileReader);
+                _wavePlayer.PlaybackStopped += OnPlaybackStopped;
+                _wavePlayer.Play();
+                IsPlaying = true;
 
                 var currentSong = _queueService.GetCurrentSong();
                 if (currentSong != null)
@@ -234,21 +227,9 @@ namespace SportunifyForm
             }
         }
 
-        private void MediaPlayer_MediaOpened(object sender, RoutedEventArgs e)
+        private void OnPlaybackStopped(object sender, StoppedEventArgs e)
         {
-            mediaPlayer.Play();
-        }
-
-        private void MediaPlayer_MediaEnded(object sender, RoutedEventArgs e)
-        {
-            _timer.Stop();
             OnSongFinishedPlaying();
-        }
-
-        private void MediaPlayer_MediaFailed(object sender, ExceptionRoutedEventArgs e)
-        {
-            _timer.Stop();
-            MessageBox.Show("MediaFailed event triggered: " + e.ErrorException.Message);
         }
 
         private void OnSongFinishedPlaying()
@@ -262,14 +243,15 @@ namespace SportunifyForm
             else
             {
                 NowPlayingTextBox.Text = "Now Playing: ";
-                mediaPlayer.Stop();
+                _wavePlayer.Stop();
                 IsPlaying = false;
             }
             UpdateQueueDataGrid();
-            if (_queueService.GetCurrentQueue().Any())
-            {
-                PlayNextSongInQueue();
-            }
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private async void ReloadSongList()
