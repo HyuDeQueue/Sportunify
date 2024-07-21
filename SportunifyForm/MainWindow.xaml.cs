@@ -2,9 +2,11 @@
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using NAudio.Wave;
 using Repositories.Models;
 using Services.Services;
@@ -21,6 +23,8 @@ namespace SportunifyForm
         private string _currentTempFilePath;
         private bool _isPlaying;
         private TimeSpan _totalDuration;
+        private DispatcherTimer _timer;
+        private readonly object playbackLock = new object();
 
         public bool IsPlaying
         {
@@ -44,18 +48,30 @@ namespace SportunifyForm
             DataContext = this;
             _account = account;
             _wavePlayer = new WaveOutEvent();
+            _wavePlayer.PlaybackStopped += OnPlaybackStopped;
+
+            // Initialize and start the timer
+            _timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
+            _timer.Tick += Timer_Tick;
+            _timer.Start();
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            if (mediaPlayer.NaturalDuration.HasTimeSpan)
+            if (_audioFileReader != null)
             {
-                _totalDuration = mediaPlayer.NaturalDuration.TimeSpan;
+                _totalDuration = _audioFileReader.TotalTime;
                 SongProgressBar.Maximum = _totalDuration.TotalSeconds;
-                SongProgressBar.Value = mediaPlayer.Position.TotalSeconds;
+                SongProgressBar.Value = _audioFileReader.CurrentTime.TotalSeconds;
 
-                CurrentTimeTextBlock.Text = mediaPlayer.Position.ToString(@"mm\:ss");
-                TotalTimeTextBlock.Text = _totalDuration.ToString(@"mm\:ss");
+                CurrentTimeTextBlock.Text = _audioFileReader.CurrentTime.ToString(@"mm\:ss");
+
+                // Tính thời gian còn lại và hiển thị
+                TimeSpan timeRemaining = _totalDuration - _audioFileReader.CurrentTime;
+                TotalTimeTextBlock.Text = timeRemaining.ToString(@"mm\:ss");
             }
         }
 
@@ -79,7 +95,6 @@ namespace SportunifyForm
             IsPlaying = !IsPlaying;
         }
 
-
         private void UpdatePlayPauseButtonContent()
         {
             var playPauseTextBlock = (TextBlock)PlayPauseButton.Template.FindName("PlayPauseTextBlock", PlayPauseButton);
@@ -91,14 +106,52 @@ namespace SportunifyForm
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            OnSongFinishedPlaying();
+            lock (playbackLock)
+            {
+                // Tạm thời loại bỏ event handler để ngăn chặn các cuộc gọi không mong muốn
+                _wavePlayer.PlaybackStopped -= OnPlaybackStopped;
+
+                // Dừng phát lại hiện tại và chuẩn bị phát bài tiếp theo
+                StopCurrentSong();
+                PlayNextSongInQueue();
+
+                // Gắn lại event handler
+                _wavePlayer.PlaybackStopped += OnPlaybackStopped;
+            }
+        }
+
+        private void PlayNextSongInQueue()
+        {
+            lock (playbackLock)
+            {
+                var nextSong = _queueService.SkipSongInQueue();
+                if (nextSong != null)
+                {
+                    NowPlayingTextBox.Text = "Now Playing: " + nextSong.Title;
+
+                    // Thêm thời gian nghỉ ngắn trước khi phát lại
+                    Task.Delay(100).Wait();
+
+                    PlaySongFromBytes(nextSong.SongMedia);
+                }
+                else
+                {
+                    NowPlayingTextBox.Text = "Now Playing: ";
+                    StopPlayback();
+                }
+                UpdateQueueDataGrid();
+            }
         }
 
         private void ShuffleButton_Click(object sender, RoutedEventArgs e)
         {
-            _queueService.ShuffleQueue();
-            UpdateQueueDataGrid();
-            PlayNextSongInQueue();
+            lock (playbackLock)
+            {
+                _queueService.ShuffleQueue();
+                UpdateQueueDataGrid();
+                StopCurrentSong();
+                PlayNextSongInQueue();
+            }
         }
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
@@ -127,7 +180,6 @@ namespace SportunifyForm
         private async void SongMainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             HelloNameLabel.Content = $"Hello, {_account.Name}!";
-            //SongListDataGrid.ItemsSource = await Task.Run(() => _songService.GetSongsFromAccount(_account.AccountId));
 
             try
             {
@@ -149,12 +201,13 @@ namespace SportunifyForm
 
         private void MediaPlayer_MediaEnded(object sender, RoutedEventArgs e)
         {
-
+            OnSongFinishedPlaying();
         }
 
         private void MediaPlayer_MediaOpened(object sender, RoutedEventArgs e)
         {
-
+            _totalDuration = _audioFileReader.TotalTime;
+            TotalTimeTextBlock.Text = _totalDuration.ToString(@"mm\:ss");
         }
 
         private void ViewAllUser_Click(object sender, RoutedEventArgs e)
@@ -172,10 +225,8 @@ namespace SportunifyForm
             }
             catch (Exception ex)
             {
-                // Log the exception (optional)
                 Console.WriteLine($"Error fetching user's songs: {ex.Message}");
 
-                // Notify the user
                 MessageBox.Show("Unable to retrieve your songs. Please try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -189,10 +240,8 @@ namespace SportunifyForm
             }
             catch (Exception ex)
             {
-                // Log the exception (optional)
                 Console.WriteLine($"Error fetching all songs: {ex.Message}");
 
-                // Notify the user
                 MessageBox.Show("Unable to retrieve all songs. Please try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -223,21 +272,116 @@ namespace SportunifyForm
             QueueDataGrid.ItemsSource = _queueService.GetCurrentQueue();
         }
 
-        private void PlayNextSongInQueue()
+        private void PlaySongFromBytes(byte[] songBytes)
         {
-            if (!_queueService.IsPlaying && _queueService.GetCurrentQueue().Any())
+            lock (playbackLock)
             {
-                _queueService.PlayQueue();
-                var currentSong = _queueService.GetCurrentSong();
-                if (currentSong != null)
+                try
                 {
-                    NowPlayingTextBox.Text = "Now Playing: " + currentSong.Title;
-                    PlaySongFromBytes(currentSong.SongMedia);
+                    // Xóa tệp tạm thời nếu tồn tại
+                    if (!string.IsNullOrEmpty(_currentTempFilePath) && File.Exists(_currentTempFilePath))
+                    {
+                        File.Delete(_currentTempFilePath);
+                    }
+
+                    // Tạo đường dẫn tạm thời mới
+                    _currentTempFilePath = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".mp3");
+                    File.WriteAllBytes(_currentTempFilePath, songBytes);
+
+                    // Giải phóng tài nguyên trước khi khởi tạo lại
+                    DisposeWavePlayer();
+
+                    _audioFileReader = new AudioFileReader(_currentTempFilePath);
+                    _wavePlayer = new WaveOutEvent();
+                    _wavePlayer.Init(_audioFileReader);
+
+                    // Đảm bảo sự kiện được gắn đúng cách
+                    _wavePlayer.PlaybackStopped -= OnPlaybackStopped;
+                    _wavePlayer.PlaybackStopped += OnPlaybackStopped;
+
+                    // Bắt đầu phát
+                    _wavePlayer.Play();
+                    IsPlaying = true;
+
+                    var currentSong = _queueService.GetCurrentSong();
+                    if (currentSong != null)
+                    {
+                        SongInfoTextBlock.Text = $"{currentSong.Title} - {currentSong.ArtistName}";
+                    }
                 }
-                UpdateQueueDataGrid();
+                catch (UnauthorizedAccessException ex)
+                {
+                    MessageBox.Show("Lỗi truy cập bị từ chối: " + ex.Message, "Lỗi");
+                }
+                catch (FileNotFoundException ex)
+                {
+                    MessageBox.Show("Không tìm thấy tệp: " + ex.Message, "Lỗi");
+                }
+                catch (COMException ex)
+                {
+                    MessageBox.Show("Lỗi COM: " + ex.Message, "Lỗi");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi trong PlaySongFromBytes: " + ex.Message, "Lỗi");
+                }
             }
         }
 
+        private void DisposeWavePlayer()
+        {
+            if (_wavePlayer != null)
+            {
+                _wavePlayer.Stop();
+                _wavePlayer.Dispose();
+                _wavePlayer = null;
+            }
+
+            if (_audioFileReader != null)
+            {
+                _audioFileReader.Dispose();
+                _audioFileReader = null;
+            }
+        }
+
+        private void StopCurrentSong()
+        {
+            lock (playbackLock)
+            {
+                try
+                {
+                    DisposeWavePlayer();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi trong StopCurrentSong: " + ex.Message, "Lỗi");
+                }
+            }
+        }
+
+        private void StopPlayback()
+        {
+            lock (playbackLock)
+            {
+                try
+                {
+                    DisposeWavePlayer();
+
+                    _wavePlayer = new WaveOutEvent();
+                    _wavePlayer.PlaybackStopped += OnPlaybackStopped;
+
+                    IsPlaying = false;
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    MessageBox.Show("Lỗi truy cập bị từ chối: " + ex.Message, "Lỗi");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi trong StopPlayback: " + ex.Message, "Lỗi");
+                }
+            }
+        }
 
         private void RemoveFromQueueButton_Click(object sender, RoutedEventArgs e)
         {
@@ -265,73 +409,39 @@ namespace SportunifyForm
                 UpdateQueueDataGrid();
             }
         }
-        private void PlaySongFromBytes(byte[] songBytes)
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(_currentTempFilePath) && File.Exists(_currentTempFilePath))
-                {
-                    try
-                    {
-                        File.Delete(_currentTempFilePath);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Failed to delete temp file: " + ex.Message);
-                    }
-                }
-
-                _currentTempFilePath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".mp3");
-                File.WriteAllBytes(_currentTempFilePath, songBytes);
-
-                if (_audioFileReader != null)
-                {
-                    _audioFileReader.Dispose();
-                }
-
-                if (_wavePlayer.PlaybackState == PlaybackState.Playing)
-                {
-                    _wavePlayer.Stop();
-                }
-
-                _audioFileReader = new AudioFileReader(_currentTempFilePath);
-                _wavePlayer.Init(_audioFileReader);
-                _wavePlayer.PlaybackStopped += OnPlaybackStopped;
-                _wavePlayer.Play();
-                IsPlaying = true;
-
-                var currentSong = _queueService.GetCurrentSong();
-                if (currentSong != null)
-                {
-                    SongInfoTextBlock.Text = $"{currentSong.Title} - {currentSong.ArtistName}";
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error in PlaySongFromBytes: " + ex.Message);
-            }
-        }
 
         private void OnPlaybackStopped(object sender, StoppedEventArgs e)
         {
-            OnSongFinishedPlaying();
+            lock (playbackLock)
+            {
+                if (e.Exception != null)
+                {
+                    //MessageBox.Show("Phát lại dừng do lỗi: " + e.Exception.Message, "Lỗi");
+                }
+                else
+                {
+                    OnSongFinishedPlaying();
+                }
+            }
         }
 
         private void OnSongFinishedPlaying()
         {
-            _queueService.SkipSongInQueue();
-            if (_queueService.GetCurrentSong() != null)
+            lock (playbackLock)
             {
-                NowPlayingTextBox.Text = "Now Playing: " + _queueService.GetCurrentSong().Title;
-                PlaySongFromBytes(_queueService.GetCurrentSong().SongMedia);
+                var nextSong = _queueService.SkipSongInQueue();
+                if (nextSong != null)
+                {
+                    NowPlayingTextBox.Text = "Now Playing: " + nextSong.Title;
+                    PlaySongFromBytes(nextSong.SongMedia);
+                }
+                else
+                {
+                    NowPlayingTextBox.Text = "Now Playing: ";
+                    StopPlayback();
+                }
+                UpdateQueueDataGrid();
             }
-            else
-            {
-                NowPlayingTextBox.Text = "Now Playing: ";
-                _wavePlayer.Stop();
-                IsPlaying = false;
-            }
-            UpdateQueueDataGrid();
         }
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -374,7 +484,6 @@ namespace SportunifyForm
             {
                 MessageBox.Show($"Cancelled!", "Cancel", MessageBoxButton.OK, MessageBoxImage.Question);
             }
-            
         }
     }
 }
