@@ -21,7 +21,7 @@ namespace SportunifyForm
     /// </summary>
     public partial class CreatePlaylistForm : Window
     {
-        private Account user;
+        public Account user;
         private PlaylistService playlistService = new();
 
         public CreatePlaylistForm()
