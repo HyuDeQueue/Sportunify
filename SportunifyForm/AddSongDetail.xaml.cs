@@ -23,7 +23,7 @@ namespace SportunifyForm
         private string fileName;
         private bool isPlaying = false;
         private CategoryService categoryService = new();
-        private Song SelectedSong { get; set; } = null;
+        public Song SelectedSong { get; set; } = null;
         SongService songService = new();
 
         public event Action OnSongDetailClosed;
@@ -164,6 +164,7 @@ namespace SportunifyForm
                 Close.IsEnabled = true;
                 PlayButton.IsEnabled = true;
                 LoadingSpinner.Visibility = Visibility.Collapsed;
+                this.Close();
             }
         }
 
@@ -230,9 +231,20 @@ namespace SportunifyForm
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            SongLabel.Content = "Create a Song";
             SongCategoryIdComboBox.ItemsSource = categoryService.GetAllCategories();
             SongCategoryIdComboBox.DisplayMemberPath = "CategoryName";
             SongCategoryIdComboBox.SelectedValuePath = "CategoryId";
+
+            SongCategoryIdComboBox.SelectedValue = 1;
+
+            if (SelectedSong != null)
+            {
+                SongLabel.Content = "Update a Song";
+                SongNameTextBox.Text = SelectedSong.Title.ToString();
+                AuthorTextBox.Text = SelectedSong.ArtistName.ToString();
+                SongCategoryIdComboBox.SelectedValue = SelectedSong.CategoryId.ToString();
+            }
         }
 
 

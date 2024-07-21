@@ -41,5 +41,23 @@ namespace Services.Services
         {
             return _songRepository.GetSongsFromAccount(accountId);
         }
+
+        public List<Song> SearchSongByNameOrArtist(string? name, string? artist)
+        {
+            name = name.ToLower();
+            artist = artist.ToLower();
+
+            if (name == null && artist == null) 
+            { 
+                return _songRepository.GetAllSongs();
+            }
+
+            return _songRepository.GetAllSongs().Where(x => x.Title.ToLower().Contains(name) && x.ArtistName.ToLower().Contains(artist)).ToList();
+        }
+
+        public void DeleteSong(Song x)
+        {
+            _songRepository.DeleteSong(x);
+        }
     }
 }

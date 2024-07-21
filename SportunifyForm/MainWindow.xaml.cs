@@ -108,6 +108,22 @@ namespace SportunifyForm
             detail.ShowDialog();
         }
 
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            Song selected = SongListDataGrid.SelectedItem as Song;
+
+            if (selected == null)
+            {
+                MessageBox.Show("Please select a Song before updating!", "Select One", MessageBoxButton.OK, MessageBoxImage.Stop);
+                return;
+            }
+
+            AddSongDetail detail = new(_account);
+            detail.SelectedSong = selected;
+            detail.ShowDialog();
+            ReloadSongList();
+        }
+
         private async void SongMainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             HelloNameLabel.Content = $"Hello, {_account.Name}!";
@@ -326,6 +342,39 @@ namespace SportunifyForm
         private async void ReloadSongList()
         {
             SongListDataGrid.ItemsSource = await Task.Run(() => _songService.GetSongsFromAccount(_account.AccountId));
+        }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            SongListDataGrid.ItemsSource = null;
+            SongListDataGrid.ItemsSource = _songService.SearchSongByNameOrArtist(SongNameTextBox.Text, ArtistTextBox.Text);
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            Song selected = SongListDataGrid.SelectedItem as Song;
+
+            if (selected == null)
+            {
+                MessageBox.Show("Please select a Song before deleting!", "Select One", MessageBoxButton.OK, MessageBoxImage.Stop);
+                return;
+            }
+
+            AddSongDetail detail = new(_account);
+            detail.SelectedSong = selected;
+
+            MessageBoxResult result = MessageBox.Show($"Do you really want to delete {selected.Title}?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                _songService.DeleteSong(selected);
+                ReloadSongList();
+                MessageBox.Show($"Deleted {selected.Title}!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show($"Cancelled!", "Cancel", MessageBoxButton.OK, MessageBoxImage.Question);
+            }
+            
         }
     }
 }
