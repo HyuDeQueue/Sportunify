@@ -15,7 +15,7 @@
         <Label Content="Song Name" HorizontalAlignment="Left" Height="27" Margin="335,85,0,0" VerticalAlignment="Top" Width="92" Foreground="#1DB954"/>
         <TextBox x:Name="SongNameTextBox" HorizontalAlignment="Left" Height="34" Margin="427,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176" TabIndex="1" TextAlignment="Left" Background="#404040" Foreground="White"/>
         <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Height="38" Margin="641,76,0,0" VerticalAlignment="Top" Width="105" TabIndex="2" Background="#1DB954" Foreground="White"/>
-        <Button x:Name="ViewDetail" Content="View Detail" HorizontalAlignment="Left" Height="39" Margin="620,195,0,0" VerticalAlignment="Top" Width="149" TabIndex="4" Background="#1DB954" Foreground="White"/>
+        <Button x:Name="ViewDetail" Content="View Detail" HorizontalAlignment="Left" Height="39" Margin="620,195,0,0" VerticalAlignment="Top" Width="149" TabIndex="4" Background="#1DB954" Foreground="White" Click="ViewDetail_Click"/>
         <Button x:Name="QuitButton" Content="Quit" HorizontalAlignment="Left" Height="38" Margin="620,268,0,0" VerticalAlignment="Top" Width="149" TabIndex="7" Background="#1DB954" Foreground="White" Click="QuitButton_Click"/>
 
         <DataGrid x:Name="ViewAllUserList" HorizontalAlignment="Left" Height="261" Margin="37,195,0,0" VerticalAlignment="Top" Width="561" AutoGenerateColumns="False" IsReadOnly="True" Background="#282828" Foreground="White" RowBackground="#404040" AlternatingRowBackground="#333333">

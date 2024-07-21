@@ -162,11 +162,11 @@
         <DataGrid x:Name="SongListDataGrid" 
           HorizontalAlignment="Left" 
           Height="292" 
-          Margin="70,234,0,0" 
+          Margin="70,235,0,0" 
           VerticalAlignment="Top" 
           Width="361"
           AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" Grid.Column="3"
-          Background="#191414" Foreground="#000000" >
+          Background="#191414" Foreground="#000000">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Song Name" Width="100" Binding="{Binding Title}"/>
                 <DataGridTextColumn Header="Artist" Width="90" Binding="{Binding ArtistName}"/>
@@ -218,7 +218,7 @@
         <DataGrid x:Name="PlaylistDataGrid" 
             HorizontalAlignment="Left" 
             Height="292" 
-            Margin="431,234,0,0" 
+            Margin="442,235,0,0" 
             VerticalAlignment="Top" 
             Width="246"
             AutoGenerateColumns="False"
