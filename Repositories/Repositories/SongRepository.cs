@@ -35,6 +35,13 @@ namespace Repositories.Repositories
             _context.SaveChanges();
         }
 
+        public void DeleteSong(Song song)
+        {
+            _context = new();
+            _context.Songs.Remove(song);
+            _context.SaveChanges();
+        }
+
         public List<Song> SearchSongs(Func<Song, bool> predicate)
         {
             _context = new();
