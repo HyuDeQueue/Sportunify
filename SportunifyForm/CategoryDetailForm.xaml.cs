@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Repositories.Models;
+using Services.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +21,9 @@ namespace SportunifyForm
     /// </summary>
     public partial class CategoryDetailForm : Window
     {
+        public Category category;
+        private SongService _songService = new();
+        private CategoryService _categoryService = new();
         public CategoryDetailForm()
         {
             InitializeComponent();
@@ -33,15 +38,34 @@ namespace SportunifyForm
         {
 
         }
-
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
+        }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            SongCategoryIdComboBox.ItemsSource = _categoryService.GetAllCategories();
+            SongCategoryIdComboBox.DisplayMemberPath = "CategoryName";
+            SongCategoryIdComboBox.SelectedValuePath = "CategoryId";
+            SongCategoryIdComboBox.SelectedValue = category.CategoryId;
+            TitleLabel.Content = category.CategoryName;
+            SongListDataGrid.ItemsSource = null;
+            SongListDataGrid.ItemsSource = _songService.SearchSongs(x => x.CategoryId == category.CategoryId);
+        }
+
+        private void SongCategoryIdComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int selectedId = int.Parse(SongCategoryIdComboBox.SelectedValue.ToString());
+            category = _categoryService.GetAllCategories().First(cate => cate.CategoryId == selectedId);
+            Window_Loaded(sender, e);
+        }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<Song> songs = _songService.GetAllSongs().Where(song => song.Title.Contains(SongNameTextBox.Text) && song.CategoryId == category.CategoryId).ToList();
+            SongListDataGrid.ItemsSource = null;
+            SongListDataGrid.ItemsSource = songs;
         }
     }
 }
