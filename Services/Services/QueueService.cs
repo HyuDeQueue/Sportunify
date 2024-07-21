@@ -76,6 +76,53 @@ namespace Services.Services
             _songQueue.Enqueue(song);
         }
 
+        public void RemoveSongFromQueue(Song song)
+        {
+            var songs = _songQueue.ToList();
+            if (songs.Remove(song))
+            {
+                _songQueue.Clear();
+                foreach (var s in songs)
+                {
+                    _songQueue.Enqueue(s);
+                }
+            }
+        }
+
+        public void MoveSongUpInQueue(Song song)
+        {
+            var songs = _songQueue.ToList();
+            var index = songs.IndexOf(song);
+            if (index > 0)
+            {
+                var temp = songs[index - 1];
+                songs[index - 1] = song;
+                songs[index] = temp;
+                _songQueue.Clear();
+                foreach (var s in songs)
+                {
+                    _songQueue.Enqueue(s);
+                }
+            }
+        }
+
+        public void MoveSongDownInQueue(Song song)
+        {
+            var songs = _songQueue.ToList();
+            var index = songs.IndexOf(song);
+            if (index < songs.Count - 1)
+            {
+                var temp = songs[index + 1];
+                songs[index + 1] = song;
+                songs[index] = temp;
+                _songQueue.Clear();
+                foreach (var s in songs)
+                {
+                    _songQueue.Enqueue(s);
+                }
+            }
+        }
+
         public bool IsPlaying => _isPlaying;
 
         public Song GetCurrentSong() => _currentSong;
