@@ -200,6 +200,8 @@ namespace SportunifyForm
             {
                 var songs = await Task.Run(() => _songService.GetSongsFromAccount(_account.AccountId));
                 SongListDataGrid.ItemsSource = songs;
+                var playlists = await Task.Run(() => _playlistService.GetPlayListByAccountId(_account.AccountId));
+                PlaylistDataGrid.ItemsSource = playlists;
             }
             catch (Exception ex)
             {
@@ -526,6 +528,36 @@ namespace SportunifyForm
                 form.selectedSong = selectedSong;
                 form.ShowDialog();
                 UpdatePlaylistDataGrid();
+            }
+        }
+
+        private async void YourPlaylistButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var playlists = await Task.Run(() => _playlistService.GetPlayListByAccountId(_account.AccountId));
+                PlaylistDataGrid.ItemsSource = playlists;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching all songs: {ex.Message}");
+
+                MessageBox.Show("Unable to retrieve all songs. Please try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async void AllPlaylistButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var playlists = await Task.Run(() => _playlistService.GetAllPlaylists());
+                PlaylistDataGrid.ItemsSource = playlists;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching all playlists: {ex.Message}");
+
+                MessageBox.Show("Unable to retrieve all playlists. Please try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

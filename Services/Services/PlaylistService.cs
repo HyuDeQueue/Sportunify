@@ -26,6 +26,11 @@ namespace Services.Services
             return _inplaylistRepository.GetPlaylistSongs(playlistId);
         }
 
+        public List<Playlist> GetPlayListByAccountId(int accountId)
+        {
+            return _playlistRepository.GetPlayListByAccountId(accountId);
+        }
+
         public List<Playlist> GetAllPlaylists()
         {
             return _playlistRepository.GetAllPlaylists();
