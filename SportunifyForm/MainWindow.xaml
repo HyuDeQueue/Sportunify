@@ -17,19 +17,19 @@
             <ColumnDefinition Width="70*"/>
             <ColumnDefinition Width="897*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="Spotify - Listen Together" HorizontalAlignment="Left" Height="53" Margin="566,15,0,0" VerticalAlignment="Top" Width="331" FontWeight="Bold" FontSize="24" Foreground="#1DB954" Grid.Column="3" Grid.Row="1"/>
-        <Rectangle HorizontalAlignment="Left" Height="95" Margin="32,82,0,0" Stroke="Black" VerticalAlignment="Top" Width="1145" Fill="#1DB954" Grid.ColumnSpan="4" Grid.Row="1"/>
-        <Label Content="Song Name" HorizontalAlignment="Left" Height="45" Margin="66,112,0,0" VerticalAlignment="Top" Width="107" Foreground="#FFFFFF" Grid.ColumnSpan="2" Grid.Row="1"/>
-        <TextBox x:Name="SongNameTextBox" HorizontalAlignment="Left" Height="26" Margin="9,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" TabIndex="0" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1"/>
-        <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Height="50" Margin="659,104,0,0" VerticalAlignment="Top" Width="165" TabIndex="2" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="SearchButton_Click" />
-        <Button x:Name="CreateButton" Content="Create Song" HorizontalAlignment="Left" Height="50" Margin="689,267,0,0" VerticalAlignment="Top" Width="165" TabIndex="4" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="CreateButton_Click" />
-        <Button x:Name="UpdateButton" Content="Update Song" HorizontalAlignment="Left" Height="50" Margin="689,345,0,0" VerticalAlignment="Top" Width="165" TabIndex="5" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="UpdateButton_Click" />
-        <Button x:Name="DeleteButton" Content="Delete Song" HorizontalAlignment="Left" Height="50" Margin="689,428,0,0" VerticalAlignment="Top" Width="165" TabIndex="6" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="DeleteButton_Click" />
-        <Button x:Name="QuitButton" Content="Quit" HorizontalAlignment="Left" Height="50" Margin="689,587,0,0" VerticalAlignment="Top" Width="165" TabIndex="7" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="QuitButton_Click" />
+        <Label Content="Spotify - Listen Together" HorizontalAlignment="Left" Height="53" Margin="573,0,0,0" VerticalAlignment="Top" Width="330" FontWeight="Bold" FontSize="24" Foreground="#1DB954" Grid.Column="3" Grid.Row="1"/>
+        <Rectangle HorizontalAlignment="Left" Height="95" Margin="31,42,0,0" Stroke="Black" VerticalAlignment="Top" Width="1153" Fill="#1DB954" Grid.ColumnSpan="4" Grid.Row="1"/>
+        <Label Content="Song Name" HorizontalAlignment="Center" Height="45" Margin="0,72,0,0" VerticalAlignment="Top" Width="108" Foreground="#FFFFFF" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="SongNameTextBox" HorizontalAlignment="Left" Height="26" Margin="16,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" TabIndex="0" Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="1"/>
+        <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Height="50" Margin="665,64,0,0" VerticalAlignment="Top" Width="166" TabIndex="2" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="SearchButton_Click" />
+        <Button x:Name="CreateButton" Content="Create Song" HorizontalAlignment="Left" Height="50" Margin="695,227,0,0" VerticalAlignment="Top" Width="166" TabIndex="4" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="CreateButton_Click" />
+        <Button x:Name="UpdateButton" Content="Update Song" HorizontalAlignment="Left" Height="50" Margin="695,305,0,0" VerticalAlignment="Top" Width="166" TabIndex="5" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="UpdateButton_Click" />
+        <Button x:Name="DeleteButton" Content="Delete Song" HorizontalAlignment="Left" Height="50" Margin="695,388,0,0" VerticalAlignment="Top" Width="166" TabIndex="6" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="DeleteButton_Click" />
+        <Button x:Name="QuitButton" Content="Quit" HorizontalAlignment="Left" Height="50" Margin="695,547,0,0" VerticalAlignment="Top" Width="166" TabIndex="7" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="QuitButton_Click" />
         <DataGrid x:Name="QueueDataGrid" 
           HorizontalAlignment="Left" 
           Height="292" 
-          Margin="40,235,0,0" 
+          Margin="29,190,0,0" 
           VerticalAlignment="Top" 
           Width="350"
           AutoGenerateColumns="False" IsReadOnly="True" Grid.ColumnSpan="4" Grid.Row="1"
@@ -154,17 +154,17 @@
         </DataGrid>
 
 
-        <TextBox x:Name="NowPlayingTextBox" HorizontalAlignment="Left" Height="25" Margin="41,205,0,0" TextWrapping="Wrap" Text="Now Playing: " VerticalAlignment="Top" Width="299" FontSize="17" Grid.ColumnSpan="4" IsEnabled="False" Foreground="#1DB954" Background="#191414" Grid.Row="1" />
-        <Label Content="Artist" HorizontalAlignment="Left" Height="30" Margin="142,120,0,0" VerticalAlignment="Top" Width="54" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1"/>
-        <Label Content="Song Name" HorizontalAlignment="Left" Height="45" Margin="66,112,0,0" VerticalAlignment="Top" Width="107" Foreground="#FFFFFF" Grid.ColumnSpan="2" Grid.Row="1"/>
-        <TextBox x:Name="ArtistTextBox" HorizontalAlignment="Left" Height="26" Margin="201,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" TabIndex="0" Grid.Column="3" Grid.Row="1"/>
-        <Label x:Name="HelloNameLabel" Content="Xin chào " HorizontalAlignment="Left" Height="53" Margin="39,15,0,0" VerticalAlignment="Top" Width="831" FontWeight="Bold" FontSize="24" Foreground="#1DB954" Grid.ColumnSpan="4" Grid.Row="1"/>
+        <TextBox x:Name="NowPlayingTextBox" HorizontalAlignment="Left" Height="25" Margin="31,160,0,0" TextWrapping="Wrap" Text="Now Playing: " VerticalAlignment="Top" Width="298" FontSize="17" Grid.ColumnSpan="4" IsEnabled="False" Foreground="#1DB954" Background="#191414" Grid.Row="1" />
+        <Label Content="Artist" HorizontalAlignment="Left" Height="30" Margin="149,80,0,0" VerticalAlignment="Top" Width="54" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1"/>
+        <Label Content="Song Name" HorizontalAlignment="Center" Height="45" Margin="0,72,0,0" VerticalAlignment="Top" Width="108" Foreground="#FFFFFF" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="ArtistTextBox" HorizontalAlignment="Left" Height="26" Margin="207,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" TabIndex="0" Grid.Column="3" Grid.Row="1"/>
+        <Label x:Name="HelloNameLabel" Content="Xin chào " HorizontalAlignment="Left" Height="53" Margin="46,0,0,0" VerticalAlignment="Top" Width="830" FontWeight="Bold" FontSize="24" Foreground="#1DB954" Grid.ColumnSpan="4" Grid.Row="1"/>
         <DataGrid x:Name="SongListDataGrid" 
           HorizontalAlignment="Left" 
           Height="292" 
-          Margin="70,235,0,0" 
+          Margin="60,190,0,0" 
           VerticalAlignment="Top" 
-          Width="361"
+          Width="360"
           AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" Grid.Column="3"
           Background="#191414" Foreground="#000000">
             <DataGrid.Columns>
@@ -253,14 +253,14 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Your Queue:" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="36,177,53,460" FontSize="20" FontWeight="Bold" Foreground="#1DB954"/>
-        <Label Content="Songs:" Grid.RowSpan="2" Margin="70,178,527,435" FontSize="20" FontWeight="Bold" Foreground="#1DB954" Grid.Column="3"/>
+        <Label Content="Your Queue:" Grid.RowSpan="2" Margin="25,132,64,505" FontSize="20" FontWeight="Bold" Foreground="#1DB954" Grid.ColumnSpan="2"/>
+        <Label Content="Songs:" Grid.RowSpan="2" Margin="60,133,537,480" FontSize="20" FontWeight="Bold" Foreground="#1DB954" Grid.Column="3"/>
         <DataGrid x:Name="PlaylistDataGrid" 
             HorizontalAlignment="Left" 
             Height="292" 
-            Margin="431,235,0,0" 
+            Margin="420,190,0,0" 
             VerticalAlignment="Top" 
-            Width="257"
+            Width="258"
             AutoGenerateColumns="False"
             IsReadOnly="True" HorizontalScrollBarVisibility="Visible"
             Grid.Row="1" Grid.Column="3"
@@ -310,24 +310,32 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Your Playlists:" Grid.RowSpan="2" Margin="442,173,220,435" FontSize="20" FontWeight="Bold" Foreground="#1DB954" Grid.Column="3"/>
-        <Button x:Name="ViewAllUser" Content="View User" HorizontalAlignment="Left" Height="50" Margin="689,189,0,0" VerticalAlignment="Top" Width="165" TabIndex="4" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="ViewAllUser_Click"/>
+        <Label Content="Your Playlists:" Grid.RowSpan="2" Margin="432,128,231,480" FontSize="20" FontWeight="Bold" Foreground="#1DB954" Grid.Column="3"/>
+        <Button x:Name="ViewAllUser" Content="View User" HorizontalAlignment="Left" Height="50" Margin="695,149,0,0" VerticalAlignment="Top" Width="166" TabIndex="4" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="ViewAllUser_Click"/>
 
-        <Button x:Name="YourSongsButton" Grid.Column="3" Content="Your songs" HorizontalAlignment="Left" Height="42" Margin="70,590,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="150" Background="#1DB954" Foreground="#FFFFFF" Click="YourSongsButton_Click"/>
-        <Button x:Name="AllSongsButton" Grid.Column="3" Content="All songs" HorizontalAlignment="Left" Height="42" Margin="250,590,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="150" Background="#1DB954" Foreground="#FFFFFF" Click="AllSongsButton_Click"/>
+        <Button x:Name="YourSongsButton" Grid.Column="3" Content="Your songs" HorizontalAlignment="Left" Height="42" Margin="60,544,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="150" Background="#1DB954" Foreground="#FFFFFF" Click="YourSongsButton_Click"/>
+        <Button x:Name="AllSongsButton" Grid.Column="3" Content="All songs" HorizontalAlignment="Left" Height="42" Margin="240,544,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="150" Background="#1DB954" Foreground="#FFFFFF" Click="AllSongsButton_Click"/>
 
-        <Button x:Name="LogoutButton" Content="Log Out" HorizontalAlignment="Left" Height="50" Margin="689,506,0,0" VerticalAlignment="Top" Width="165" TabIndex="6" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="LogoutButton_Click" />
+        <Button x:Name="LogoutButton" Content="Log Out" HorizontalAlignment="Left" Height="50" Margin="695,466,0,0" VerticalAlignment="Top" Width="166" TabIndex="6" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="LogoutButton_Click" />
         <MediaElement x:Name="mediaPlayer" MediaOpened="MediaPlayer_MediaOpened" MediaEnded="MediaPlayer_MediaEnded" LoadedBehavior="Manual" UnloadedBehavior="Stop" Visibility="Hidden" />
 
         <!-- Media control buttons -->
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="101,530,0,0" Grid.Row="1" Grid.ColumnSpan="4">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="91,484,0,0" Grid.Row="1" Grid.ColumnSpan="4">
             <!-- Progress bar with song info -->
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="-55,0,0,0">
+            <StackPanel Orientation="Horizontal" Margin="-55,0,0,0" Width="295">
                 <TextBlock x:Name="CurrentTimeTextBlock" Text="00:00" Foreground="White" VerticalAlignment="Center" Margin="5"/>
                 <ProgressBar x:Name="SongProgressBar" Width="200" Height="10" Margin="5" Maximum="100"/>
                 <TextBlock x:Name="TotalTimeTextBlock" Text="00:00" Foreground="White" VerticalAlignment="Center" Margin="5"/>
             </StackPanel>
             <TextBlock x:Name="SongInfoTextBlock" Text="Song - Artist" Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="-40,5,5,5"/>
+
+            <!-- Add Volume Control Slider -->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="-40,10,0,0">
+                <TextBlock Text="Volume" Foreground="White" VerticalAlignment="Center" Margin="-10,0,5,5"/>
+                <Slider x:Name="VolumeSlider" Width="100" Minimum="0" Maximum="1" Value="0.5" TickFrequency="0.1" ValueChanged="VolumeSlider_ValueChanged"/>
+            </StackPanel>
+
+            <!-- Media control buttons -->
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="PlayPauseButton" Width="50" Height="50" Margin="5" Click="PlayPauseButton_Click">
                     <Button.Template>
@@ -360,9 +368,7 @@
                     </Button.Template>
                 </Button>
             </StackPanel>
-
-            <!-- Media control buttons -->
         </StackPanel>
-        <Button Name="CreatePlaylistButton" Content="Create Playlist" HorizontalAlignment="Left" Height="29" Margin="442,205,0,0" VerticalAlignment="Top" Width="100" TabIndex="4" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="CreatePlaylistButton_Click"/>
+        <Button Name="CreatePlaylistButton" Content="Create Playlist" HorizontalAlignment="Left" Height="29" Margin="432,160,0,0" VerticalAlignment="Top" Width="100" TabIndex="4" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="CreatePlaylistButton_Click"/>
     </Grid>
 </Window>

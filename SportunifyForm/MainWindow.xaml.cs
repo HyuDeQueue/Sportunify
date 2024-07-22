@@ -58,6 +58,22 @@ namespace SportunifyForm
             };
             _timer.Tick += Timer_Tick;
             _timer.Start();
+
+            // Set initial volume
+            SetVolume(VolumeSlider.Value);
+        }
+
+        private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            SetVolume(e.NewValue);
+        }
+
+        private void SetVolume(double volume)
+        {
+            if (_wavePlayer != null && _audioFileReader != null)
+            {
+                _audioFileReader.Volume = (float)volume;
+            }
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -131,7 +147,7 @@ namespace SportunifyForm
                     NowPlayingTextBox.Text = "Now Playing: " + nextSong.Title;
 
                     // Thêm thời gian nghỉ ngắn trước khi phát lại
-                    Task.Delay(100).Wait();
+                    Task.Delay(1000).Wait();
 
                     PlaySongFromBytes(nextSong.SongMedia);
                 }
