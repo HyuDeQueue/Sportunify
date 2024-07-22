@@ -451,10 +451,14 @@ namespace SportunifyForm
             SongListDataGrid.ItemsSource = await Task.Run(() => _songService.GetSongsFromAccount(_account.AccountId));
         }
 
-        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            SongListDataGrid.ItemsSource = null;
-            SongListDataGrid.ItemsSource = _songService.SearchSongByNameOrArtist(SongNameTextBox.Text, ArtistTextBox.Text);
+            string songName = SongNameTextBox.Text;
+            string artistName = ArtistTextBox.Text;
+
+            var searchResults = await Task.Run(() => _songService.SearchSongByNameOrArtist(songName, artistName));
+
+            SongListDataGrid.ItemsSource = searchResults;
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)

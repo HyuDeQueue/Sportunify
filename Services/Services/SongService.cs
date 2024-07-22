@@ -44,16 +44,19 @@ namespace Services.Services
 
         public List<Song> SearchSongByNameOrArtist(string? name, string? artist)
         {
-            name = name.ToLower();
-            artist = artist.ToLower();
+            name = name?.ToLower() ?? string.Empty;
+            artist = artist?.ToLower() ?? string.Empty;
 
-            if (name == null && artist == null) 
-            { 
+            if (string.IsNullOrEmpty(name) && string.IsNullOrEmpty(artist))
+            {
                 return _songRepository.GetAllSongs();
             }
 
-            return _songRepository.GetAllSongs().Where(x => x.Title.ToLower().Contains(name) && x.ArtistName.ToLower().Contains(artist)).ToList();
+            return _songRepository.GetAllSongs()
+                                  .Where(x => x.Title.ToLower().Contains(name) && x.ArtistName.ToLower().Contains(artist))
+                                  .ToList();
         }
+
 
         public void DeleteSong(Song x)
         {
