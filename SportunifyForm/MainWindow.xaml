@@ -25,7 +25,7 @@
         <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Height="50" Margin="488,66,0,0" VerticalAlignment="Top" Width="166" TabIndex="2" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="1" Click="SearchButton_Click" RenderTransformOrigin="0.183,0.411" />
         <Button x:Name="CreateButton" Content="Create Song" HorizontalAlignment="Left" Height="50" Margin="214,0,0,0" VerticalAlignment="Center" Width="166" TabIndex="4" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="2" Click="CreateButton_Click" />
         <Button x:Name="UpdateButton" Content="Update Song" HorizontalAlignment="Left" Height="50" Margin="214,207,0,0" VerticalAlignment="Top" Width="166" TabIndex="5" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="2" Click="UpdateButton_Click" />
-        <Button x:Name="QuitButton" Content="Quit" HorizontalAlignment="Left" Height="50" Margin="763,240,0,0" VerticalAlignment="Top" Width="166" TabIndex="7" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="2" Click="QuitButton_Click" />
+        <Button x:Name="QuitButton" Content="Quit" HorizontalAlignment="Left" Height="50" Margin="763,232,0,0" VerticalAlignment="Top" Width="166" TabIndex="7" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="2" Click="QuitButton_Click" />
         <DataGrid x:Name="QueueDataGrid" 
           HorizontalAlignment="Left" 
           Height="292" 
@@ -315,7 +315,7 @@
         <Button x:Name="YourSongsButton" Grid.Column="3" Content="Your songs" HorizontalAlignment="Left" Height="41" Margin="151,87,0,0" VerticalAlignment="Top" Width="126" Background="#1DB954" Foreground="#FFFFFF" Click="YourSongsButton_Click" Grid.Row="2"/>
         <Button x:Name="AllSongsButton" Grid.Column="3" Content="All songs" HorizontalAlignment="Left" Height="41" Margin="303,87,0,0" VerticalAlignment="Top" Width="126" Background="#1DB954" Foreground="#FFFFFF" Click="AllSongsButton_Click" Grid.Row="2"/>
 
-        <Button x:Name="LogoutButton" Content="Log Out" HorizontalAlignment="Left" Height="50" Margin="572,240,0,0" VerticalAlignment="Top" Width="166" TabIndex="6" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="2" Click="LogoutButton_Click" />
+        <Button x:Name="LogoutButton" Content="Log Out" HorizontalAlignment="Left" Height="50" Margin="584,232,0,0" VerticalAlignment="Top" Width="166" TabIndex="6" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="2" Click="LogoutButton_Click" />
         <MediaElement x:Name="mediaPlayer" MediaOpened="MediaPlayer_MediaOpened" MediaEnded="MediaPlayer_MediaEnded" LoadedBehavior="Manual" UnloadedBehavior="Stop" Visibility="Hidden" Margin="0,0,0,373" Grid.RowSpan="2" />
 
         <!-- Media control buttons -->
@@ -368,8 +368,8 @@
                 </Button>
             </StackPanel>
         </StackPanel>
-        <Button Name="CreatePlaylistButton" Content="Create Playlist" HorizontalAlignment="Left" Height="48" Margin="668,0,0,0" VerticalAlignment="Center" Width="163" TabIndex="4" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="2" Click="CreatePlaylistButton_Click"/>
-        <Button x:Name="YourPlaylistButton" Grid.Column="3" Content="Your playlists" HorizontalAlignment="Left" Height="40" Margin="610,84,0,0" VerticalAlignment="Top" Width="116" Background="#1DB954" Foreground="#FFFFFF" Grid.Row="2" Click="YourPlaylistButton_Click"/>
-        <Button x:Name="AllPlaylistButton" Grid.Column="3" Content="All playlists" HorizontalAlignment="Left" Height="40" Margin="750,84,0,0" VerticalAlignment="Top" Width="116" Background="#1DB954" Foreground="#FFFFFF" Grid.Row="2"/>
+        <Button Name="CreatePlaylistButton" Content="Create Playlist" HorizontalAlignment="Left" Height="48" Margin="670,0,0,0" VerticalAlignment="Center" Width="163" TabIndex="4" Background="#1DB954" Foreground="#FFFFFF" Grid.Column="3" Grid.Row="2" Click="CreatePlaylistButton_Click"/>
+        <Button x:Name="YourPlaylistButton" Grid.Column="3" Content="Your playlists" HorizontalAlignment="Left" Height="40" Margin="623,84,0,0" VerticalAlignment="Top" Width="116" Background="#1DB954" Foreground="#FFFFFF" Grid.Row="2" Click="YourPlaylistButton_Click"/>
+        <Button x:Name="AllPlaylistButton" Grid.Column="3" Content="All playlists" HorizontalAlignment="Left" Height="40" Margin="763,84,0,0" VerticalAlignment="Top" Width="116" Background="#1DB954" Foreground="#FFFFFF" Grid.Row="2" Click="AllPlaylistButton_Click"/>
     </Grid>
 </Window>

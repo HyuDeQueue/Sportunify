@@ -15,6 +15,12 @@ namespace Repositories.Repositories
             return _context.Playlists.ToList();
         }
 
+        public List<Playlist> GetPlayListByAccountId(int accountId)
+        {
+            _context = new();
+            return _context.Playlists.Where(x => x.AccountId == accountId).ToList();
+        }
+
         public Playlist GetPlaylistById(int playlistId)
         {
             _context = new();
