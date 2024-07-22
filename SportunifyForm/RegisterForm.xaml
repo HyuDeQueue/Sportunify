@@ -24,6 +24,7 @@
                         <!-- Spotify green color -->
                     </LinearGradientBrush>
                 </Border.Background>
+                <Image HorizontalAlignment="Center" Height="115" Margin="0,22,0,0" VerticalAlignment="Top" Width="131" Source="assets\Logo.png"/>
             </Border>
 
             <StackPanel VerticalAlignment="Center">
