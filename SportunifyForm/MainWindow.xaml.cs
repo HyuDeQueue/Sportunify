@@ -26,6 +26,8 @@ namespace SportunifyForm
         private TimeSpan _totalDuration;
         private DispatcherTimer _timer;
         private readonly object playbackLock = new object();
+        private bool _isManualSkip;
+
 
         public bool IsPlaying
         {
@@ -125,17 +127,12 @@ namespace SportunifyForm
         {
             lock (playbackLock)
             {
-                // Tạm thời loại bỏ event handler để ngăn chặn các cuộc gọi không mong muốn
-                _wavePlayer.PlaybackStopped -= OnPlaybackStopped;
-
-                // Dừng phát lại hiện tại và chuẩn bị phát bài tiếp theo
+                _isManualSkip = true; // Set flag to indicate a manual skip
                 StopCurrentSong();
                 PlayNextSongInQueue();
-
-                // Gắn lại event handler
-                _wavePlayer.PlaybackStopped += OnPlaybackStopped;
             }
         }
+
 
         private void PlayNextSongInQueue()
         {
@@ -435,8 +432,15 @@ namespace SportunifyForm
                 {
                     MessageBox.Show("Phát lại dừng do lỗi: " + e.Exception.Message, "Lỗi");
                 }
+                else if (!_isManualSkip) // Only call PlayNextSongInQueue if it wasn't a manual skip
+                {
+                    PlayNextSongInQueue();
+                }
+
+                _isManualSkip = false; // Reset the flag after handling
             }
         }
+
 
 
         protected virtual void OnPropertyChanged(string propertyName)
