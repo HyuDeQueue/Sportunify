@@ -15,6 +15,9 @@ namespace SportunifyForm
             PasswordTextBox.Password = "Password";
             UsernameTextBox.Opacity = 0.5;
             PasswordTextBox.Opacity = 0.5;
+
+            UsernameTextBox.KeyDown += TextBox_KeyDown;
+            PasswordTextBox.KeyDown += TextBox_KeyDown;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -51,9 +54,8 @@ namespace SportunifyForm
                 Password = password
             };
 
-            var accountService = new AccountService(); // Assuming you have this service
+            var accountService = new AccountService(); 
 
-            // Show the loading spinner and disable buttons
             LoadingSpinner.Visibility = Visibility.Visible;
             Login_Button.IsEnabled = false;
             Register_Button.IsEnabled = false;
@@ -63,7 +65,7 @@ namespace SportunifyForm
 
             if (loggedAccount != null)
             {
-                MainWindow mainWindow = new MainWindow(loggedAccount); // Pass the account data to MainWindow
+                MainWindow mainWindow = new MainWindow(loggedAccount);
                 mainWindow.Show();
                 this.Close();
             }
@@ -72,7 +74,6 @@ namespace SportunifyForm
                 MessageBox.Show("Username or password is not correct.");
             }
 
-            // Hide the loading spinner and enable buttons
             LoadingSpinner.Visibility = Visibility.Collapsed;
             Login_Button.IsEnabled = true;
             Register_Button.IsEnabled = true;
@@ -124,6 +125,14 @@ namespace SportunifyForm
             {
                 PasswordTextBox.Password = "Password";
                 PasswordTextBox.Opacity = 0.5;
+            }
+        }
+
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Login_Button_Click(sender, new RoutedEventArgs());
             }
         }
     }

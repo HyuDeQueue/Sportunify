@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SportunifyForm
 {
@@ -15,6 +16,11 @@ namespace SportunifyForm
         {
             InitializeComponent();
             InitializePlaceholders();
+
+            NameTextBox.KeyDown += TextBox_KeyDown;
+            UsernameTextBox.KeyDown += TextBox_KeyDown;
+            PasswordTextBox.KeyDown += PasswordBox_KeyDown;
+            ConfirmPasswordTextBox.KeyDown += PasswordBox_KeyDown;
         }
 
         private void InitializePlaceholders()
@@ -51,6 +57,12 @@ namespace SportunifyForm
                 return;
             }
 
+            if (password.Length < 5)
+            {
+                MessageBox.Show("Passwords must have at least 5 characters!");
+                return;
+            }
+
             if (password != confirmPassword)
             {
                 MessageBox.Show("Passwords do not match.");
@@ -64,7 +76,6 @@ namespace SportunifyForm
                 Password = password
             };
 
-            // Show the loading spinner and disable buttons
             LoadingSpinner.Visibility = Visibility.Visible;
             Register_Button.IsEnabled = false;
             Login_Button.IsEnabled = false;
@@ -83,16 +94,13 @@ namespace SportunifyForm
 
             await Task.Run(() => _accountService.Register(account));
 
-            // Hide the spinner and re-enable buttons
             LoadingSpinner.Visibility = Visibility.Collapsed;
             Register_Button.IsEnabled = true;
             Login_Button.IsEnabled = true;
             Close_Button.IsEnabled = true;
 
-            // Show success message
             MessageBox.Show("Registration Success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            // Open the login form and close the registration form
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
             this.Close();
@@ -161,6 +169,22 @@ namespace SportunifyForm
                     passwordBox.Password = "Confirm Password";
                 }
                 passwordBox.Opacity = 0.5;
+            }
+        }
+
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Register_Button_Click(sender, new RoutedEventArgs());
+            }
+        }
+
+        private void PasswordBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Register_Button_Click(sender, new RoutedEventArgs());
             }
         }
     }

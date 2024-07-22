@@ -53,7 +53,6 @@ namespace SportunifyForm
             _wavePlayer = new WaveOutEvent();
             _wavePlayer.PlaybackStopped += OnPlaybackStopped;
 
-            // Initialize and start the timer
             _timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(1)
@@ -88,7 +87,6 @@ namespace SportunifyForm
 
                 CurrentTimeTextBlock.Text = _audioFileReader.CurrentTime.ToString(@"mm\:ss");
 
-                // Tính thời gian còn lại và hiển thị
                 TimeSpan timeRemaining = _totalDuration - _audioFileReader.CurrentTime;
                 TotalTimeTextBlock.Text = timeRemaining.ToString(@"mm\:ss");
             }
@@ -127,7 +125,7 @@ namespace SportunifyForm
         {
             lock (playbackLock)
             {
-                _isManualSkip = true; // Set flag to indicate a manual skip
+                _isManualSkip = true; 
                 StopCurrentSong();
                 PlayNextSongInQueue();
             }
@@ -143,7 +141,6 @@ namespace SportunifyForm
                 {
                     NowPlayingTextBox.Text = "Now Playing: " + nextSong.Title;
 
-                    // Thêm thời gian nghỉ ngắn trước khi phát lại
                     Task.Delay(1000).Wait();
 
                     PlaySongFromBytes(nextSong.SongMedia);
@@ -294,13 +291,11 @@ namespace SportunifyForm
             {
                 try
                 {
-                    // Xóa tệp tạm thời nếu tồn tại
                     if (!string.IsNullOrEmpty(_currentTempFilePath) && File.Exists(_currentTempFilePath))
                     {
                         File.Delete(_currentTempFilePath);
                     }
 
-                    // Tạo đường dẫn tạm thời mới
                     _currentTempFilePath = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".mp3");
                     File.WriteAllBytes(_currentTempFilePath, songBytes);
 
@@ -311,11 +306,9 @@ namespace SportunifyForm
                     _wavePlayer = new WaveOutEvent();
                     _wavePlayer.Init(_audioFileReader);
 
-                    // Đảm bảo sự kiện được gắn đúng cách
                     _wavePlayer.PlaybackStopped -= OnPlaybackStopped;
                     _wavePlayer.PlaybackStopped += OnPlaybackStopped;
 
-                    // Bắt đầu phát
                     _wavePlayer.Play();
                     IsPlaying = true;
 
@@ -434,12 +427,12 @@ namespace SportunifyForm
                 {
                     MessageBox.Show("Phát lại dừng do lỗi: " + e.Exception.Message, "Lỗi");
                 }
-                else if (!_isManualSkip) // Only call PlayNextSongInQueue if it wasn't a manual skip
+                else if (!_isManualSkip) 
                 {
                     PlayNextSongInQueue();
                 }
 
-                _isManualSkip = false; // Reset the flag after handling
+                _isManualSkip = false; 
             }
         }
 
