@@ -59,7 +59,7 @@ namespace SportunifyForm
                 {
                     timer.Stop();
                     isPlaying = false;
-                    PlayButton.Content = "▶️"; // Change back to play icon
+                    PlayButton.Content = "▶️";
                 }
             }
         }
@@ -78,7 +78,6 @@ namespace SportunifyForm
                 fileName = fileDialog.FileName;
                 FileName.Text = fileDialog.SafeFileName;
 
-                // Dispose of existing resources if needed
                 if (audioFile != null)
                 {
                     audioFile.Dispose();
@@ -89,7 +88,6 @@ namespace SportunifyForm
                     outputDevice.Dispose();
                 }
 
-                // Initialize new audio file and output device
                 audioFile = new AudioFileReader(fileName);
                 outputDevice = new WaveOutEvent();
                 outputDevice.Init(audioFile);
@@ -104,14 +102,14 @@ namespace SportunifyForm
                 {
                     outputDevice.Pause();
                     isPlaying = false;
-                    PlayButton.Content = "▶️"; // Change to play icon
+                    PlayButton.Content = "▶️"; 
                     timer.Stop();
                 }
                 else
                 {
                     outputDevice.Play();
                     isPlaying = true;
-                    PlayButton.Content = "⏸"; // Change to pause icon
+                    PlayButton.Content = "⏸";
                     timer.Start();
                 }
             }
@@ -129,7 +127,6 @@ namespace SportunifyForm
             
             byte[] songMedia = FileToByteArray(fileName);
 
-            // Disable buttons and show loading animation
             SaveButton.IsEnabled = false;
             Close.IsEnabled = false;
             PlayButton.IsEnabled = false;
@@ -159,7 +156,6 @@ namespace SportunifyForm
             }
             finally
             {
-                // Re-enable buttons and hide loading animation
                 SaveButton.IsEnabled = true;
                 Close.IsEnabled = true;
                 PlayButton.IsEnabled = true;
@@ -194,35 +190,30 @@ namespace SportunifyForm
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
-            // Stop playback if it's currently playing
             if (isPlaying)
             {
                 outputDevice.Stop();
                 isPlaying = false;
-                PlayButton.Content = "▶️"; // Change to play icon
+                PlayButton.Content = "▶️"; 
                 timer.Stop();
             }
 
-            // Dispose of the audio file and output device if they exist
             audioFile?.Dispose();
             outputDevice?.Dispose();
 
-            // Close the form
             this.Close();
         }
 
         protected override void OnClosed(EventArgs e)
         {
-            // Ensure resources are disposed of when the window is closed
             if (isPlaying)
             {
                 outputDevice.Stop();
                 isPlaying = false;
-                PlayButton.Content = "▶️"; // Change to play icon
+                PlayButton.Content = "▶️"; 
                 timer.Stop();
             }
 
-            // Dispose of the audio file and output device if they exist
             audioFile?.Dispose();
             outputDevice?.Dispose();
             OnSongDetailClosed?.Invoke();

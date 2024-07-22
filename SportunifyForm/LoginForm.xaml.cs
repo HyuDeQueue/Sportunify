@@ -54,9 +54,8 @@ namespace SportunifyForm
                 Password = password
             };
 
-            var accountService = new AccountService(); // Assuming you have this service
+            var accountService = new AccountService(); 
 
-            // Show the loading spinner and disable buttons
             LoadingSpinner.Visibility = Visibility.Visible;
             Login_Button.IsEnabled = false;
             Register_Button.IsEnabled = false;
@@ -66,7 +65,7 @@ namespace SportunifyForm
 
             if (loggedAccount != null)
             {
-                MainWindow mainWindow = new MainWindow(loggedAccount); // Pass the account data to MainWindow
+                MainWindow mainWindow = new MainWindow(loggedAccount);
                 mainWindow.Show();
                 this.Close();
             }
@@ -75,7 +74,6 @@ namespace SportunifyForm
                 MessageBox.Show("Username or password is not correct.");
             }
 
-            // Hide the loading spinner and enable buttons
             LoadingSpinner.Visibility = Visibility.Collapsed;
             Login_Button.IsEnabled = true;
             Register_Button.IsEnabled = true;

@@ -17,7 +17,6 @@ namespace SportunifyForm
             InitializeComponent();
             InitializePlaceholders();
 
-            // Attach KeyDown event handlers
             NameTextBox.KeyDown += TextBox_KeyDown;
             UsernameTextBox.KeyDown += TextBox_KeyDown;
             PasswordTextBox.KeyDown += PasswordBox_KeyDown;
@@ -71,7 +70,6 @@ namespace SportunifyForm
                 Password = password
             };
 
-            // Show the loading spinner and disable buttons
             LoadingSpinner.Visibility = Visibility.Visible;
             Register_Button.IsEnabled = false;
             Login_Button.IsEnabled = false;
@@ -90,16 +88,13 @@ namespace SportunifyForm
 
             await Task.Run(() => _accountService.Register(account));
 
-            // Hide the spinner and re-enable buttons
             LoadingSpinner.Visibility = Visibility.Collapsed;
             Register_Button.IsEnabled = true;
             Login_Button.IsEnabled = true;
             Close_Button.IsEnabled = true;
 
-            // Show success message
             MessageBox.Show("Registration Success!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            // Open the login form and close the registration form
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
             this.Close();
