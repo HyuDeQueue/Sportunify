@@ -521,5 +521,10 @@ namespace SportunifyForm
                 UpdatePlaylistDataGrid();
             }
         }
+
+        private void YourPlaylistButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }
