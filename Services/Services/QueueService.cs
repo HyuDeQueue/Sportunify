@@ -1,4 +1,7 @@
 ﻿using Repositories.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public class QueueService
 {
@@ -48,11 +51,22 @@ public class QueueService
 
     public void ShuffleQueue()
     {
-        var rng = new Random();
-        var unplayedSongs = _songQueue.ToList();
-        unplayedSongs = unplayedSongs.OrderBy(x => rng.Next()).ToList();
-        _songQueue = new Queue<Song>(unplayedSongs);
+        if (_currentSong != null)
+        {
+            var rng = new Random();
+            var unplayedSongs = _songQueue.ToList();
+            unplayedSongs = unplayedSongs.OrderBy(x => rng.Next()).ToList();
+            _songQueue = new Queue<Song>(unplayedSongs);
+        }
+        else
+        {
+            var rng = new Random();
+            var allSongs = _songQueue.ToList();
+            allSongs = allSongs.OrderBy(x => rng.Next()).ToList();
+            _songQueue = new Queue<Song>(allSongs);
+        }
     }
+
 
     public List<Song> GetCurrentQueue()
     {

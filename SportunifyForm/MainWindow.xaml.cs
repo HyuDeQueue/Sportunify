@@ -150,8 +150,6 @@ namespace SportunifyForm
             {
                 _queueService.ShuffleQueue();
                 UpdateQueueDataGrid();
-                StopCurrentSong();
-                PlayNextSongInQueue();
             }
         }
 
@@ -202,7 +200,7 @@ namespace SportunifyForm
 
         private void MediaPlayer_MediaEnded(object sender, RoutedEventArgs e)
         {
-            OnSongFinishedPlaying();
+            PlayNextSongInQueue();
         }
 
         private void MediaPlayer_MediaOpened(object sender, RoutedEventArgs e)
@@ -419,33 +417,11 @@ namespace SportunifyForm
             {
                 if (e.Exception != null)
                 {
-                    //MessageBox.Show("Phát lại dừng do lỗi: " + e.Exception.Message, "Lỗi");
-                }
-                else
-                {
-                    OnSongFinishedPlaying();
+                    MessageBox.Show("Phát lại dừng do lỗi: " + e.Exception.Message, "Lỗi");
                 }
             }
         }
 
-        private void OnSongFinishedPlaying()
-        {
-            lock (playbackLock)
-            {
-                var nextSong = _queueService.SkipSongInQueue();
-                if (nextSong != null)
-                {
-                    NowPlayingTextBox.Text = "Now Playing: " + nextSong.Title;
-                    PlaySongFromBytes(nextSong.SongMedia);
-                }
-                else
-                {
-                    NowPlayingTextBox.Text = "Now Playing: ";
-                    StopPlayback();
-                }
-                UpdateQueueDataGrid();
-            }
-        }
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
