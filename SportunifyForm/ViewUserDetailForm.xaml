@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SportunifyForm"
         mc:Ignorable="d"
-        Title="ViewUserDetailForm" Height="420" Width="665" FontFamily="Arial" FontSize="14" Background="#121212" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+        Title="ViewUserDetailForm" Height="420" Width="926" FontFamily="Arial" FontSize="14" Background="#121212" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="NoResize">
     <Grid>
         <Label x:Name="HelloNameLabel" Content="View " HorizontalAlignment="Left" Height="30" Margin="31,20,0,0" VerticalAlignment="Top" Width="351" FontWeight="Bold" FontSize="16" Foreground="#1DB954" RenderTransformOrigin="0.5,0.5">
             <Label.RenderTransform>
@@ -22,7 +22,7 @@
               Height="292" 
               Margin="31,83,0,0" 
               VerticalAlignment="Top" 
-              Width="542"
+              Width="471"
               AutoGenerateColumns="False" IsReadOnly="True"
               Background="#191414" Foreground="#000000">
             <DataGrid.Columns>
@@ -31,6 +31,60 @@
                 <DataGridTextColumn Header="Category" Width="180" Binding="{Binding Category.CategoryName}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="Close" Content="Close" FontSize="16" Background="#D32F2F" Foreground="White" BorderBrush="Transparent" Click="Close_Click" Margin="464,19,92,341"/>
+        <Button x:Name="Close" Content="Close" FontSize="16" Background="#D32F2F" Foreground="White" BorderBrush="Transparent" Click="Close_Click" Margin="808,10,24,350"/>
+        <DataGrid x:Name="ViewPlaylistDetail" 
+    HorizontalAlignment="Left" 
+    Height="292" 
+    Margin="518,83,0,0" 
+    VerticalAlignment="Top" 
+    Width="384"
+    AutoGenerateColumns="False" IsReadOnly="True"
+    Background="#191414" Foreground="#000000">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Playlist Name" Binding="{Binding PlaylistName}" Width="100"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="100"/>
+                <DataGridTemplateColumn Header="Playlist Detail" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="ViewPlaylistButton" Content="View" Click="ViewPlaylistButton_Click" Tag="{Binding}">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#1DB954"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="Padding" Value="11"/>
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="{TemplateBinding Background}"
+                                                    CornerRadius="5"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                                        <ContentPresenter HorizontalAlignment="Center"
+                                                                  VerticalAlignment="Center"/>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="MediumAquamarine"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter Property="Background" Value="#388E3C"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Grid>
 </Window>

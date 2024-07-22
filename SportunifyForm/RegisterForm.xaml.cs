@@ -22,7 +22,7 @@ namespace SportunifyForm
             NameTextBox.Text = "Name";
             UsernameTextBox.Text = "Username";
             PasswordTextBox.Password = "Password";
-            ConfirmPasswordTextBox.Password = "Confirm Password";
+            ConfirmPasswordTextBox.Password = "Password";
 
             NameTextBox.Opacity = 0.5;
             UsernameTextBox.Opacity = 0.5;
