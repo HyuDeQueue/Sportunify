@@ -363,7 +363,7 @@ namespace SportunifyForm
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi trong StopCurrentSong: " + ex.Message, "Lỗi");
+                    MessageBox.Show("Error: " + ex.Message, "Error");
                 }
             }
         }
@@ -383,11 +383,11 @@ namespace SportunifyForm
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    MessageBox.Show("Lỗi truy cập bị từ chối: " + ex.Message, "Lỗi");
+                    MessageBox.Show("Rejected: " + ex.Message, "Rejected");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi trong StopPlayback: " + ex.Message, "Lỗi");
+                    MessageBox.Show("Rejected: " + ex.Message, "Rejected");
                 }
             }
         }
@@ -425,7 +425,7 @@ namespace SportunifyForm
             {
                 if (e.Exception != null)
                 {
-                    MessageBox.Show("Phát lại dừng do lỗi: " + e.Exception.Message, "Lỗi");
+                    MessageBox.Show("Rejected: " + e.Exception.Message, "Rejected");
                 }
                 else if (!_isManualSkip) 
                 {
