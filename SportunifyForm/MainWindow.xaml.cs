@@ -17,7 +17,7 @@ namespace SportunifyForm
     {
         private readonly Account _account;
         private readonly SongService _songService = new();
-        private readonly QueueService _queueService = new();
+        public readonly QueueService _queueService = new();
         private readonly PlaylistService _playlistService = new();
         private IWavePlayer _wavePlayer;
         private AudioFileReader _audioFileReader;
@@ -488,9 +488,16 @@ namespace SportunifyForm
                 PlaylistDetailForm form = new();
                 form.user = _account;
                 form.playlist = selectedPlaylist;
-                this.Visibility = System.Windows.Visibility.Hidden;
+                form.mainWindow = this;
+                //this.Visibility = System.Windows.Visibility.Hidden;
                 form.ShowDialog();
-                this.Visibility = System.Windows.Visibility.Visible;
+                //this.Visibility = System.Windows.Visibility.Visible;
+                this.UpdateQueueDataGrid();
+                if (!_queueService.IsPlaying)
+                {
+                    if(_queueService.GetCurrentQueue().Count > 0)
+                        PlayNextSongInQueue();
+                }
             }
                 
         }

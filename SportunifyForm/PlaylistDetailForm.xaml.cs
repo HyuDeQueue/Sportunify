@@ -23,7 +23,9 @@ namespace SportunifyForm
     {
         public Playlist playlist;
         public Account user;
+        public MainWindow mainWindow;
         private readonly PlaylistService _playlistSerivce = new();
+        private readonly QueueService _queueSerivce = new();
         public PlaylistDetailForm()
         {
             InitializeComponent();
@@ -47,9 +49,13 @@ namespace SportunifyForm
             SongListDataGrid.ItemsSource = songs;
         }
 
-        private void AddSongButton_Click(object sender, RoutedEventArgs e)
+        private async void AddSongButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            foreach (var song in (List<Song>)SongListDataGrid.ItemsSource)
+            {
+                await Task.Run(()=>mainWindow._queueService.AddSongToQueue(song));
+            }
+            this.Close();
         }
 
         private void QuitButton_Click(object sender, RoutedEventArgs e)
