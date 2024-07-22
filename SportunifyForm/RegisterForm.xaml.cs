@@ -57,6 +57,12 @@ namespace SportunifyForm
                 return;
             }
 
+            if (password.Length < 5)
+            {
+                MessageBox.Show("Passwords must have at least 5 characters!");
+                return;
+            }
+
             if (password != confirmPassword)
             {
                 MessageBox.Show("Passwords do not match.");
