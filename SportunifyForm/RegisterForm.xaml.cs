@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SportunifyForm
 {
@@ -15,6 +16,12 @@ namespace SportunifyForm
         {
             InitializeComponent();
             InitializePlaceholders();
+
+            // Attach KeyDown event handlers
+            NameTextBox.KeyDown += TextBox_KeyDown;
+            UsernameTextBox.KeyDown += TextBox_KeyDown;
+            PasswordTextBox.KeyDown += PasswordBox_KeyDown;
+            ConfirmPasswordTextBox.KeyDown += PasswordBox_KeyDown;
         }
 
         private void InitializePlaceholders()
@@ -22,7 +29,7 @@ namespace SportunifyForm
             NameTextBox.Text = "Name";
             UsernameTextBox.Text = "Username";
             PasswordTextBox.Password = "Password";
-            ConfirmPasswordTextBox.Password = "Confirm Password";
+            ConfirmPasswordTextBox.Password = "Password";
 
             NameTextBox.Opacity = 0.5;
             UsernameTextBox.Opacity = 0.5;
@@ -161,6 +168,22 @@ namespace SportunifyForm
                     passwordBox.Password = "Confirm Password";
                 }
                 passwordBox.Opacity = 0.5;
+            }
+        }
+
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Register_Button_Click(sender, new RoutedEventArgs());
+            }
+        }
+
+        private void PasswordBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Register_Button_Click(sender, new RoutedEventArgs());
             }
         }
     }

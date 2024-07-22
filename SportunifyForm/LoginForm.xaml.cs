@@ -15,6 +15,9 @@ namespace SportunifyForm
             PasswordTextBox.Password = "Password";
             UsernameTextBox.Opacity = 0.5;
             PasswordTextBox.Opacity = 0.5;
+
+            UsernameTextBox.KeyDown += TextBox_KeyDown;
+            PasswordTextBox.KeyDown += TextBox_KeyDown;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -124,6 +127,14 @@ namespace SportunifyForm
             {
                 PasswordTextBox.Password = "Password";
                 PasswordTextBox.Opacity = 0.5;
+            }
+        }
+
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Login_Button_Click(sender, new RoutedEventArgs());
             }
         }
     }
