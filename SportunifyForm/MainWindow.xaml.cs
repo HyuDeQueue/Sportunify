@@ -17,7 +17,7 @@ namespace SportunifyForm
     {
         private readonly Account _account;
         private readonly SongService _songService = new();
-        private readonly QueueService _queueService = new();
+        public readonly QueueService _queueService = new();
         private readonly PlaylistService _playlistService = new();
         private IWavePlayer _wavePlayer;
         private AudioFileReader _audioFileReader;
@@ -197,6 +197,8 @@ namespace SportunifyForm
             {
                 var songs = await Task.Run(() => _songService.GetSongsFromAccount(_account.AccountId));
                 SongListDataGrid.ItemsSource = songs;
+                var playlists = await Task.Run(() => _playlistService.GetPlayListByAccountId(_account.AccountId));
+                PlaylistDataGrid.ItemsSource = playlists;
             }
             catch (Exception ex)
             {
@@ -492,9 +494,16 @@ namespace SportunifyForm
                 PlaylistDetailForm form = new();
                 form.user = _account;
                 form.playlist = selectedPlaylist;
+                form.mainWindow = this;
                 this.Visibility = System.Windows.Visibility.Hidden;
                 form.ShowDialog();
                 this.Visibility = System.Windows.Visibility.Visible;
+                this.UpdateQueueDataGrid();
+                if (!_queueService.IsPlaying)
+                {
+                    if(_queueService.GetCurrentQueue().Count > 0)
+                        PlayNextSongInQueue();
+                }
             }
                 
         }
@@ -523,6 +532,36 @@ namespace SportunifyForm
                 form.selectedSong = selectedSong;
                 form.ShowDialog();
                 UpdatePlaylistDataGrid();
+            }
+        }
+
+        private async void YourPlaylistButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var playlists = await Task.Run(() => _playlistService.GetPlayListByAccountId(_account.AccountId));
+                PlaylistDataGrid.ItemsSource = playlists;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching all songs: {ex.Message}");
+
+                MessageBox.Show("Unable to retrieve all songs. Please try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async void AllPlaylistButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var playlists = await Task.Run(() => _playlistService.GetAllPlaylists());
+                PlaylistDataGrid.ItemsSource = playlists;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching all playlists: {ex.Message}");
+
+                MessageBox.Show("Unable to retrieve all playlists. Please try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
