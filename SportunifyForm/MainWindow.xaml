@@ -259,14 +259,14 @@
             Height="292" 
             Margin="573,192,0,0" 
             VerticalAlignment="Top" 
-            Width="353"
+            Width="350"
             AutoGenerateColumns="False"
             IsReadOnly="True" HorizontalScrollBarVisibility="Visible"
             Grid.Row="1" Grid.Column="3"
             Background="#191414" Foreground="#000000" Grid.RowSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Playlist Name" Binding="{Binding PlaylistName}" Width="100"/>
-                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="100"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="150"/>
                 <DataGridTemplateColumn Header="Playlist Detail" Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
