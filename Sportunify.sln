@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositorie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{08BE8FE0-3B86-4285-B58D-7D5F2C049A05}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AppSetup", "AppSetup\AppSetup.vdproj", "{BDF1282D-D6F8-4375-B825-27FEC24561F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,8 @@ Global
 		{08BE8FE0-3B86-4285-B58D-7D5F2C049A05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08BE8FE0-3B86-4285-B58D-7D5F2C049A05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08BE8FE0-3B86-4285-B58D-7D5F2C049A05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDF1282D-D6F8-4375-B825-27FEC24561F2}.Debug|Any CPU.ActiveCfg = Debug
+		{BDF1282D-D6F8-4375-B825-27FEC24561F2}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
