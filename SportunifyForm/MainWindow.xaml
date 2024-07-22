@@ -18,7 +18,7 @@
             <ColumnDefinition Width="70*"/>
             <ColumnDefinition Width="897*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="Spotify - Listen Together" HorizontalAlignment="Left" Height="53" Margin="573,0,0,0" VerticalAlignment="Top" Width="330" FontWeight="Bold" FontSize="24" Foreground="#1DB954" Grid.Column="3" Grid.Row="1"/>
+        <Label Content="Sportunify - Listen Together" HorizontalAlignment="Left" Height="53" Margin="573,0,0,0" VerticalAlignment="Top" Width="330" FontWeight="Bold" FontSize="24" Foreground="#1DB954" Grid.Column="3" Grid.Row="1"/>
         <Rectangle HorizontalAlignment="Left" Height="95" Margin="31,42,0,0" Stroke="Black" VerticalAlignment="Top" Width="1246" Fill="#1DB954" Grid.ColumnSpan="4" Grid.Row="1"/>
         <Label Content="Song Name" HorizontalAlignment="Left" Height="30" Margin="86,76,0,0" VerticalAlignment="Top" Width="90" Foreground="#FFFFFF" Grid.Row="1" Grid.ColumnSpan="2"/>
         <TextBox x:Name="SongNameTextBox" HorizontalAlignment="Left" Height="26" Margin="16,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" TabIndex="0" Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="1"/>

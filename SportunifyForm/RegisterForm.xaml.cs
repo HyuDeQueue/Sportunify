@@ -40,7 +40,7 @@ namespace SportunifyForm
             if (name == "Name") name = string.Empty;
             if (username == "Username") username = string.Empty;
             if (password == "Password") password = string.Empty;
-            if (confirmPassword == "Confirm Password") confirmPassword = string.Empty;
+            if (confirmPassword == "Password") confirmPassword = string.Empty;
 
             if (string.IsNullOrWhiteSpace(name) ||
                 string.IsNullOrWhiteSpace(username) ||

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SportunifyForm"
         mc:Ignorable="d"
-        Title="RegisterForm" Height="520" Width="300" AllowsTransparency="True" Background="Transparent" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="RegisterForm" Height="520" Width="300" AllowsTransparency="True" Background="Black" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -15,15 +15,19 @@
 
             <Border CornerRadius="10" Grid.RowSpan="2">
                 <Border.Background>
-                    <LinearGradientBrush>
-                        <GradientStop Color="#7be9f6" Offset="0.8"/>
-                        <GradientStop Color="#f083da" Offset="1"/>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="Black" Offset="0.0"/>
+                        <!-- Dark gray color -->
+                        <GradientStop Color="#2C2C2C" Offset="0.6"/>
+                        <!-- Dark gray color -->
+                        <GradientStop Color="#1DB954" Offset="1.2"/>
+                        <!-- Spotify green color -->
                     </LinearGradientBrush>
                 </Border.Background>
             </Border>
 
             <StackPanel VerticalAlignment="Center">
-                <TextBlock Text="Sportunify" FontWeight="Bold" FontFamily="Helvetica" FontSize="22" Foreground="BlueViolet" HorizontalAlignment="Center"/>
+                <TextBlock Text="Sportunify" FontWeight="Bold" FontFamily="Helvetica" FontSize="22" Foreground="#1DB954" HorizontalAlignment="Center"/>
             </StackPanel>
 
             <StackPanel Grid.Row="1">
@@ -47,7 +51,7 @@
 
                 <!-- Confirm Password -->
                 <StackPanel Orientation="Horizontal">
-                    <PasswordBox x:Name="ConfirmPasswordTextBox" FontFamily="Helvetica" FontWeight="Light" Password="Confirm Password" FontSize="20" HorizontalAlignment="Center" Foreground="White" Background="Transparent" BorderThickness="0" Width="235" HorizontalContentAlignment="Left" Opacity="0.5" Height="25" Margin="40, 0, 0, 0" GotFocus="PasswordBox_GotFocus" LostFocus="PasswordBox_LostFocus"/>
+                    <PasswordBox x:Name="ConfirmPasswordTextBox" FontFamily="Helvetica" FontWeight="Light" Password="Password" FontSize="20" HorizontalAlignment="Center" Foreground="White" Background="Transparent" BorderThickness="0" Width="235" HorizontalContentAlignment="Left" Opacity="0.5" Height="25" Margin="40, 0, 0, 0" GotFocus="PasswordBox_GotFocus" LostFocus="PasswordBox_LostFocus"/>
                 </StackPanel>
                 <Border Width="220" Height="2" Background="White" Opacity="0.5"/>
 
