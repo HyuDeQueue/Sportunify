@@ -491,9 +491,9 @@ namespace SportunifyForm
                 form.user = _account;
                 form.playlist = selectedPlaylist;
                 form.mainWindow = this;
-                //this.Visibility = System.Windows.Visibility.Hidden;
+                this.Visibility = System.Windows.Visibility.Hidden;
                 form.ShowDialog();
-                //this.Visibility = System.Windows.Visibility.Visible;
+                this.Visibility = System.Windows.Visibility.Visible;
                 this.UpdateQueueDataGrid();
                 if (!_queueService.IsPlaying)
                 {
