@@ -1,9 +1,6 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -125,7 +122,7 @@ namespace SportunifyForm
         {
             lock (playbackLock)
             {
-                _isManualSkip = true; 
+                _isManualSkip = true;
                 StopCurrentSong();
                 PlayNextSongInQueue();
             }
@@ -284,8 +281,6 @@ namespace SportunifyForm
             QueueDataGrid.ItemsSource = null;
             QueueDataGrid.ItemsSource = _queueService.GetCurrentQueue();
         }
-
-
         private void PlaySongFromBytes(byte[] songBytes)
         {
             lock (playbackLock)
@@ -428,12 +423,12 @@ namespace SportunifyForm
                 {
                     MessageBox.Show("Rejected: " + e.Exception.Message, "Rejected");
                 }
-                else if (!_isManualSkip) 
+                else if (!_isManualSkip)
                 {
                     PlayNextSongInQueue();
                 }
 
-                _isManualSkip = false; 
+                _isManualSkip = false;
             }
         }
 
@@ -499,11 +494,11 @@ namespace SportunifyForm
                 this.UpdateQueueDataGrid();
                 if (!_queueService.IsPlaying)
                 {
-                    if(_queueService.GetCurrentQueue().Count > 0)
+                    if (_queueService.GetCurrentQueue().Count > 0)
                         PlayNextSongInQueue();
                 }
             }
-                
+
         }
 
         public void UpdatePlaylistDataGrid()
@@ -523,7 +518,7 @@ namespace SportunifyForm
 
         private void AddToPlaylistButton_Click(object sender, RoutedEventArgs e)
         {
-            if(sender is Button button && button.Tag is Song selectedSong)
+            if (sender is Button button && button.Tag is Song selectedSong)
             {
                 AddSongToPlaylist form = new();
                 form.user = _account;

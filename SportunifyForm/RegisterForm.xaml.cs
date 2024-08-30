@@ -1,7 +1,5 @@
 ﻿using Repositories.Models;
 using Services.Services;
-using System;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;

@@ -1,18 +1,6 @@
 ﻿using Repositories.Models;
 using Services.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SportunifyForm
 {
@@ -56,11 +44,11 @@ namespace SportunifyForm
             int position = playlistService.GetAllPlaylistSongs(playlist.PlaylistId).Capacity + 1;
 
             List<PlaylistSong> existedSong = playlistService.GetAllPlaylistSongs(playlist.PlaylistId).Where(x => x.SongId == selectedSong.SongId).ToList();
-            if(existedSong.Count > 0 )
+            if (existedSong.Count > 0)
             {
                 MessageBox.Show("This song is already in this playlist", "Existed", MessageBoxButton.OK, MessageBoxImage.Information);
-            } 
-            else 
+            }
+            else
             {
                 playlistService.AddSongToPlaylist(playlist.PlaylistId, selectedSong.SongId, position);
                 this.Close();

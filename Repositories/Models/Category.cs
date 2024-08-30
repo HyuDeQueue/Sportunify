@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Repositories.Models;
+﻿namespace Repositories.Models;
 
 public partial class Category
 {

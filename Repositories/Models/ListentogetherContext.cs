@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
 
 namespace Repositories.Models;
 
