@@ -285,6 +285,7 @@ namespace SportunifyForm
             QueueDataGrid.ItemsSource = _queueService.GetCurrentQueue();
         }
 
+
         private void PlaySongFromBytes(byte[] songBytes)
         {
             lock (playbackLock)
