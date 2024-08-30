@@ -1,6 +1,5 @@
 ﻿using Repositories.Models;
 using Services.Services;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -54,7 +53,7 @@ namespace SportunifyForm
                 Password = password
             };
 
-            var accountService = new AccountService(); 
+            var accountService = new AccountService();
 
             LoadingSpinner.Visibility = Visibility.Visible;
             Login_Button.IsEnabled = false;

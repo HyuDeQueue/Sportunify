@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using RestSharp;
-using RestSharp.Authenticators.OAuth2;
-using SportunifyForm.MVVM.Model.QuickType;
+﻿using SportunifyForm.MVVM.Model.QuickType;
 using System.Collections.ObjectModel;
 
 namespace SportunifyForm.MVVM.ViewModel

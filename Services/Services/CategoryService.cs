@@ -1,6 +1,5 @@
 ﻿using Repositories.Models;
 using Repositories.Repositories;
-using System.Collections.Generic;
 
 namespace Services.Services
 {

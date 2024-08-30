@@ -1,13 +1,9 @@
 ﻿using Microsoft.Win32;
 using NAudio.Wave;
 using Repositories.Models;
-using Repositories.Repositories;
 using Services.Services;
-using System;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace SportunifyForm
@@ -102,7 +98,7 @@ namespace SportunifyForm
                 {
                     outputDevice.Pause();
                     isPlaying = false;
-                    PlayButton.Content = "▶️"; 
+                    PlayButton.Content = "▶️";
                     timer.Stop();
                 }
                 else
@@ -124,7 +120,7 @@ namespace SportunifyForm
             string songName = SongNameTextBox.Text;
             string author = AuthorTextBox.Text;
             int categoryId = (int)SongCategoryIdComboBox.SelectedValue;
-            
+
             byte[] songMedia = FileToByteArray(fileName);
 
             SaveButton.IsEnabled = false;
@@ -178,7 +174,7 @@ namespace SportunifyForm
             RemainingTimeTextBlock.Text = "00:00";
             outputDevice.Stop();
             isPlaying = false;
-            PlayButton.Content = "▶️"; 
+            PlayButton.Content = "▶️";
             timer.Stop();
         }
 
@@ -194,7 +190,7 @@ namespace SportunifyForm
             {
                 outputDevice.Stop();
                 isPlaying = false;
-                PlayButton.Content = "▶️"; 
+                PlayButton.Content = "▶️";
                 timer.Stop();
             }
 
@@ -210,7 +206,7 @@ namespace SportunifyForm
             {
                 outputDevice.Stop();
                 isPlaying = false;
-                PlayButton.Content = "▶️"; 
+                PlayButton.Content = "▶️";
                 timer.Stop();
             }
 
