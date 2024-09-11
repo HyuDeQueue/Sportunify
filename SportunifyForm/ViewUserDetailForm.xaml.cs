@@ -48,7 +48,7 @@ namespace SportunifyForm
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         public void ViewPlaylistButton_Click(object sender, RoutedEventArgs e)

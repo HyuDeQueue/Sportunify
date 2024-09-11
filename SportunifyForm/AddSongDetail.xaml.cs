@@ -156,7 +156,7 @@ namespace SportunifyForm
                 Close.IsEnabled = true;
                 PlayButton.IsEnabled = true;
                 LoadingSpinner.Visibility = Visibility.Collapsed;
-                this.Close();
+                Close();
             }
         }
 
@@ -197,7 +197,7 @@ namespace SportunifyForm
             audioFile?.Dispose();
             outputDevice?.Dispose();
 
-            this.Close();
+            Close();
         }
 
         protected override void OnClosed(EventArgs e)

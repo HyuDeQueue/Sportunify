@@ -101,14 +101,14 @@ namespace SportunifyForm
 
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
-            this.Close();
+            Close();
         }
 
         private void Login_Button_Click(object sender, RoutedEventArgs e)
         {
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
-            this.Close();
+            Close();
         }
 
         private void Close_Button_Click(object sender, RoutedEventArgs e)

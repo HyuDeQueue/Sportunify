@@ -1,12 +1,12 @@
-﻿using System.ComponentModel;
+﻿using NAudio.Wave;
+using Repositories.Models;
+using Services.Services;
+using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using NAudio.Wave;
-using Repositories.Models;
-using Services.Services;
 
 namespace SportunifyForm
 {
@@ -488,10 +488,10 @@ namespace SportunifyForm
                 form.user = _account;
                 form.playlist = selectedPlaylist;
                 form.mainWindow = this;
-                this.Visibility = System.Windows.Visibility.Hidden;
+                Visibility = System.Windows.Visibility.Hidden;
                 form.ShowDialog();
-                this.Visibility = System.Windows.Visibility.Visible;
-                this.UpdateQueueDataGrid();
+                Visibility = System.Windows.Visibility.Visible;
+                UpdateQueueDataGrid();
                 if (!_queueService.IsPlaying)
                 {
                     if (_queueService.GetCurrentQueue().Count > 0)

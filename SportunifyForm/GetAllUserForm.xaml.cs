@@ -23,7 +23,7 @@ namespace SportunifyForm
 
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void ViewDetail_Click(object sender, RoutedEventArgs e)
