@@ -43,12 +43,12 @@ namespace SportunifyForm
             {
                 await Task.Run(() => mainWindow._queueService.AddSongToQueue(song));
             }
-            this.Close();
+            Close();
         }
 
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace SportunifyForm
                 string playlistDescription = PlaylistDescriptionTextBox.Text;
                 Playlist newPlaylist = new Playlist() { PlaylistName = playlistName, Description = playlistDescription, AccountId = user.AccountId };
                 playlistService.AddPlaylist(newPlaylist);
-                this.Close();
+                Close();
             }
         }
 
@@ -51,7 +51,7 @@ namespace SportunifyForm
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         //private void AddToPlaylistButton_Click(object sender, RoutedEventArgs e)

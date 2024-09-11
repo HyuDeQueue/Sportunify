@@ -51,13 +51,13 @@ namespace SportunifyForm
             else
             {
                 playlistService.AddSongToPlaylist(playlist.PlaylistId, selectedSong.SongId, position);
-                this.Close();
+                Close();
             }
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

@@ -66,7 +66,7 @@ namespace SportunifyForm
             {
                 MainWindow mainWindow = new MainWindow(loggedAccount);
                 mainWindow.Show();
-                this.Close();
+                Close();
             }
             else
             {
@@ -83,7 +83,7 @@ namespace SportunifyForm
         {
             RegisterForm registerForm = new RegisterForm();
             registerForm.Show();
-            this.Close();
+            Close();
         }
 
         private void Close_Button_Click(object sender, RoutedEventArgs e)

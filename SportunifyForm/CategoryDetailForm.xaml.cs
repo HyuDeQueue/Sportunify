@@ -20,13 +20,13 @@ namespace SportunifyForm
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
             CreateCategoryForm createForm = new();
-            this.Visibility = System.Windows.Visibility.Hidden;
+            Visibility = System.Windows.Visibility.Hidden;
             createForm.ShowDialog();
-            this.Visibility = System.Windows.Visibility.Visible;
+            Visibility = System.Windows.Visibility.Visible;
         }
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
         private void CategoryComboBoxLoad()
         {
